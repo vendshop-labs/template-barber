@@ -29,7 +29,22 @@
     "hit": "Hit",
     "new": "New",
     "reviews": "reviews",
-    "favorite": "Add to favorites"
+    "favorite": "Add to favorites",
+    "breadcrumbHome": "Home",
+    "breadcrumbCatalog": "Catalog",
+    "sku": "SKU",
+    "inStockQty": "In stock ({qty} pcs)",
+    "savings": "You save {amount}",
+    "buyOneClick": "Buy in 1 click",
+    "addToFavorites": "Favorites",
+    "deliveryDays": "Delivery 1-2 days",
+    "deliveryFree": "Free over 2000 UAH",
+    "pickup": "Store pickup",
+    "pickupFree": "Free",
+    "tabSpecs": "Specifications",
+    "tabDescription": "Description",
+    "tabReviews": "Reviews",
+    "quantity": "Quantity"
   },
   "home": {
     "bestSellers": "Best Sellers",

@@ -29,7 +29,22 @@
     "hit": "Top",
     "new": "Neu",
     "reviews": "Bewertungen",
-    "favorite": "Zu Favoriten hinzufügen"
+    "favorite": "Zu Favoriten hinzufügen",
+    "breadcrumbHome": "Startseite",
+    "breadcrumbCatalog": "Katalog",
+    "sku": "Artikel-Nr",
+    "inStockQty": "Verfügbar ({qty} Stk)",
+    "savings": "Sie sparen {amount}",
+    "buyOneClick": "Sofort kaufen",
+    "addToFavorites": "Favoriten",
+    "deliveryDays": "Lieferung 1-2 Tage",
+    "deliveryFree": "Kostenlos ab 2000 UAH",
+    "pickup": "Abholung",
+    "pickupFree": "Kostenlos",
+    "tabSpecs": "Spezifikationen",
+    "tabDescription": "Beschreibung",
+    "tabReviews": "Bewertungen",
+    "quantity": "Menge"
   },
   "home": {
     "bestSellers": "Bestseller",

@@ -29,7 +29,22 @@
     "hit": "Хіт",
     "new": "Новинка",
     "reviews": "відгуків",
-    "favorite": "Додати в обране"
+    "favorite": "Додати в обране",
+    "breadcrumbHome": "Головна",
+    "breadcrumbCatalog": "Каталог",
+    "sku": "Артикул",
+    "inStockQty": "В наявності ({qty} шт)",
+    "savings": "Економія {amount} грн",
+    "buyOneClick": "Купити в 1 клік",
+    "addToFavorites": "В обране",
+    "deliveryDays": "Доставка 1-2 дні",
+    "deliveryFree": "Безкоштовно від 2000 грн",
+    "pickup": "Самовивіз з магазину",
+    "pickupFree": "Безкоштовно",
+    "tabSpecs": "Характеристики",
+    "tabDescription": "Опис",
+    "tabReviews": "Відгуки",
+    "quantity": "Кількість"
   },
   "home": {
     "bestSellers": "Хіти продаж",

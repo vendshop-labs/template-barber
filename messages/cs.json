@@ -29,7 +29,22 @@
     "hit": "Hit",
     "new": "Novinka",
     "reviews": "recenzí",
-    "favorite": "Přidat k oblíbeným"
+    "favorite": "Přidat k oblíbeným",
+    "breadcrumbHome": "Domů",
+    "breadcrumbCatalog": "Katalog",
+    "sku": "Kód",
+    "inStockQty": "Skladem ({qty} ks)",
+    "savings": "Ušetříte {amount}",
+    "buyOneClick": "Koupit na 1 klik",
+    "addToFavorites": "Oblíbené",
+    "deliveryDays": "Doručení 1-2 dny",
+    "deliveryFree": "Zdarma od 2000 UAH",
+    "pickup": "Vyzvednutí",
+    "pickupFree": "Zdarma",
+    "tabSpecs": "Specifikace",
+    "tabDescription": "Popis",
+    "tabReviews": "Recenze",
+    "quantity": "Množství"
   },
   "home": {
     "bestSellers": "Nejprodávanější",
