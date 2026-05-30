@@ -78,5 +78,12 @@
     "button": "Подписаться",
     "done": "Готово!",
     "note": "Промокод отправлен на вашу почту"
+  },
+  "sampleProducts": {
+    "makitaDrill": "Дрель-шуруповёрт Makita DF333DSAE 12V",
+    "dewaltGrinder": "Угловая шлифмашина DeWalt DWE4157 900 Вт",
+    "metaboJigsaw": "Электролобзик Metabo STEB 65 Quick 450 Вт",
+    "milwaukeeImpact": "Гайковёрт ударный Milwaukee M18 FIW2F12",
+    "boschPerforator": "Перфоратор Bosch GBH 2-26 DRE Professional"
   }
 }

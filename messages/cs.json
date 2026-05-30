@@ -78,5 +78,12 @@
     "button": "Přihlásit se",
     "done": "Hotovo!",
     "note": "Promo kód byl odeslán na váš email"
+  },
+  "sampleProducts": {
+    "makitaDrill": "Aku vrtací šroubovák Makita DF333DSAE 12V",
+    "dewaltGrinder": "Úhlová bruska DeWalt DWE4157 900 W",
+    "metaboJigsaw": "Přímočará pila Metabo STEB 65 Quick 450 W",
+    "milwaukeeImpact": "Rázový utahovák Milwaukee M18 FIW2F12",
+    "boschPerforator": "Vrtací kladivo Bosch GBH 2-26 DRE Professional"
   }
 }
