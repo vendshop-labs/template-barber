@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import styles from './Header.module.css';
 
 interface HeaderProps {
@@ -23,6 +24,7 @@ export default function Header({
   compareCount = 0,
 }: HeaderProps) {
   const t = useTranslations('Header');
+  const locale = useLocale();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen((open) => !open);
@@ -130,7 +132,7 @@ export default function Header({
           </a>
 
           {/* Catalog button */}
-          <button type="button" className={styles.catalog}>
+          <Link href={`/${locale}/catalog`} className={styles.catalog}>
             <svg
               width="20"
               height="20"
@@ -148,7 +150,7 @@ export default function Header({
               <rect x="14" y="14" width="7" height="7" rx="1" />
             </svg>
             <span>{t('catalog')}</span>
-          </button>
+          </Link>
 
           {/* Search */}
           <form className={styles.search} role="search">
@@ -262,7 +264,11 @@ export default function Header({
       {/* Mobile dropdown menu */}
       {isMenuOpen && (
         <div className={styles.mobileMenu}>
-          <button type="button" className={styles.mobileCatalog}>
+          <Link
+            href={`/${locale}/catalog`}
+            className={styles.mobileCatalog}
+            onClick={() => setIsMenuOpen(false)}
+          >
             <svg
               width="20"
               height="20"
@@ -280,7 +286,7 @@ export default function Header({
               <rect x="14" y="14" width="7" height="7" rx="1" />
             </svg>
             <span>{t('catalog')}</span>
-          </button>
+          </Link>
 
           <form className={styles.mobileSearch} role="search">
             <input

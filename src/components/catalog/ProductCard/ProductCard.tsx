@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, type CSSProperties } from 'react';
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import styles from './ProductCard.module.css';
 
 export interface ProductCardProps {
@@ -122,6 +123,7 @@ export default function ProductCard({
   onFavorite,
 }: ProductCardProps) {
   const t = useTranslations('product');
+  const locale = useLocale();
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleFavorite = () => {
@@ -135,7 +137,7 @@ export default function ProductCard({
     oldPrice != null && oldPrice > price
       ? Math.round((1 - price / oldPrice) * 100)
       : null;
-  const href = `/product/${slug}`;
+  const href = `/${locale}/product/${slug}`;
 
   return (
     <article className={styles.card}>
@@ -160,17 +162,17 @@ export default function ProductCard({
           <HeartIcon />
         </button>
 
-        <a className={styles.imageLink} href={href} aria-label={name}>
+        <Link className={styles.imageLink} href={href} aria-label={name}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className={styles.image} src={image} alt={name} loading="lazy" />
-        </a>
+        </Link>
       </div>
 
       <div className={styles.info}>
         <span className={styles.brand}>{brand}</span>
 
         <h3 className={styles.name}>
-          <a href={href}>{name}</a>
+          <Link href={href}>{name}</Link>
         </h3>
 
         <div className={styles.rating} aria-label={`${rating} / 5 — ${reviewCount} ${t('reviews')}`}>

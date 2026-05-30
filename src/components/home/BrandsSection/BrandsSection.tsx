@@ -1,7 +1,8 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import styles from './BrandsSection.module.css';
 
 export interface BrandsSectionProps {
@@ -28,6 +29,7 @@ const BRANDS: { id: string; cardClass?: string; logo: ReactNode }[] = [
 
 export default function BrandsSection({ onBrandClick }: BrandsSectionProps) {
   const t = useTranslations('home');
+  const locale = useLocale();
 
   return (
     <section className={styles.section}>
@@ -36,14 +38,14 @@ export default function BrandsSection({ onBrandClick }: BrandsSectionProps) {
 
         <div className={styles.row}>
           {BRANDS.map((brand) => (
-            <button
+            <Link
               key={brand.id}
-              type="button"
+              href={`/${locale}/catalog?brand=${brand.id}`}
               className={`${styles.card} ${brand.cardClass ?? ''}`}
               onClick={() => onBrandClick?.(brand.id)}
             >
               {brand.logo}
-            </button>
+            </Link>
           ))}
         </div>
 

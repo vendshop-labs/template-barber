@@ -1,7 +1,8 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import styles from './CategoriesGrid.module.css';
 
 /** Stable identifiers for each category — also the translation keys under `categories`. */
@@ -110,6 +111,7 @@ const CATEGORIES: { id: CategoryId; icon: ReactNode }[] = [
 
 export default function CategoriesGrid({ onCategoryClick }: CategoriesGridProps) {
   const t = useTranslations('categories');
+  const locale = useLocale();
 
   return (
     <section className={styles.section} aria-label={t('title')}>
@@ -118,8 +120,8 @@ export default function CategoriesGrid({ onCategoryClick }: CategoriesGridProps)
         <ul className={styles.grid}>
           {CATEGORIES.map(({ id, icon }) => (
             <li key={id}>
-              <button
-                type="button"
+              <Link
+                href={`/${locale}/catalog?category=${id}`}
                 className={styles.card}
                 onClick={() => onCategoryClick?.(id)}
               >
@@ -127,7 +129,7 @@ export default function CategoriesGrid({ onCategoryClick }: CategoriesGridProps)
                   {icon}
                 </span>
                 <span className={styles.name}>{t(id)}</span>
-              </button>
+              </Link>
             </li>
           ))}
         </ul>

@@ -1,6 +1,7 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import ProductCard, {
   type ProductCardProps,
 } from '@/components/catalog/ProductCard/ProductCard';
@@ -44,6 +45,7 @@ function ArrowIcon() {
  */
 export default function BestSellers({ products, onViewAll }: BestSellersProps) {
   const t = useTranslations('home');
+  const locale = useLocale();
 
   return (
     <section className={styles.col}>
@@ -54,10 +56,10 @@ export default function BestSellers({ products, onViewAll }: BestSellersProps) {
           </span>
           {t('bestSellers')}
         </h2>
-        <button type="button" className={styles.viewAll} onClick={onViewAll}>
+        <Link href={`/${locale}/catalog`} className={styles.viewAll} onClick={onViewAll}>
           {t('viewAll')}
           <ArrowIcon />
-        </button>
+        </Link>
       </div>
 
       <div className={styles.grid}>
