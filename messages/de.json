@@ -52,5 +52,20 @@
     "paymentDesc": "Karte, Bar, Raten",
     "returns": "14 Tage Rückgabe",
     "returnsDesc": "ohne Fragen"
+  },
+  "footer": {
+    "catalog": "Katalog",
+    "info": "Informationen",
+    "contacts": "Kontakte",
+    "rights": "© 2026 ElectroMarket. Alle Rechte vorbehalten.",
+    "privacy": "Datenschutzrichtlinie",
+    "offer": "Öffentliches Angebot",
+    "delivery": "Lieferung & Zahlung",
+    "guarantee": "Garantie",
+    "returns": "Rückgabe",
+    "aboutDesc": "Online-Shop für professionelle Elektrowerkzeuge und Ausrüstung führender Weltmarken.",
+    "schedule": "Mo–So: 9:00–20:00",
+    "deliveryNova": "Nova Poshta Lieferung in der ganzen Ukraine",
+    "allCategories": "Alle Kategorien"
   }
 }

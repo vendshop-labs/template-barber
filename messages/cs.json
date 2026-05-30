@@ -52,5 +52,20 @@
     "paymentDesc": "karta, hotovost, splátky",
     "returns": "Vrácení 14 dní",
     "returnsDesc": "bez otázek"
+  },
+  "footer": {
+    "catalog": "Katalog",
+    "info": "Informace",
+    "contacts": "Kontakty",
+    "rights": "© 2026 ElectroMarket. Všechna práva vyhrazena.",
+    "privacy": "Zásady ochrany osobních údajů",
+    "offer": "Veřejná nabídka",
+    "delivery": "Doprava a platba",
+    "guarantee": "Záruka",
+    "returns": "Vrácení zboží",
+    "aboutDesc": "Internetový obchod s profesionálním elektrickým nářadím a vybavením předních světových značek.",
+    "schedule": "Po–Ne: 9:00–20:00",
+    "deliveryNova": "Doručení Nova Poshta po celé Ukrajině",
+    "allCategories": "Všechny kategorie"
   }
 }

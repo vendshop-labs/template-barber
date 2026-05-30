@@ -52,5 +52,20 @@
     "paymentDesc": "card, cash, installments",
     "returns": "14-Day Returns",
     "returnsDesc": "no questions asked"
+  },
+  "footer": {
+    "catalog": "Catalog",
+    "info": "Information",
+    "contacts": "Contacts",
+    "rights": "© 2026 ElectroMarket. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "offer": "Public Offer",
+    "delivery": "Delivery & Payment",
+    "guarantee": "Warranty",
+    "returns": "Returns",
+    "aboutDesc": "Online store of professional power tools and equipment from leading global brands.",
+    "schedule": "Mon–Sun: 9:00–20:00",
+    "deliveryNova": "Nova Poshta delivery across Ukraine",
+    "allCategories": "All categories"
   }
 }
