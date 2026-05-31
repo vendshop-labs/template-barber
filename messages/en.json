@@ -126,5 +126,24 @@
     "next": "Next",
     "priceFrom": "from",
     "priceTo": "to"
+  },
+  "cart": {
+    "title": "Cart",
+    "itemsCount": "{count} items",
+    "continueShopping": "Continue shopping",
+    "empty": "Your cart is empty",
+    "goToCatalog": "Go to catalog",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "delivery": "Delivery",
+    "deliveryFree": "Free",
+    "total": "Total",
+    "checkout": "Checkout",
+    "securePay": "Secure payment",
+    "delete": "Remove",
+    "selected": "Selected",
+    "deleteSelected": "Delete selected",
+    "cod": "Cash on delivery"
   }
 }

@@ -1,0 +1,201 @@
+.cart {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+}
+
+.h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 22px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.count {
+  font-size: 16px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ── Items panel ──────────────────────────────────── */
+.items {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8f9fa;
+}
+
+.selectAll {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+/* Checkbox (shared look with CartItem) */
+.chk {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.chk input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.chkBox {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid #e5e7eb;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition:
+    background 120ms ease,
+    border-color 120ms ease;
+}
+
+.chk:hover .chkBox {
+  border-color: #f97316;
+}
+
+.chk input:checked + .chkBox {
+  background: #f97316;
+  border-color: #f97316;
+}
+
+.chkBox svg {
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.chk input:checked + .chkBox svg {
+  opacity: 1;
+}
+
+.clear {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 150ms ease;
+}
+
+.clear:hover:not(:disabled) {
+  color: #ef4444;
+}
+
+.clear:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Footer ───────────────────────────────────────── */
+.foot {
+  margin-top: 18px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f97316;
+  text-decoration: none;
+  transition: gap 150ms ease;
+}
+
+.back:hover {
+  gap: 12px;
+}
+
+/* ── Empty state ──────────────────────────────────── */
+.empty {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 72px 24px;
+  text-align: center;
+}
+
+.emptyIco {
+  color: #9ca3af;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.emptyTitle {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 26px;
+}
+
+.emptyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 50px;
+  padding: 0 28px;
+  background: #f97316;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 150ms ease,
+    box-shadow 150ms ease;
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.28);
+}
+
+.emptyBtn:hover {
+  background: #ea6c00;
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.36);
+}
+
+/* ── Responsive ───────────────────────────────────── */
+@media (max-width: 960px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+}

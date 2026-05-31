@@ -126,5 +126,24 @@
     "next": "Weiter",
     "priceFrom": "von",
     "priceTo": "bis"
+  },
+  "cart": {
+    "title": "Warenkorb",
+    "itemsCount": "{count} Artikel",
+    "continueShopping": "Weiter einkaufen",
+    "empty": "Warenkorb ist leer",
+    "goToCatalog": "Zum Katalog",
+    "orderSummary": "Ihre Bestellung",
+    "subtotal": "Zwischensumme",
+    "discount": "Rabatt",
+    "delivery": "Lieferung",
+    "deliveryFree": "Kostenlos",
+    "total": "Gesamt",
+    "checkout": "Zur Kasse",
+    "securePay": "Sichere Zahlung",
+    "delete": "Entfernen",
+    "selected": "Ausgewählt",
+    "deleteSelected": "Ausgewählte löschen",
+    "cod": "Nachnahme"
   }
 }

@@ -126,5 +126,24 @@
     "next": "Далее",
     "priceFrom": "от",
     "priceTo": "до"
+  },
+  "cart": {
+    "title": "Корзина",
+    "itemsCount": "{count} товара",
+    "continueShopping": "Продолжить покупки",
+    "empty": "Корзина пуста",
+    "goToCatalog": "Перейти в каталог",
+    "orderSummary": "Ваш заказ",
+    "subtotal": "Товары",
+    "discount": "Скидка",
+    "delivery": "Доставка",
+    "deliveryFree": "Бесплатно",
+    "total": "Итого",
+    "checkout": "Оформить заказ",
+    "securePay": "Безопасная оплата",
+    "delete": "Удалить",
+    "selected": "Выбрано",
+    "deleteSelected": "Удалить выбранные",
+    "cod": "Наложенный"
   }
 }

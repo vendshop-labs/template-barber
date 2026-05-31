@@ -126,5 +126,24 @@
     "next": "Další",
     "priceFrom": "od",
     "priceTo": "do"
+  },
+  "cart": {
+    "title": "Košík",
+    "itemsCount": "{count} položky",
+    "continueShopping": "Pokračovat v nákupu",
+    "empty": "Košík je prázdný",
+    "goToCatalog": "Přejít do katalogu",
+    "orderSummary": "Vaše objednávka",
+    "subtotal": "Zboží",
+    "discount": "Sleva",
+    "delivery": "Doručení",
+    "deliveryFree": "Zdarma",
+    "total": "Celkem",
+    "checkout": "Objednat",
+    "securePay": "Bezpečná platba",
+    "delete": "Odstranit",
+    "selected": "Vybráno",
+    "deleteSelected": "Odstranit vybrané",
+    "cod": "Dobírka"
   }
 }

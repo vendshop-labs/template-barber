@@ -126,5 +126,24 @@
     "next": "Далі",
     "priceFrom": "від",
     "priceTo": "до"
+  },
+  "cart": {
+    "title": "Кошик",
+    "itemsCount": "{count} товари",
+    "continueShopping": "Продовжити покупки",
+    "empty": "Кошик порожній",
+    "goToCatalog": "Перейти до каталогу",
+    "orderSummary": "Ваше замовлення",
+    "subtotal": "Товари",
+    "discount": "Знижка",
+    "delivery": "Доставка",
+    "deliveryFree": "Безкоштовно",
+    "total": "До сплати",
+    "checkout": "Оформити замовлення",
+    "securePay": "Безпечна оплата",
+    "delete": "Видалити",
+    "selected": "Вибрано",
+    "deleteSelected": "Видалити вибрані",
+    "cod": "Наложений"
   }
 }
