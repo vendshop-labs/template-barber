@@ -173,5 +173,15 @@
     "successMessage": "We will contact you shortly",
     "continueShopping": "Continue shopping",
     "backToHome": "Back to home"
+  },
+  "brand": {
+    "allProducts": "All brand products",
+    "officialDealer": "Official dealer",
+    "productsCount": "{count} products"
+  },
+  "category": {
+    "allProducts": "All products",
+    "productsCount": "{count} products",
+    "seoText": "Buying {category} in Ukraine is easy with ElectroMarket. Our catalog features a wide range from leading global brands at the best prices.\n\nWe offer an official warranty, fast Nova Poshta delivery across the country, and convenient payment options. Order online and get your tool delivered within 1–2 days."
   }
 }

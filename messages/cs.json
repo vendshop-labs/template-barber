@@ -173,5 +173,15 @@
     "successMessage": "Brzy vás budeme kontaktovat",
     "continueShopping": "Pokračovat v nákupu",
     "backToHome": "Na hlavní"
+  },
+  "brand": {
+    "allProducts": "Všechny produkty značky",
+    "officialDealer": "Oficiální prodejce",
+    "productsCount": "{count} produktů"
+  },
+  "category": {
+    "allProducts": "Všechny produkty",
+    "productsCount": "{count} produktů",
+    "seoText": "Koupit {category} na Ukrajině je s ElectroMarket snadné. Náš katalog nabízí široký sortiment od předních světových značek za nejlepší ceny.\n\nNabízíme oficiální záruku, rychlé doručení Nova Pošta po celé zemi a pohodlné způsoby platby. Objednávejte online — vaše nářadí doručíme za 1–2 dny."
   }
 }
