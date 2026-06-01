@@ -477,6 +477,7 @@ export async function POST(req: NextRequest) {
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
 
   if (!openaiKey && !anthropicKey) {
+    console.error('[admin/chat] No AI API key configured');
     return Response.json(
       { error: 'No AI API key configured (OPENAI_API_KEY or ANTHROPIC_API_KEY)' },
       { status: 500 },
@@ -498,7 +499,8 @@ export async function POST(req: NextRequest) {
     const { response, toolsUsed } = await handleAnthropic(anthropicKey!, message, history as ClaudeMessage[]);
     return Response.json({ response, toolsUsed, provider: 'anthropic' });
   } catch (err) {
-    console.error('AI chat error:', err);
-    return Response.json({ error: 'AI request failed' }, { status: 500 });
+    console.error('[admin/chat] AI error:', err);
+    const errorMsg = err instanceof Error ? err.message : 'Unknown error';
+    return Response.json({ error: errorMsg }, { status: 500 });
   }
 }

@@ -104,7 +104,13 @@ export default function AdminAiPage() {
         body: JSON.stringify({ message: trimmed, history: apiHistoryRef.current }),
       });
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({})) as { error?: string };
+        const errMsg = errData.error?.includes('not configured')
+          ? 'API key not configured. Add OPENAI_API_KEY or ANTHROPIC_API_KEY to environment variables.'
+          : (errData.error ?? `AI request failed (HTTP ${res.status})`);
+        throw new Error(errMsg);
+      }
       const data = (await res.json()) as {
         response: string;
         toolsUsed: string[];
@@ -127,9 +133,10 @@ export default function AdminAiPage() {
       setLastUsed(new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' }));
     } catch (err) {
       console.error('[admin chat]', err);
+      const errText = err instanceof Error ? err.message : 'AI connection error. Try again.';
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: '⚠️ Помилка з\'єднання з AI. Спробуйте ще раз.', timestamp: Date.now() },
+        { role: 'assistant', content: `⚠️ ${errText}`, timestamp: Date.now() },
       ]);
     } finally {
       setLoading(false);
@@ -196,14 +203,14 @@ export default function AdminAiPage() {
       <section className={styles.chatCard}>
         <div className={styles.chatHeader}>
           <BotIcon />
-          <h2 className={styles.chatTitle}>AI Асистент магазину</h2>
+          <h2 className={styles.chatTitle}>Store AI Assistant</h2>
           {messages.length > 0 && (
             <button
               type="button"
               className={styles.clearBtn}
               onClick={() => { setMessages([]); apiHistoryRef.current = []; }}
             >
-              Очистити
+              Clear
             </button>
           )}
         </div>
@@ -213,8 +220,8 @@ export default function AdminAiPage() {
           {messages.length === 0 && !loading && (
             <div className={styles.chatEmpty}>
               <BotIcon />
-              <p>Привіт! Задайте питання про магазин.<br />
-                Я можу показати закази, аналітику, клієнтів та допомогти керувати магазином.</p>
+              <p>Ask anything about your store.<br />
+                I can show orders, analytics, customers and help manage the store.</p>
             </div>
           )}
 
@@ -263,7 +270,7 @@ export default function AdminAiPage() {
             ref={textareaRef}
             className={styles.chatTextarea}
             rows={1}
-            placeholder="Запитайте щось... (Enter — надіслати, Shift+Enter — новий рядок)"
+            placeholder="Ask anything... (Enter — send, Shift+Enter — new line)"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
