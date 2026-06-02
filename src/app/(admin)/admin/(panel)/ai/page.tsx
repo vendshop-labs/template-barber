@@ -37,7 +37,7 @@ const SUGGESTIONS = [
   'Create a discount promo',
 ];
 
-const TOOLS_COUNT = 9;
+const TOOLS_COUNT = 11;
 const TOTAL_PRODUCTS = 35;
 
 // ─── Icons ─────────────────────────────────────────────────────────────────

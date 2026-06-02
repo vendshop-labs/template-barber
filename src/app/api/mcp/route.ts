@@ -3,6 +3,7 @@ import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/
 import { z } from 'zod';
 import { db } from '@/lib/db';
 import { OrderStatus, PaymentStatus, PromoType } from '@prisma/client';
+import { DEFAULT_THEME, type ThemeConfig } from '@/lib/theme';
 
 const STORE_SLUG = process.env.STORE_SLUG ?? 'electromarket';
 
@@ -303,6 +304,128 @@ function createServer() {
     }
   );
 
+  // ── BULK PRICES ───────────────────────────────────────────────────────────
+
+  server.registerTool(
+    'bulk_update_prices',
+    {
+      description: 'Bulk update prices for multiple products by percentage. Positive percent = increase, negative = decrease.',
+      inputSchema: {
+        brand:    z.string().optional().describe('Filter by brand (e.g. "Makita", "Bosch")'),
+        category: z.string().optional().describe('Filter by category slug'),
+        percent:  z.number().describe('Price change in percent. +10 = increase 10%, -5 = decrease 5%'),
+      },
+    },
+    async (params) => {
+      const store = await db.store.findUniqueOrThrow({ where: { slug: STORE_SLUG } });
+      const products = await db.product.findMany({
+        where: {
+          storeId: store.id,
+          ...(params.brand    ? { brand: { equals: params.brand, mode: 'insensitive' } } : {}),
+          ...(params.category ? { category: { slug: params.category } } : {}),
+        },
+      });
+
+      if (products.length === 0) return text('No products found matching the filter.');
+
+      const multiplier = 1 + (params.percent / 100);
+      const results: Array<{ name: string; oldPrice: number; newPrice: number }> = [];
+
+      for (const product of products) {
+        const newPrice = Math.round(product.price * multiplier * 100) / 100;
+        await db.product.update({
+          where: { id: product.id },
+          data: { oldPrice: product.price, price: newPrice },
+        });
+        results.push({ name: product.nameKey, oldPrice: product.price, newPrice });
+      }
+
+      const direction = params.percent > 0 ? 'increased' : 'decreased';
+      return text({ message: `${results.length} products ${direction} by ${Math.abs(params.percent)}%`, products: results });
+    }
+  );
+
+  // ── THEME ─────────────────────────────────────────────────────────────────
+
+  server.registerTool(
+    'get_theme',
+    {
+      description: 'Get current store theme configuration (colors and layout settings)',
+      inputSchema: {},
+    },
+    async () => {
+      const store = await db.store.findUnique({
+        where: { slug: STORE_SLUG },
+        select: { themeConfig: true },
+      });
+
+      const dbTheme = store?.themeConfig as Partial<ThemeConfig> | null;
+      const theme: ThemeConfig = {
+        colors: { ...DEFAULT_THEME.colors, ...(dbTheme?.colors ?? {}) },
+        layout: { ...DEFAULT_THEME.layout, ...(dbTheme?.layout ?? {}) },
+      };
+
+      return text(theme);
+    }
+  );
+
+  server.registerTool(
+    'update_theme',
+    {
+      description: 'Update store theme. Can change colors and layout. Pass only the fields you want to change.',
+      inputSchema: {
+        primary:       z.string().optional().describe('Main brand color, e.g. "#3b82f6"'),
+        primaryDark:   z.string().optional().describe('Hover/active state color'),
+        primaryLight:  z.string().optional().describe('Light background tint'),
+        text:          z.string().optional().describe('Primary text color'),
+        textSecondary: z.string().optional().describe('Secondary/muted text'),
+        textMuted:     z.string().optional().describe('Even more muted text'),
+        border:        z.string().optional().describe('Border/divider color'),
+        bgSubtle:      z.string().optional().describe('Subtle background'),
+        success:       z.string().optional().describe('Success state color'),
+        error:         z.string().optional().describe('Error state color'),
+        heroType:      z.enum(['full-width', 'split', 'minimal']).optional(),
+        cardStyle:     z.enum(['shadow', 'border', 'flat']).optional(),
+        navPosition:   z.enum(['top', 'side']).optional(),
+        borderRadius:  z.enum(['sharp', 'rounded', 'pill']).optional(),
+      },
+    },
+    async (params) => {
+      const store = await db.store.findUniqueOrThrow({
+        where: { slug: STORE_SLUG },
+        select: { id: true, themeConfig: true },
+      });
+
+      const currentTheme = store.themeConfig as Partial<ThemeConfig> | null;
+
+      const colorKeys = ['primary', 'primaryDark', 'primaryLight', 'text', 'textSecondary', 'textMuted', 'border', 'bgSubtle', 'success', 'error'] as const;
+      const layoutKeys = ['heroType', 'cardStyle', 'navPosition', 'borderRadius'] as const;
+
+      const newColors: Partial<ThemeConfig['colors']> = {};
+      for (const k of colorKeys) {
+        if (params[k]) newColors[k] = params[k] as string;
+      }
+
+      const newLayout: Partial<ThemeConfig['layout']> = {};
+      for (const k of layoutKeys) {
+        if (params[k]) (newLayout as Record<string, string>)[k] = params[k] as string;
+      }
+
+      const updatedTheme: ThemeConfig = {
+        colors: { ...DEFAULT_THEME.colors, ...(currentTheme?.colors ?? {}), ...newColors },
+        layout: { ...DEFAULT_THEME.layout, ...(currentTheme?.layout ?? {}), ...newLayout },
+      };
+
+      await db.store.update({
+        where: { id: store.id },
+        data: { themeConfig: updatedTheme as object },
+      });
+
+      const changedFields = [...Object.keys(newColors), ...Object.keys(newLayout)];
+      return text({ message: `Theme updated: ${changedFields.join(', ')}`, theme: updatedTheme });
+    }
+  );
+
   // ── KNOWLEDGE BASE ────────────────────────────────────────────────────────
 
   server.registerTool(
@@ -373,6 +496,9 @@ export async function GET(req: Request) {
         'get_customers',
         'get_analytics',
         'create_promotion',
+        'bulk_update_prices',
+        'get_theme',
+        'update_theme',
         'search_knowledge',
       ],
       claudeDesktopConfig: {

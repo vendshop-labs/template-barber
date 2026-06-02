@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { db } from '@/lib/db';
 import { OrderStatus, PaymentStatus, PromoType } from '@prisma/client';
+import { DEFAULT_THEME, type ThemeConfig } from '@/lib/theme';
 
 const STORE_SLUG = process.env.STORE_SLUG ?? 'electromarket';
 const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL ?? 'claude-haiku-4-5-20251001';
@@ -130,6 +131,37 @@ const TOOLS = [
         percent:  { type: 'number', description: 'Price change in percent. +10 = increase 10%, -5 = decrease 5%' },
       },
       required: ['percent'],
+    },
+  },
+  {
+    name: 'get_theme',
+    description: 'Get current store theme (colors and layout)',
+    input_schema: {
+      type: 'object' as const,
+      properties: {},
+    },
+  },
+  {
+    name: 'update_theme',
+    description: 'Update store theme colors and layout. Pass only the fields you want to change. Color values as hex strings (e.g. "#3b82f6").',
+    input_schema: {
+      type: 'object' as const,
+      properties: {
+        primary:       { type: 'string', description: 'Main brand color hex' },
+        primaryDark:   { type: 'string', description: 'Hover/active state hex' },
+        primaryLight:  { type: 'string', description: 'Light background tint hex' },
+        text:          { type: 'string', description: 'Primary text color hex' },
+        textSecondary: { type: 'string', description: 'Secondary text hex' },
+        textMuted:     { type: 'string', description: 'Muted text hex' },
+        border:        { type: 'string', description: 'Border/divider hex' },
+        bgSubtle:      { type: 'string', description: 'Subtle background hex' },
+        success:       { type: 'string', description: 'Success state hex' },
+        error:         { type: 'string', description: 'Error state hex' },
+        heroType:      { type: 'string', enum: ['full-width', 'split', 'minimal'] },
+        cardStyle:     { type: 'string', enum: ['shadow', 'border', 'flat'] },
+        navPosition:   { type: 'string', enum: ['top', 'side'] },
+        borderRadius:  { type: 'string', enum: ['sharp', 'rounded', 'pill'] },
+      },
     },
   },
 ] as const;
@@ -366,6 +398,42 @@ async function executeTool(tool: ToolParams): Promise<string> {
         message: `${results.length} products ${direction} by ${Math.abs(p.percent)}%`,
         products: results,
       });
+    }
+
+    case 'get_theme': {
+      const dbT = store.themeConfig as Partial<ThemeConfig> | null;
+      return JSON.stringify({
+        colors: { ...DEFAULT_THEME.colors, ...(dbT?.colors ?? {}) },
+        layout: { ...DEFAULT_THEME.layout, ...(dbT?.layout ?? {}) },
+      });
+    }
+
+    case 'update_theme': {
+      const p = tool.input as Record<string, string>;
+      const currentT = store.themeConfig as Partial<ThemeConfig> | null;
+      const colorKeys = ['primary', 'primaryDark', 'primaryLight', 'text', 'textSecondary', 'textMuted', 'border', 'bgSubtle', 'success', 'error'];
+      const layoutKeys = ['heroType', 'cardStyle', 'navPosition', 'borderRadius'];
+
+      const newColors: Record<string, string> = {};
+      const newLayout: Record<string, string> = {};
+
+      for (const [k, v] of Object.entries(p)) {
+        if (colorKeys.includes(k) && v) newColors[k] = v;
+        if (layoutKeys.includes(k) && v) newLayout[k] = v;
+      }
+
+      const updatedTheme = {
+        colors: { ...DEFAULT_THEME.colors, ...(currentT?.colors ?? {}), ...newColors },
+        layout: { ...DEFAULT_THEME.layout, ...(currentT?.layout ?? {}), ...newLayout },
+      };
+
+      await db.store.update({
+        where: { id: store.id },
+        data: { themeConfig: updatedTheme as object },
+      });
+
+      const changed = [...Object.keys(newColors), ...Object.keys(newLayout)];
+      return JSON.stringify({ message: `Theme updated: ${changed.join(', ')}`, theme: updatedTheme });
     }
 
     default:
