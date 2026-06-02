@@ -7,7 +7,7 @@
 /* ── Breadcrumb ───────────────────────────────────── */
 .crumbs {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -16,20 +16,20 @@
 }
 
 .crumbs a {
-  color: #6b7280;
+  color: var(--color-text-muted);
   text-decoration: none;
 }
 
 .crumbs a:hover {
-  color: #f97316;
+  color: var(--color-primary);
 }
 
 .sep {
-  color: #9ca3af;
+  color: var(--color-text-secondary);
 }
 
 .current {
-  color: #1a1a1a;
+  color: var(--color-text);
   font-weight: 600;
 }
 
@@ -39,7 +39,7 @@
   align-items: center;
   gap: 32px;
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 32px;
   margin-bottom: 28px;
@@ -68,7 +68,7 @@
   align-self: flex-start;
   font-size: 13px;
   font-weight: 700;
-  color: #16a34a;
+  color: var(--color-success);
   background: #dcfce7;
   border-radius: 999px;
   padding: 5px 12px;
@@ -84,7 +84,7 @@
 
 .count {
   font-size: 13px;
-  color: #9ca3af;
+  color: var(--color-text-secondary);
   font-weight: 500;
 }
 
@@ -93,7 +93,7 @@
   font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: #1a1a1a;
+  color: var(--color-text);
   margin: 0 0 18px;
 }
 

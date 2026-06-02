@@ -6,7 +6,7 @@
 
 .main {
   background: #f8f9fa;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   border-radius: 14px;
   height: 420px;
   overflow: hidden;
@@ -31,7 +31,7 @@
 
 .thumb {
   background: #f8f9fa;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--color-border);
   border-radius: 10px;
   height: 88px;
   padding: 8px;
@@ -41,11 +41,11 @@
 }
 
 .thumb:hover {
-  border-color: #f97316;
+  border-color: var(--color-primary);
 }
 
 .thumbActive {
-  border-color: #f97316;
+  border-color: var(--color-primary);
 }
 
 .thumbImg {

@@ -30,7 +30,7 @@
 }
 
 .title svg {
-  color: #f97316;
+  color: var(--color-primary);
 }
 
 /* ── Countdown ────────────────────────────────────── */
@@ -41,7 +41,7 @@
 }
 
 .cell {
-  background: #f97316;
+  background: var(--color-primary);
   border-radius: 10px;
   padding: 9px 4px 7px;
   text-align: center;
@@ -90,7 +90,7 @@
   width: 58px;
   height: 58px;
   border-radius: 999px;
-  background: #ef4444;
+  background: var(--color-error);
   color: #fff;
   display: flex;
   align-items: center;
@@ -132,7 +132,7 @@
 .new {
   font-size: 26px;
   font-weight: 800;
-  color: #f97316;
+  color: var(--color-primary);
   letter-spacing: -0.01em;
   line-height: 1;
 }
@@ -165,7 +165,7 @@
 .barFill {
   display: block;
   height: 100%;
-  background: #f97316;
+  background: var(--color-primary);
   border-radius: 999px;
 }
 
@@ -174,7 +174,7 @@
   height: 44px;
   width: 100%;
   background: #fff;
-  color: #f97316;
+  color: var(--color-primary);
   border: none;
   border-radius: 8px;
   font-family: inherit;
@@ -192,7 +192,7 @@
 }
 
 .btn:hover {
-  background: #fff7ed;
+  background: var(--color-primary-light);
 }
 
 .btn:active {

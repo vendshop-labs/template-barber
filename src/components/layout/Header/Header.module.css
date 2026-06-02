@@ -2,7 +2,7 @@
   width: 100%;
   font-family: inherit;
   background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
 }
 
 /* ── Announcement strip ───────────────────────────── */
@@ -70,7 +70,7 @@
 }
 
 .burger:hover {
-  background: #f1f5f9;
+  background: var(--color-bg-subtle);
 }
 
 /* ── Logo ──────────────────────────────────────────── */
@@ -89,7 +89,7 @@
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: #f97316;
+  background: var(--color-primary);
   color: #ffffff;
 }
 
@@ -120,7 +120,7 @@
 }
 
 .catalog:hover {
-  background: #16a34a;
+  background: var(--color-success);
 }
 
 /* ── Search ────────────────────────────────────────── */
@@ -136,7 +136,7 @@
   min-width: 0;
   height: 100%;
   padding: 0 16px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   border-right: none;
   border-radius: 8px 0 0 8px;
   font-size: 15px;
@@ -210,7 +210,7 @@
 
 /* Cart — orange highlight */
 .cart {
-  color: #f97316;
+  color: var(--color-primary);
 }
 
 .cart:hover {
@@ -237,7 +237,7 @@
 }
 
 .badgeRed {
-  background: #ef4444;
+  background: var(--color-error);
 }
 
 /* ── Mobile dropdown menu ──────────────────────────── */
@@ -277,7 +277,7 @@
   color: #1e293b;
   text-decoration: none;
   font-size: 15px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--color-bg-subtle);
 }
 
 .mobileNav a:last-child {
@@ -318,7 +318,7 @@
     flex-direction: column;
     gap: 16px;
     padding: 16px 24px 24px;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--color-border);
     animation: slideDown 0.2s ease;
   }
 }

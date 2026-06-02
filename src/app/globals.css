@@ -1,3 +1,17 @@
+:root {
+  /* Theme colors — overridden by DB themeConfig via layout.tsx */
+  --color-primary: #f97316;
+  --color-primary-dark: #ea6c00;
+  --color-primary-light: #fff7ed;
+  --color-text: #1a1a1a;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-bg-subtle: #f1f5f9;
+  --color-success: #16a34a;
+  --color-error: #ef4444;
+}
+
 *,
 *::before,
 *::after {
@@ -25,7 +39,7 @@ body {
     sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  color: #1e293b;
+  color: var(--color-text);
   background: #ffffff;
 }
 

@@ -3,7 +3,7 @@
   align-items: center;
   gap: 16px;
   padding: 18px 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .row:last-child {
@@ -29,7 +29,7 @@
   width: 20px;
   height: 20px;
   border-radius: 6px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--color-border);
   background: #fff;
   display: flex;
   align-items: center;
@@ -41,12 +41,12 @@
 }
 
 .chk:hover .chkBox {
-  border-color: #f97316;
+  border-color: var(--color-primary);
 }
 
 .chk input:checked + .chkBox {
-  background: #f97316;
-  border-color: #f97316;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .chkBox svg {
@@ -64,7 +64,7 @@
   height: 80px;
   border-radius: 10px;
   background: #f8f9fa;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   overflow: hidden;
   flex-shrink: 0;
   display: block;
@@ -90,7 +90,7 @@
 .brand {
   font-size: 12px;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   line-height: 1;
@@ -99,7 +99,7 @@
 .name {
   font-size: 15px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text);
   line-height: 1.35;
   margin: 0;
   display: -webkit-box;
@@ -114,12 +114,12 @@
 }
 
 .name a:hover {
-  color: #f97316;
+  color: var(--color-primary);
 }
 
 .sku {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--color-text-secondary);
 }
 
 /* ── Controls ─────────────────────────────────────── */
@@ -134,7 +134,7 @@
 .qty {
   display: flex;
   align-items: center;
-  border: 1.5px solid #f97316;
+  border: 1.5px solid var(--color-primary);
   border-radius: 8px;
   height: 44px;
   overflow: hidden;
@@ -146,7 +146,7 @@
   background: #fff;
   border: none;
   cursor: pointer;
-  color: #f97316;
+  color: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,11 +154,11 @@
 }
 
 .qtyBtn:hover:not(:disabled) {
-  background: #fff7ed;
+  background: var(--color-primary-light);
 }
 
 .qtyBtn:disabled {
-  color: #9ca3af;
+  color: var(--color-text-secondary);
   cursor: not-allowed;
   background: #fff;
 }
@@ -171,7 +171,7 @@
   font-family: inherit;
   font-size: 14px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--color-text);
   -moz-appearance: textfield;
   appearance: textfield;
 }
@@ -190,13 +190,13 @@
 .price {
   font-size: 18px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text);
   letter-spacing: -0.01em;
 }
 
 .old {
   font-size: 13px;
-  color: #9ca3af;
+  color: var(--color-text-secondary);
   text-decoration: line-through;
   font-weight: 500;
 }
@@ -206,7 +206,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #9ca3af;
+  color: var(--color-text-secondary);
   padding: 4px;
   display: inline-flex;
   align-items: center;
@@ -216,7 +216,7 @@
 }
 
 .del:hover {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 @media (max-width: 560px) {

@@ -32,7 +32,7 @@
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: #f97316;
+  background: var(--color-primary);
   color: #fff;
   display: flex;
   align-items: center;
@@ -65,7 +65,7 @@
 }
 
 .schedule svg {
-  color: #f97316;
+  color: var(--color-primary);
   flex: 0 0 auto;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .link:hover {
-  color: #f97316;
+  color: var(--color-primary);
 }
 
 /* ── Contacts column ──────────────────────────────── */
@@ -128,12 +128,12 @@
 }
 
 .contactLink:hover {
-  color: #f97316;
+  color: var(--color-primary);
 }
 
 .contactLink svg,
 .contactItem svg {
-  color: #f97316;
+  color: var(--color-primary);
   flex: 0 0 auto;
   margin-top: 2px;
 }
@@ -176,7 +176,7 @@
 }
 
 .bottomLink:hover {
-  color: #f97316;
+  color: var(--color-primary);
 }
 
 /* ── Responsive ───────────────────────────────────── */

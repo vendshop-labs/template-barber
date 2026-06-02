@@ -1,6 +1,6 @@
 /* Subscribe banner — full-width orange gradient band. */
 .sub {
-  background: linear-gradient(135deg, #f97316 0%, #ea6c00 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   padding: 48px 24px;
 }
 
@@ -59,7 +59,7 @@
 .field svg {
   position: absolute;
   left: 15px;
-  color: #9ca3af;
+  color: var(--color-text-secondary);
   pointer-events: none;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .input::placeholder {
-  color: #9ca3af;
+  color: var(--color-text-secondary);
 }
 
 .input:focus {
@@ -111,11 +111,11 @@
 }
 
 .btnDone {
-  background: #16a34a;
+  background: var(--color-success);
 }
 
 .btnDone:hover {
-  background: #16a34a;
+  background: var(--color-success);
 }
 
 .note {

@@ -1,14 +1,14 @@
 .tabs {
   margin-top: 40px;
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   border-radius: 14px;
   overflow: hidden;
 }
 
 .tablist {
   display: flex;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .tab {
@@ -23,7 +23,7 @@
   font-family: inherit;
   font-size: 15px;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--color-text-muted);
   cursor: pointer;
   transition:
     color 150ms ease,
@@ -31,12 +31,12 @@
 }
 
 .tab:hover {
-  color: #1a1a1a;
+  color: var(--color-text);
 }
 
 .tabActive {
-  color: #f97316;
-  border-bottom-color: #f97316;
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
 }
 
 .badge {
@@ -47,15 +47,15 @@
   height: 20px;
   padding: 0 6px;
   border-radius: 999px;
-  background: #f1f5f9;
-  color: #6b7280;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted);
   font-size: 12px;
   font-weight: 700;
 }
 
 .tabActive .badge {
-  background: #fff7ed;
-  color: #f97316;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .panel {
@@ -70,7 +70,7 @@
 }
 
 .specsTable tr {
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--color-bg-subtle);
 }
 
 .rowAlt {
@@ -80,14 +80,14 @@
 .specLabel {
   text-align: left;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--color-text-muted);
   padding: 12px 16px;
   width: 45%;
 }
 
 .specValue {
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text);
   padding: 12px 16px;
 }
 
@@ -110,18 +110,18 @@
 .reviewsNum {
   font-size: 32px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text);
   line-height: 1;
 }
 
 .stars {
   display: inline-flex;
   gap: 2px;
-  color: #f97316;
+  color: var(--color-primary);
 }
 
 .reviewsCount {
   font-size: 14px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   font-weight: 500;
 }

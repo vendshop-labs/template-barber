@@ -17,7 +17,7 @@
 .count {
   font-size: 16px;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
 .body {
@@ -30,7 +30,7 @@
 /* ── Items panel ──────────────────────────────────── */
 .items {
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   border-radius: 14px;
   overflow: hidden;
 }
@@ -40,7 +40,7 @@
   align-items: center;
   gap: 12px;
   padding: 14px 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
   background: #f8f9fa;
 }
 
@@ -73,7 +73,7 @@
   width: 20px;
   height: 20px;
   border-radius: 6px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--color-border);
   background: #fff;
   display: flex;
   align-items: center;
@@ -85,12 +85,12 @@
 }
 
 .chk:hover .chkBox {
-  border-color: #f97316;
+  border-color: var(--color-primary);
 }
 
 .chk input:checked + .chkBox {
-  background: #f97316;
-  border-color: #f97316;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .chkBox svg {
@@ -109,7 +109,7 @@
   cursor: pointer;
   font-family: inherit;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -117,7 +117,7 @@
 }
 
 .clear:hover:not(:disabled) {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 .clear:disabled {
@@ -136,7 +136,7 @@
   gap: 8px;
   font-size: 14px;
   font-weight: 600;
-  color: #f97316;
+  color: var(--color-primary);
   text-decoration: none;
   transition: gap 150ms ease;
 }
@@ -148,14 +148,14 @@
 /* ── Empty state ──────────────────────────────────── */
 .empty {
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 72px 24px;
   text-align: center;
 }
 
 .emptyIco {
-  color: #9ca3af;
+  color: var(--color-text-secondary);
   margin-bottom: 20px;
   opacity: 0.7;
 }
@@ -163,7 +163,7 @@
 .emptyTitle {
   font-size: 20px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--color-text);
   margin: 0 0 26px;
 }
 
@@ -173,7 +173,7 @@
   gap: 9px;
   height: 50px;
   padding: 0 28px;
-  background: #f97316;
+  background: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -189,7 +189,7 @@
 }
 
 .emptyBtn:hover {
-  background: #ea6c00;
+  background: var(--color-primary-dark);
   box-shadow: 0 6px 18px rgba(249, 115, 22, 0.36);
 }
 
