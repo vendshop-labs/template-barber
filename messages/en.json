@@ -107,7 +107,8 @@
     "menuLink": "View Menu",
     "reservationsLink": "Reservations",
     "deliveryLink": "Delivery & Zones",
-    "aboutDescRestaurant": "Authentic Italian cuisine with family recipes from Naples. Fresh pasta, wood-fired pizza, and the finest wines."
+    "aboutDescRestaurant": "Authentic Italian cuisine with family recipes from Naples. Fresh pasta, wood-fired pizza, and the finest wines.",
+    "termsLink": "Terms & Conditions"
   },
   "tags": {
     "popularQueries": "Popular searches:"

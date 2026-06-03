@@ -107,7 +107,8 @@
     "menuLink": "Speisekarte ansehen",
     "reservationsLink": "Reservierung",
     "deliveryLink": "Lieferung & Zonen",
-    "aboutDescRestaurant": "Authentische italienische Küche mit Familienrezepten aus Neapel. Frische Pasta, Pizza aus dem Holzofen und die besten Weine."
+    "aboutDescRestaurant": "Authentische italienische Küche mit Familienrezepten aus Neapel. Frische Pasta, Pizza aus dem Holzofen und die besten Weine.",
+    "termsLink": "AGB"
   },
   "tags": {
     "popularQueries": "Beliebte Suchanfragen:"

@@ -198,8 +198,8 @@ export default function Footer({
         </div>
       </div>
 
-      {/* Opening hours — Restaurant / Food Market only */}
-      {vConfig.store.showHours && (
+      {/* Opening hours — ecommerce only (restaurant shows hours in contacts) */}
+      {!isRestaurant && vConfig.store.showHours && (
         <div className={styles.hours}>
           <h4 className={styles.hoursTitle}>Opening hours</h4>
           <p className={styles.hoursLine}>Mon–Fri: 9:00–21:00</p>
@@ -210,13 +210,15 @@ export default function Footer({
       {/* Bottom bar */}
       <div className={styles.bottom}>
         <div className={styles.bottomInner}>
-          <span className={styles.rights}>{t('rights')}</span>
+          <span className={styles.rights}>
+            © {new Date().getFullYear()} {storeName}. All rights reserved.
+          </span>
           <span className={styles.bottomLinks}>
             <a className={styles.bottomLink} href="/privacy">
               {t('privacy')}
             </a>
-            <a className={styles.bottomLink} href="/offer">
-              {t('offer')}
+            <a className={styles.bottomLink} href={isRestaurant ? '/terms' : '/offer'}>
+              {isRestaurant ? t('termsLink') : t('offer')}
             </a>
           </span>
         </div>
