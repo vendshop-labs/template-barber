@@ -21,10 +21,30 @@ type ProductOfDayData = Omit<ProductOfDayProps['product'], 'endsAt'>;
 
 export type ProductData = Omit<ProductCardProps, 'onAddToCart' | 'onCompare' | 'onFavorite'>;
 
+interface MenuCategoryItem {
+  slug: string;
+  nameKey: string;
+  image?: string;
+  productCount: number;
+}
+
+interface DailySpecialItem {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+  image?: string;
+  badge?: 'chef' | 'popular' | 'new';
+}
+
 interface HomeClientProps {
   products: ProductData[];
   productOfDay: ProductOfDayData;
   storeName: string;
+  menuCategories?: MenuCategoryItem[];
+  dailySpecials?: DailySpecialItem[];
 }
 
 // Module-level constant: countdown target is fixed for the session duration.
@@ -33,7 +53,7 @@ const ENDS_AT = new Date(Date.now() + ((2 * 24 + 14) * 3600 + 37 * 60 + 22) * 10
 const noop = (_id: string) => {};
 const noopStr = (_s: string) => {};
 
-export default function HomeClient({ products, productOfDay, storeName }: HomeClientProps) {
+export default function HomeClient({ products, productOfDay, storeName, menuCategories, dailySpecials }: HomeClientProps) {
   const vConfig = useVerticalConfig();
   const sections = vConfig.ui.homeSections;
 
@@ -99,10 +119,10 @@ export default function HomeClient({ products, productOfDay, storeName }: HomeCl
             );
 
           case 'menu-categories':
-            return <MenuCategories key={section} />;
+            return <MenuCategories key={section} categories={menuCategories} />;
 
           case 'daily-specials':
-            return <DailySpecials key={section} />;
+            return <DailySpecials key={section} items={dailySpecials} />;
 
           case 'reservations':
             return <ReservationSection key={section} />;

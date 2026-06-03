@@ -17,22 +17,34 @@ const BRAND_DISPLAY: Record<string, string> = {
 
 export default async function CatalogRoute({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
+  const sp = await searchParams;
   setRequestLocale(locale);
 
-  const t = await getTranslations('sampleProducts');
   const store = await db.store.findUniqueOrThrow({ where: { slug: STORE_SLUG } });
+  const isRestaurant = store.vertical === 'RESTAURANT';
+
+  const t = await getTranslations('sampleProducts');
+
+  // Initial category from URL (for restaurant category tabs)
+  const initialCategory = typeof sp.category === 'string' ? sp.category : '';
+
+  const categoryFilter = initialCategory
+    ? { category: { slug: initialCategory } }
+    : {};
 
   const [dbProducts, total, categoryFacets, brandGroups] = await Promise.all([
     db.product.findMany({
-      where: { storeId: store.id },
+      where: { storeId: store.id, ...categoryFilter },
       orderBy: { reviewCount: 'desc' },
       take: PAGE_SIZE,
     }),
-    db.product.count({ where: { storeId: store.id } }),
+    db.product.count({ where: { storeId: store.id, ...categoryFilter } }),
     db.category.findMany({
       where: { storeId: store.id },
       include: { _count: { select: { products: true } } },
@@ -65,13 +77,15 @@ export default async function CatalogRoute({
     categories: categoryFacets
       .filter((c) => c._count.products > 0)
       .map((c) => ({ slug: c.slug, count: c._count.products })),
-    brands: brandGroups
-      .filter((b) => b.brand !== null)
-      .sort((a, b) => (b._count?.id ?? 0) - (a._count?.id ?? 0))
-      .map((b) => ({
-        name: BRAND_DISPLAY[b.brand!.toUpperCase()] ?? b.brand!,
-        count: b._count?.id ?? 0,
-      })),
+    brands: isRestaurant
+      ? []
+      : brandGroups
+          .filter((b) => b.brand !== null)
+          .sort((a, b) => (b._count?.id ?? 0) - (a._count?.id ?? 0))
+          .map((b) => ({
+            name: BRAND_DISPLAY[b.brand!.toUpperCase()] ?? b.brand!,
+            count: b._count?.id ?? 0,
+          })),
   };
 
   return (
@@ -80,6 +94,8 @@ export default async function CatalogRoute({
       initialTotal={total}
       initialTotalPages={Math.ceil(total / PAGE_SIZE)}
       facets={facets}
+      vertical={store.vertical}
+      initialCategory={initialCategory}
     />
   );
 }

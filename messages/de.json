@@ -57,7 +57,12 @@
     "tabReviews": "Bewertungen",
     "quantity": "Menge",
     "inCart": "Im Warenkorb",
-    "genericDescription": "{name} ist ein professionelles Werkzeug von einem offiziellen Händler. Originalqualität, Garantie und Service-Support. Vollständige technische Details finden Sie im Tab „Spezifikationen“."
+    "genericDescription": "{name} ist ein professionelles Werkzeug von einem offiziellen Händler. Originalqualität, Garantie und Service-Support. Vollständige technische Details finden Sie im Tab „Spezifikationen“.",
+    "order": "Bestellen",
+    "allergens": "Allergene",
+    "deliveryTime": "Lieferung 30–45 Min",
+    "dineIn": "Vor Ort essen",
+    "takeaway": "Zum Mitnehmen"
   },
   "home": {
     "bestSellers": "Bestseller",
@@ -197,7 +202,12 @@
     "prev": "Zurück",
     "next": "Weiter",
     "priceFrom": "von",
-    "priceTo": "bis"
+    "priceTo": "bis",
+    "all": "Alle",
+    "allergens": "Allergene",
+    "deliveryTime": "Lieferung 30–45 Min",
+    "dineIn": "Vor Ort essen",
+    "takeaway": "Zum Mitnehmen"
   },
   "cart": {
     "title": "Warenkorb",

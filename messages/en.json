@@ -57,7 +57,12 @@
     "tabReviews": "Reviews",
     "quantity": "Quantity",
     "inCart": "In cart",
-    "genericDescription": "{name} is a professional tool from an official dealer. Original quality, warranty, and service support. See the Specifications tab for full technical details."
+    "genericDescription": "{name} is a professional tool from an official dealer. Original quality, warranty, and service support. See the Specifications tab for full technical details.",
+    "order": "Order",
+    "allergens": "Allergens",
+    "deliveryTime": "Delivery 30–45 min",
+    "dineIn": "Dine-in available",
+    "takeaway": "Takeaway available"
   },
   "home": {
     "bestSellers": "Best Sellers",
@@ -197,7 +202,12 @@
     "prev": "Previous",
     "next": "Next",
     "priceFrom": "from",
-    "priceTo": "to"
+    "priceTo": "to",
+    "all": "All",
+    "allergens": "Allergens",
+    "deliveryTime": "Delivery 30–45 min",
+    "dineIn": "Dine-in available",
+    "takeaway": "Takeaway available"
   },
   "cart": {
     "title": "Cart",

@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { useTranslations } from 'next-intl';
+import { useVerticalConfig } from '@/lib/vertical-context';
 import ProductCard, { type ProductCardProps } from '@/components/catalog/ProductCard/ProductCard';
 import FilterSidebar, { type FilterState } from '@/components/catalog/FilterSidebar/FilterSidebar';
 import styles from './CatalogPage.module.css';
@@ -18,6 +19,8 @@ export interface CatalogPageProps {
   initialTotal: number;
   initialTotalPages: number;
   facets: CatalogFacets;
+  vertical?: string;
+  initialCategory?: string;
 }
 
 interface ApiProduct {
@@ -66,9 +69,14 @@ export default function CatalogPage({
   initialTotal,
   initialTotalPages,
   facets,
+  vertical,
+  initialCategory = '',
 }: CatalogPageProps) {
   const t = useTranslations('catalog');
   const ts = useTranslations('sampleProducts');
+  const tMenu = useTranslations('menuCategories');
+  const vConfig = useVerticalConfig();
+  const isRestaurant = vConfig.vertical === 'RESTAURANT';
 
   const [products, setProducts] = useState<CatalogProduct[]>(initialProducts);
   const [total, setTotal] = useState(initialTotal);
@@ -77,9 +85,11 @@ export default function CatalogPage({
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortKey>('sortPopular');
   const [sortOpen, setSortOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
 
   const activeFilters = useRef<FilterState>({
-    categories: [], brands: [], priceFrom: 0, priceTo: 25000, inStockOnly: false,
+    categories: initialCategory ? [initialCategory] : [],
+    brands: [], priceFrom: 0, priceTo: 25000, inStockOnly: false,
   });
 
   const fetchProducts = useCallback(async (p: number, s: SortKey, filters: FilterState) => {
@@ -146,31 +156,72 @@ export default function CatalogPage({
     fetchProducts(1, sort, state);
   };
 
+  const handleCategoryChange = (slug: string) => {
+    setActiveCategory(slug);
+    const newFilters: FilterState = {
+      ...activeFilters.current,
+      categories: slug ? [slug] : [],
+    };
+    activeFilters.current = newFilters;
+    setPage(1);
+    fetchProducts(1, sort, newFilters);
+  };
+
   const pageButtons = getPageButtons(page, totalPages);
 
   return (
-    <div className={styles.cat}>
-      <h1 className={styles.h1}>{t('title')}</h1>
+    <div className={`${styles.cat} ${isRestaurant ? styles.catDark : ''}`}>
+      <h1 className={`${styles.h1} ${isRestaurant ? styles.h1Dark : ''}`}>
+        {t('title')}
+      </h1>
+
+      {/* Restaurant: horizontal category tabs */}
+      {isRestaurant && (
+        <div className={styles.categoryTabs}>
+          <button
+            type="button"
+            className={`${styles.tab} ${activeCategory === '' ? styles.tabActive : ''}`}
+            onClick={() => handleCategoryChange('')}
+          >
+            {t('all')}
+          </button>
+          {facets.categories.map((cat) => (
+            <button
+              key={cat.slug}
+              type="button"
+              className={`${styles.tab} ${activeCategory === cat.slug ? styles.tabActive : ''}`}
+              onClick={() => handleCategoryChange(cat.slug)}
+            >
+              {tMenu(cat.slug as Parameters<typeof tMenu>[0])} ({cat.count})
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className={styles.body}>
-        <FilterSidebar
-          onApply={handleFiltersApply}
-          categoryRows={facets.categories}
-          brandRows={facets.brands}
-        />
+        {/* Hide sidebar for restaurant */}
+        {!isRestaurant && (
+          <FilterSidebar
+            onApply={handleFiltersApply}
+            categoryRows={facets.categories}
+            brandRows={facets.brands}
+          />
+        )}
 
-        <div>
+        <div className={isRestaurant ? styles.contentFull : undefined}>
           {/* Top bar */}
           <div className={styles.top}>
-            <span className={styles.found}>{t('found', { count: total })}</span>
+            <span className={`${styles.found} ${isRestaurant ? styles.foundDark : ''}`}>
+              {t('found', { count: total })}
+            </span>
             <div className={`${styles.sort} ${sortOpen ? styles.sortOpen : ''}`}>
-              <button type="button" className={styles.sortBtn}
+              <button type="button" className={`${styles.sortBtn} ${isRestaurant ? styles.sortBtnDark : ''}`}
                 onClick={() => setSortOpen((v) => !v)} aria-expanded={sortOpen}>
                 {t('sort')}: <span className={styles.sortCur}>{t(sort)}</span>
                 <ChevronDown />
               </button>
               {sortOpen && (
-                <div className={styles.sortMenu}>
+                <div className={`${styles.sortMenu} ${isRestaurant ? styles.sortMenuDark : ''}`}>
                   {SORT_KEYS.map((key) => (
                     <button key={key} type="button"
                       className={`${styles.sortOpt} ${key === sort ? styles.sortOptSel : ''}`}
@@ -184,7 +235,7 @@ export default function CatalogPage({
           </div>
 
           {/* Product grid */}
-          <div className={`${styles.grid} ${loading ? styles.gridLoading : ''}`}>
+          <div className={`${styles.grid} ${isRestaurant ? styles.gridMenu : ''} ${loading ? styles.gridLoading : ''}`}>
             {products.map((product) => (
               <ProductCard key={product.id} {...product}
                 onAddToCart={noop} onCompare={noop} onFavorite={noop} />

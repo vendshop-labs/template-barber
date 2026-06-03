@@ -399,3 +399,76 @@
     gap: 28px;
   }
 }
+
+/* ── Restaurant dark theme ── */
+.pageDark {
+  background: #0a0a0a;
+  color: #f5f5f5;
+  min-height: 100vh;
+  padding-top: 90px;
+}
+
+.nameDark {
+  font-family: var(--font-playfair), Georgia, serif;
+  color: #f5f5f5;
+}
+
+.dishMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.metaTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.metaTagGreen {
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.2);
+}
+
+.allergens {
+  margin: 8px 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgba(234, 179, 8, 0.08);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+  color: #fbbf24;
+  font-size: 13px;
+}
+
+.priceBlockDark .priceNew {
+  color: #d4a853;
+}
+
+.addCartDark {
+  background: #b91c1c;
+  color: #ffffff;
+  width: 100%;
+}
+.addCartDark:hover:not(:disabled) {
+  background: #991b1b;
+}
+
+.deliveryDark {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+}
+.deliveryDark .deliveryRow {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+.deliveryDark .deliveryText b {
+  color: #d4a853;
+}

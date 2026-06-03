@@ -15,6 +15,14 @@ interface ProductMetadata {
   images?: string[];
   specs?: Record<string, ProductSpec[]>;
   description?: Record<string, string>;
+  // Restaurant fields:
+  portionSize?: string;
+  cookTime?: number;
+  spiceLevel?: string;
+  allergens?: string[];
+  calories?: number;
+  vegetarian?: boolean;
+  vegan?: boolean;
 }
 
 export async function generateMetadata({
@@ -53,12 +61,12 @@ export default async function ProductRoute({
   const name = ts(product.nameKey);
 
   const meta = (product.metadata ?? {}) as ProductMetadata;
+  const isRestaurant = store.vertical === 'RESTAURANT';
 
-  // Resolve locale-aware specs: locale → 'en' → 'uk' → empty
+  // Resolve locale-aware specs and description
   const specs: ProductSpec[] =
     meta.specs?.[locale] ?? meta.specs?.['en'] ?? meta.specs?.['uk'] ?? [];
 
-  // Resolve locale-aware description
   const description: string =
     meta.description?.[locale] ??
     meta.description?.['en'] ??
@@ -77,11 +85,18 @@ export default async function ProductRoute({
     rating: product.rating,
     reviewCount: product.reviewCount,
     inStock: product.inStock,
-    stockQty: meta.stockQty ?? 10,
-    sku: meta.sku ?? product.slug.toUpperCase(),
+    stockQty: isRestaurant ? 0 : (meta.stockQty ?? 10),
+    sku: isRestaurant ? '' : (meta.sku ?? product.slug.toUpperCase()),
     images: meta.images ?? [product.image ?? '/placeholder-product.svg'],
     specs,
+    // Restaurant fields
+    portionSize: meta.portionSize,
+    cookTime: meta.cookTime !== undefined ? String(meta.cookTime) + ' min' : undefined,
+    allergens: meta.allergens,
+    calories: meta.calories,
+    vegetarian: meta.vegetarian,
+    vegan: meta.vegan,
   };
 
-  return <ProductPage product={resolved} />;
+  return <ProductPage product={resolved} vertical={store.vertical} />;
 }

@@ -27,10 +27,18 @@ export interface ResolvedProduct {
   sku: string;
   images: string[];
   specs: ProductSpec[];
+  // Restaurant-specific (optional):
+  portionSize?: string;
+  cookTime?: string;
+  allergens?: string[];
+  calories?: number;
+  vegetarian?: boolean;
+  vegan?: boolean;
 }
 
 export interface ProductPageProps {
   product: ResolvedProduct;
+  vertical?: string;
 }
 
 const stroke = {
@@ -129,8 +137,9 @@ const logBuyOneClick = (payload: { id: string }) => console.log('[buyOneClick]',
 const logFavorite = (payload: { id: string }) => console.log('[favorite]', payload);
 const logCompare = (payload: { id: string }) => console.log('[compare]', payload);
 
-export default function ProductPage({ product }: ProductPageProps) {
+export default function ProductPage({ product, vertical }: ProductPageProps) {
   const t = useTranslations('product');
+  const isRestaurant = vertical === 'RESTAURANT';
   const addItem = useCartStore((s) => s.addItem);
   const updateQuantity = useCartStore((s) => s.updateQuantity);
   const inCart = useCartStore((s) => s.items.some((i) => i.id === product.id));
@@ -168,7 +177,7 @@ export default function ProductPage({ product }: ProductPageProps) {
   const clampQty = (value: number) => Math.max(1, Math.min(99, Math.floor(value) || 1));
 
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${isRestaurant ? styles.pageDark : ''}`}>
       {/* Breadcrumb */}
       <nav className={styles.crumbs} aria-label={t('breadcrumbCatalog')}>
         <Link href="/">{t('breadcrumbHome')}</Link>
@@ -184,22 +193,50 @@ export default function ProductPage({ product }: ProductPageProps) {
 
         {/* Right — info */}
         <div className={styles.info}>
-          <span className={styles.brand}>{product.brand}</span>
-          <h1 className={styles.name}>{product.name}</h1>
+          {!isRestaurant && <span className={styles.brand}>{product.brand}</span>}
+          <h1 className={`${styles.name} ${isRestaurant ? styles.nameDark : ''}`}>{product.name}</h1>
 
-          <div className={styles.meta}>
-            <span className={styles.rating}>
-              <Stars value={product.rating} />
-              <span className={styles.reviews}>
-                {product.reviewCount} {t('reviews')}
+          {isRestaurant ? (
+            <>
+              {/* Dish metadata tags */}
+              <div className={styles.dishMeta}>
+                {product.portionSize && (
+                  <span className={styles.metaTag}>🍽 {product.portionSize}</span>
+                )}
+                {product.cookTime && (
+                  <span className={styles.metaTag}>⏱ {product.cookTime}</span>
+                )}
+                {product.calories && (
+                  <span className={styles.metaTag}>🔥 {product.calories} kcal</span>
+                )}
+                {product.vegetarian && (
+                  <span className={`${styles.metaTag} ${styles.metaTagGreen}`}>🌿 Vegetarian</span>
+                )}
+                {product.vegan && (
+                  <span className={`${styles.metaTag} ${styles.metaTagGreen}`}>🌱 Vegan</span>
+                )}
+              </div>
+              {product.allergens && product.allergens.length > 0 && (
+                <div className={styles.allergens}>
+                  ⚠️ {t('allergens')}: {product.allergens.join(', ')}
+                </div>
+              )}
+            </>
+          ) : (
+            <div className={styles.meta}>
+              <span className={styles.rating}>
+                <Stars value={product.rating} />
+                <span className={styles.reviews}>
+                  {product.reviewCount} {t('reviews')}
+                </span>
               </span>
-            </span>
-            <span className={styles.sku}>
-              {t('sku')}: <b>{product.sku}</b>
-            </span>
-          </div>
+              <span className={styles.sku}>
+                {t('sku')}: <b>{product.sku}</b>
+              </span>
+            </div>
+          )}
 
-          <div className={styles.priceBlock}>
+          <div className={`${styles.priceBlock} ${isRestaurant ? styles.priceBlockDark : ''}`}>
             <span className={styles.priceNew}>
               {formatPrice(product.price)} {product.currency}
             </span>
@@ -211,107 +248,133 @@ export default function ProductPage({ product }: ProductPageProps) {
             {discount != null && <span className={styles.discount}>-{discount}%</span>}
           </div>
 
-          {savings > 0 && (
+          {!isRestaurant && savings > 0 && (
             <span className={styles.savings}>{t('savings', { amount: formatPrice(savings) })}</span>
           )}
 
-          <span className={`${styles.stock} ${product.inStock ? '' : styles.stockOut}`}>
-            {t('inStockQty', { qty: product.stockQty })}
-          </span>
+          {!isRestaurant && (
+            <span className={`${styles.stock} ${product.inStock ? '' : styles.stockOut}`}>
+              {t('inStockQty', { qty: product.stockQty })}
+            </span>
+          )}
 
           {/* Quantity + add to cart */}
           <div className={styles.buyRow}>
-            <div className={styles.qty}>
-              <span className={styles.qtyLabel}>{t('quantity')}</span>
-              <div className={styles.qtyControl}>
-                <button
-                  type="button"
-                  className={styles.qtyBtn}
-                  onClick={() => setQuantity((q) => clampQty(q - 1))}
-                  aria-label={t('quantity')}
-                >
-                  −
-                </button>
-                <input
-                  className={styles.qtyInput}
-                  type="number"
-                  min={1}
-                  max={99}
-                  value={quantity}
-                  aria-label={t('quantity')}
-                  onChange={(e) => setQuantity(clampQty(Number(e.target.value)))}
-                />
-                <button
-                  type="button"
-                  className={styles.qtyBtn}
-                  onClick={() => setQuantity((q) => clampQty(q + 1))}
-                  aria-label={t('quantity')}
-                >
-                  +
-                </button>
+            {!isRestaurant && (
+              <div className={styles.qty}>
+                <span className={styles.qtyLabel}>{t('quantity')}</span>
+                <div className={styles.qtyControl}>
+                  <button
+                    type="button"
+                    className={styles.qtyBtn}
+                    onClick={() => setQuantity((q) => clampQty(q - 1))}
+                    aria-label={t('quantity')}
+                  >
+                    −
+                  </button>
+                  <input
+                    className={styles.qtyInput}
+                    type="number"
+                    min={1}
+                    max={99}
+                    value={quantity}
+                    aria-label={t('quantity')}
+                    onChange={(e) => setQuantity(clampQty(Number(e.target.value)))}
+                  />
+                  <button
+                    type="button"
+                    className={styles.qtyBtn}
+                    onClick={() => setQuantity((q) => clampQty(q + 1))}
+                    aria-label={t('quantity')}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
             <button
               type="button"
-              className={`${styles.addCart} ${inCart ? styles.addCartInCart : ''}`}
+              className={`${styles.addCart} ${isRestaurant ? styles.addCartDark : ''} ${inCart ? styles.addCartInCart : ''}`}
               disabled={!product.inStock}
               onClick={handleAddToCart}
             >
               <CartPlusIcon />
-              {inCart ? t('inCart') : t('addToCart')}
+              {inCart ? t('inCart') : (isRestaurant ? t('order') : t('addToCart'))}
             </button>
           </div>
 
-          {/* Secondary actions */}
-          <div className={styles.actions}>
-            <button
-              type="button"
-              className={styles.buyOneClick}
-              onClick={() => logBuyOneClick({ id: product.id })}
-            >
-              <BoltIcon />
-              {t('buyOneClick')}
-            </button>
-            <button
-              type="button"
-              className={styles.iconBtn}
-              onClick={() => logFavorite({ id: product.id })}
-            >
-              <HeartIcon />
-              {t('addToFavorites')}
-            </button>
-            <button
-              type="button"
-              className={styles.iconBtn}
-              onClick={() => logCompare({ id: product.id })}
-            >
-              <ScalesIcon />
-              {t('compare')}
-            </button>
-          </div>
+          {/* Secondary actions — ecommerce only */}
+          {!isRestaurant && (
+            <div className={styles.actions}>
+              <button
+                type="button"
+                className={styles.buyOneClick}
+                onClick={() => logBuyOneClick({ id: product.id })}
+              >
+                <BoltIcon />
+                {t('buyOneClick')}
+              </button>
+              <button
+                type="button"
+                className={styles.iconBtn}
+                onClick={() => logFavorite({ id: product.id })}
+              >
+                <HeartIcon />
+                {t('addToFavorites')}
+              </button>
+              <button
+                type="button"
+                className={styles.iconBtn}
+                onClick={() => logCompare({ id: product.id })}
+              >
+                <ScalesIcon />
+                {t('compare')}
+              </button>
+            </div>
+          )}
 
           {/* Delivery info */}
-          <div className={styles.delivery}>
-            <div className={styles.deliveryRow}>
-              <span className={styles.deliveryIcon}>
-                <TruckIcon />
-              </span>
-              <span className={styles.deliveryText}>
-                <b>{t('deliveryDays')}</b>
-                <span>{t('deliveryFree')}</span>
-              </span>
+          {isRestaurant ? (
+            <div className={`${styles.delivery} ${styles.deliveryDark}`}>
+              <div className={styles.deliveryRow}>
+                <span className={styles.deliveryText}>
+                  <b>🚗 {t('deliveryTime')}</b>
+                </span>
+              </div>
+              <div className={styles.deliveryRow}>
+                <span className={styles.deliveryText}>
+                  <b>🏠 {t('dineIn')}</b>
+                </span>
+              </div>
+              <div className={styles.deliveryRow}>
+                <span className={styles.deliveryText}>
+                  <b>📦 {t('takeaway')}</b>
+                </span>
+              </div>
             </div>
-            <div className={styles.deliveryRow}>
-              <span className={styles.deliveryIcon}>
-                <StoreIcon />
-              </span>
-              <span className={styles.deliveryText}>
-                <b>{t('pickup')}</b>
-                <span>{t('pickupFree')}</span>
-              </span>
+          ) : (
+            <div className={styles.delivery}>
+              <div className={styles.deliveryRow}>
+                <span className={styles.deliveryIcon}>
+                  <TruckIcon />
+                </span>
+                <span className={styles.deliveryText}>
+                  <b>{t('deliveryDays')}</b>
+                  <span>{t('deliveryFree')}</span>
+                </span>
+              </div>
+              <div className={styles.deliveryRow}>
+                <span className={styles.deliveryIcon}>
+                  <StoreIcon />
+                </span>
+                <span className={styles.deliveryText}>
+                  <b>{t('pickup')}</b>
+                  <span>{t('pickupFree')}</span>
+                </span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 

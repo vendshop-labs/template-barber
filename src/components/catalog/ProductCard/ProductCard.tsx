@@ -144,8 +144,10 @@ export default function ProductCard({
       : null;
   const href = `/product/${slug}`;
 
+  const isRestaurant = vConfig.vertical === 'RESTAURANT';
+
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${isRestaurant ? styles.cardDark : ''}`}>
       <div className={styles.media}>
         <div className={styles.badges}>
           <div className={styles.badgesLeft}>
@@ -202,15 +204,17 @@ export default function ProductCard({
           {discount != null && <span className={styles.priceDisc}>-{discount}%</span>}
         </div>
 
-        <span className={`${styles.avail} ${inStock ? '' : styles.availOut}`}>
-          {inStock ? t('inStock') : t('outOfStock')}
-        </span>
+        {!isRestaurant && (
+          <span className={`${styles.avail} ${inStock ? '' : styles.availOut}`}>
+            {inStock ? t('inStock') : t('outOfStock')}
+          </span>
+        )}
       </div>
 
       <div className={styles.foot}>
         <button
           type="button"
-          className={`${styles.cart} ${inCart ? styles.cartInCart : ''}`}
+          className={`${styles.cart} ${isRestaurant ? styles.cartDark : ''} ${inCart ? styles.cartInCart : ''}`}
           onClick={() => {
             addItem({ id, slug, brand, name, image, price, oldPrice, currency });
             onAddToCart(id);
@@ -221,10 +225,12 @@ export default function ProductCard({
           {inCart ? t('inCart') : vConfig.ui.addToCartLabel}
         </button>
 
-        <button type="button" className={styles.compare} onClick={() => onCompare(id)}>
-          <ScalesIcon />
-          {t('compare')}
-        </button>
+        {!isRestaurant && (
+          <button type="button" className={styles.compare} onClick={() => onCompare(id)}>
+            <ScalesIcon />
+            {t('compare')}
+          </button>
+        )}
       </div>
     </article>
   );

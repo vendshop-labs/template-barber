@@ -57,7 +57,12 @@
     "tabReviews": "Recenze",
     "quantity": "Množství",
     "inCart": "V košíku",
-    "genericDescription": "{name} je profesionální nástroj od oficiálního prodejce. Originální kvalita, záruka a servisní podpora. Podrobné technické údaje najdete na kartě „Specifikace“."
+    "genericDescription": "{name} je profesionální nástroj od oficiálního prodejce. Originální kvalita, záruka a servisní podpora. Podrobné technické údaje najdete na kartě „Specifikace“.",
+    "order": "Objednat",
+    "allergens": "Alergeny",
+    "deliveryTime": "Doručení 30–45 min",
+    "dineIn": "Jídlo na místě",
+    "takeaway": "S sebou"
   },
   "home": {
     "bestSellers": "Nejprodávanější",
@@ -197,7 +202,12 @@
     "prev": "Předchozí",
     "next": "Další",
     "priceFrom": "od",
-    "priceTo": "do"
+    "priceTo": "do",
+    "all": "Všechny",
+    "allergens": "Alergeny",
+    "deliveryTime": "Doručení 30–45 min",
+    "dineIn": "Jídlo na místě",
+    "takeaway": "S sebou"
   },
   "cart": {
     "title": "Košík",

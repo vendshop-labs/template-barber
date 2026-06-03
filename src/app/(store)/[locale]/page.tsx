@@ -87,5 +87,53 @@ export default async function HomePage({
     stockLeft: 7,
   };
 
-  return <HomeClient products={products} productOfDay={productOfDay} storeName={store.name} />;
+  const isRestaurant = store.vertical === 'RESTAURANT';
+
+  // Fetch categories with product count (for MenuCategories section)
+  const dbCategories = isRestaurant
+    ? await db.category.findMany({
+        where: { storeId: store.id },
+        include: { _count: { select: { products: true } } },
+        orderBy: { sortOrder: 'asc' },
+      })
+    : [];
+
+  const menuCategories = dbCategories.map((c) => ({
+    slug: c.slug,
+    nameKey: c.nameKey,
+    image: c.image ?? undefined,
+    productCount: c._count.products,
+  }));
+
+  // Fetch top hit products as daily specials
+  const dbSpecials = isRestaurant
+    ? await db.product.findMany({
+        where: { storeId: store.id, isHit: true, inStock: true },
+        orderBy: { rating: 'desc' },
+        take: 3,
+      })
+    : [];
+
+  const BADGE_MAP = ['chef', 'popular', 'new'] as const;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dailySpecials = dbSpecials.map((p, i) => ({
+    id: p.id,
+    slug: p.slug,
+    name: t(p.nameKey),
+    description: ((p.metadata as Record<string, unknown> | null)?.description as Record<string, string> | undefined)?.en ?? '',
+    price: p.price,
+    currency: p.currency,
+    image: p.image ?? undefined,
+    badge: BADGE_MAP[i],
+  }));
+
+  return (
+    <HomeClient
+      products={products}
+      productOfDay={productOfDay}
+      storeName={store.name}
+      menuCategories={menuCategories.length > 0 ? menuCategories : undefined}
+      dailySpecials={dailySpecials.length > 0 ? dailySpecials : undefined}
+    />
+  );
 }
