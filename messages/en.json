@@ -267,5 +267,15 @@
     "pizza": "Pizza",
     "dolci": "Dolci",
     "bevande": "Bevande"
+  },
+  "dailySpecials": {
+    "tagline": "— TODAY'S SPECIALS —",
+    "title": "Chef's Selection",
+    "subtitle": "Hand-picked by our chef — available today only",
+    "order": "Order",
+    "chefPick": "Chef's Pick",
+    "popular": "Popular",
+    "new": "New",
+    "updatedAt": "Updated daily at 11:00"
   }
 }

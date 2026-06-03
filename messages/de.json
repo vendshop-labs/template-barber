@@ -267,5 +267,15 @@
     "pizza": "Pizza",
     "dolci": "Dolci",
     "bevande": "Getränke"
+  },
+  "dailySpecials": {
+    "tagline": "— TAGESGERICHTE —",
+    "title": "Auswahl des Küchenchefs",
+    "subtitle": "Handverlesen von unserem Küchenchef — nur heute verfügbar",
+    "order": "Bestellen",
+    "chefPick": "Empfehlung",
+    "popular": "Beliebt",
+    "new": "Neu",
+    "updatedAt": "Täglich um 11:00 aktualisiert"
   }
 }

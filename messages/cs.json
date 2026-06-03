@@ -267,5 +267,15 @@
     "pizza": "Pizza",
     "dolci": "Dolci",
     "bevande": "Nápoje"
+  },
+  "dailySpecials": {
+    "tagline": "— DENNÍ SPECIÁLY —",
+    "title": "Výběr šéfkuchaře",
+    "subtitle": "Vybráno naším šéfkuchařem — k dispozici pouze dnes",
+    "order": "Objednat",
+    "chefPick": "Tip šéfkuchaře",
+    "popular": "Oblíbené",
+    "new": "Novinka",
+    "updatedAt": "Aktualizováno denně v 11:00"
   }
 }
