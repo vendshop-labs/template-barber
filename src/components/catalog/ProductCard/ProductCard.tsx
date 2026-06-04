@@ -149,6 +149,11 @@ export default function ProductCard({
 
   const isRestaurant = vConfig.vertical === 'RESTAURANT';
 
+  const effectiveImage =
+    isRestaurant && image === '/placeholder-product.svg'
+      ? '/placeholder-product-dark.svg'
+      : image;
+
   return (
     <article className={`${styles.card} ${isRestaurant ? styles.cardDark : ''}`}>
       <div className={styles.media}>
@@ -174,7 +179,7 @@ export default function ProductCard({
 
         <Link className={styles.imageLink} href={href} aria-label={name}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.image} src={image} alt={name} loading="lazy" />
+          <img className={styles.image} src={effectiveImage} alt={name} loading="lazy" />
         </Link>
       </div>
 
