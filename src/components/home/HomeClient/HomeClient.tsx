@@ -1,18 +1,20 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import HeroSection from '@/components/home/HeroSection/HeroSection';
 import MenuCategories from '@/components/home/MenuCategories/MenuCategories';
-import DailySpecials from '@/components/home/DailySpecials/DailySpecials';
-import ReservationSection from '@/components/home/ReservationSection/ReservationSection';
-import GallerySection from '@/components/home/GallerySection/GallerySection';
-import AboutSection from '@/components/home/AboutSection/AboutSection';
 import CategoriesGrid from '@/components/home/CategoriesGrid/CategoriesGrid';
 import BestSellers from '@/components/home/BestSellers/BestSellers';
 import ProductOfDay from '@/components/home/ProductOfDay/ProductOfDay';
-import BrandsSection from '@/components/home/BrandsSection/BrandsSection';
-import TrustStrip from '@/components/home/TrustStrip/TrustStrip';
-import SubscribeBanner from '@/components/home/SubscribeBanner/SubscribeBanner';
-import PopularTags from '@/components/home/PopularTags/PopularTags';
+
+const DailySpecials = dynamic(() => import('@/components/home/DailySpecials/DailySpecials'));
+const ReservationSection = dynamic(() => import('@/components/home/ReservationSection/ReservationSection'));
+const GallerySection = dynamic(() => import('@/components/home/GallerySection/GallerySection'));
+const AboutSection = dynamic(() => import('@/components/home/AboutSection/AboutSection'));
+const BrandsSection = dynamic(() => import('@/components/home/BrandsSection/BrandsSection'));
+const TrustStrip = dynamic(() => import('@/components/home/TrustStrip/TrustStrip'));
+const SubscribeBanner = dynamic(() => import('@/components/home/SubscribeBanner/SubscribeBanner'));
+const PopularTags = dynamic(() => import('@/components/home/PopularTags/PopularTags'));
 import { useVerticalConfig } from '@/lib/vertical-context';
 import type { ProductCardProps } from '@/components/catalog/ProductCard/ProductCard';
 import type { ProductOfDayProps } from '@/components/home/ProductOfDay/ProductOfDay';

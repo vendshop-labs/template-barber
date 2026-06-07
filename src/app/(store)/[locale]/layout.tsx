@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
@@ -60,6 +60,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f172a' },
+  ],
+};
+
 // Re-check DB every 60 seconds (ISR)
 export const revalidate = 60;
 
@@ -88,6 +97,10 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} data-vertical={config.vertical.vertical} className={playfair.variable}>
+      <head>
+        <link rel="preconnect" href="https://conuflmgcnkfqjmncsth.public.blob.vercel-storage.com" />
+        <link rel="dns-prefetch" href="https://conuflmgcnkfqjmncsth.public.blob.vercel-storage.com" />
+      </head>
       <body style={cssVars as React.CSSProperties}>
         <NextIntlClientProvider messages={messages}>
           <VerticalProvider config={config.vertical}>
