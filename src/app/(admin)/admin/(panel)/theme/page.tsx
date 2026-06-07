@@ -17,6 +17,10 @@ const COLOR_FIELDS: { key: keyof ThemeConfig['colors']; label: string; hint: str
   { key: 'bgSubtle',      label: 'Background Subtle', hint: 'Cards hover, sections' },
   { key: 'success',       label: 'Success',           hint: 'Positive states' },
   { key: 'error',         label: 'Error',             hint: 'Negative states' },
+  { key: 'contrast',      label: 'Contrast Text',     hint: 'Text color on colored buttons' },
+  { key: 'overlay',       label: 'Overlay Base',      hint: 'Base color for overlays (hex)' },
+  { key: 'overlayAlpha',  label: 'Overlay w/ Alpha',  hint: 'Semi-transparent overlay (rgba)' },
+  { key: 'headerBg',      label: 'Header Scrolled',   hint: 'Scrolled header background (rgba)' },
 ];
 
 const HERO_OPTIONS: ThemeConfig['layout']['heroType'][]     = ['full-width', 'split', 'minimal'];

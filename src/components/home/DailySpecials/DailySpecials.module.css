@@ -140,7 +140,7 @@
 
 .orderBtn {
   background: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-contrast);
   border: none;
   border-radius: 8px;
   padding: 8px 20px;

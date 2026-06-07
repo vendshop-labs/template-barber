@@ -281,7 +281,7 @@
   height: 40px;
   width: 100%;
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-contrast);
   border: none;
   border-radius: var(--radius-md);
   font-family: inherit;
@@ -375,7 +375,7 @@
 }
 .cartDark {
   background: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-contrast);
 }
 .cartDark:hover:not(:disabled) {
   background: var(--color-primary-dark);

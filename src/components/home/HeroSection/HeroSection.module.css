@@ -72,7 +72,7 @@
   align-items: center;
   padding: 0.875rem 2rem;
   background: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-contrast);
   font-size: 0.9rem;
   font-weight: 600;
   border-radius: 6px;
@@ -89,18 +89,18 @@
   align-items: center;
   padding: 0.875rem 2rem;
   background: transparent;
-  color: #ffffff;
+  color: var(--color-text);
   font-size: 0.9rem;
   font-weight: 600;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border: 1.5px solid color-mix(in srgb, var(--color-text) 40%, transparent);
   border-radius: 6px;
   text-decoration: none;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .btnSecondary:hover {
-  border-color: #ffffff;
-  color: #ffffff;
+  border-color: var(--color-text);
+  color: var(--color-text);
 }
 
 .trustLine {
@@ -126,8 +126,8 @@
   inset: 0;
   background: linear-gradient(
     to right,
-    #0a0a0a 0%,
-    rgba(10, 10, 10, 0.6) 40%,
+    var(--color-bg) 0%,
+    var(--color-overlay-alpha) 40%,
     transparent 100%
   );
 }
@@ -178,7 +178,7 @@
   justify-content: center;
   padding: 0.5rem 1.25rem;
   background: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-contrast);
   font-size: 0.8rem;
   font-weight: 600;
   border-radius: 5px;
@@ -215,9 +215,9 @@
   .imageOverlay {
     background: linear-gradient(
       to bottom,
-      rgba(10, 10, 10, 0.3) 0%,
-      rgba(10, 10, 10, 0.85) 50%,
-      #0a0a0a 100%
+      color-mix(in srgb, var(--color-overlay) 30%, transparent) 0%,
+      color-mix(in srgb, var(--color-overlay) 85%, transparent) 50%,
+      var(--color-bg) 100%
     );
   }
 

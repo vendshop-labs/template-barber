@@ -11,6 +11,10 @@ export interface ThemeConfig {
     bgSubtle:      string;
     success:       string;
     error:         string;
+    contrast:      string;
+    overlay:       string;
+    overlayAlpha:  string;
+    headerBg:      string;
   };
   layout: {
     heroType:     'full-width' | 'split' | 'minimal';
@@ -33,6 +37,10 @@ export const DEFAULT_THEME: ThemeConfig = {
     bgSubtle:      '#f1f5f9',
     success:       '#16a34a',
     error:         '#ef4444',
+    contrast:      '#ffffff',
+    overlay:       '#000000',
+    overlayAlpha:  'rgba(0,0,0,0.6)',
+    headerBg:      'rgba(0,0,0,0.9)',
   },
   layout: {
     heroType:     'full-width',
@@ -83,6 +91,10 @@ export function themeToCssVars(theme: ThemeConfig): Record<string, string> {
     '--color-bg-subtle':      theme.colors.bgSubtle,
     '--color-success':        theme.colors.success,
     '--color-error':          theme.colors.error,
+    '--color-contrast':       theme.colors.contrast,
+    '--color-overlay':        theme.colors.overlay,
+    '--color-overlay-alpha':  theme.colors.overlayAlpha,
+    '--color-header-bg':      theme.colors.headerBg,
     // Border radius
     '--radius-xs': radius.xs,
     '--radius-sm': radius.sm,

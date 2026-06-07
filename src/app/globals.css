@@ -11,6 +11,10 @@
   --color-bg-subtle: #f1f5f9;
   --color-success: #16a34a;
   --color-error: #ef4444;
+  --color-contrast: #ffffff;
+  --color-overlay: #000000;
+  --color-overlay-alpha: rgba(0,0,0,0.6);
+  --color-header-bg: rgba(0,0,0,0.9);
 
   /* Layout — border radius (default: rounded) */
   --radius-xs: 4px;

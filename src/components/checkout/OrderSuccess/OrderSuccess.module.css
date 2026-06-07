@@ -143,7 +143,7 @@
 
 .btnPrimary {
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-contrast);
   border: 2px solid var(--color-primary);
   box-shadow: 0 4px 14px rgba(249, 115, 22, 0.28);
 }
