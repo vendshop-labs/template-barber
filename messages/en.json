@@ -74,7 +74,11 @@
     "allergens": "Allergens",
     "deliveryTime": "Delivery 30–45 min",
     "dineIn": "Dine-in available",
-    "takeaway": "Takeaway available"
+    "takeaway": "Takeaway available",
+    "frozen": "Frozen",
+    "refrigerated": "Refrigerated",
+    "organic": "Organic",
+    "expiryDays": "{days}d left"
   },
   "home": {
     "bestSellers": "Best Sellers",
@@ -314,13 +318,20 @@
   },
   "dailySpecials": {
     "tagline": "— TODAY'S SPECIALS —",
+    "taglineFood": "— SPECIAL OFFERS —",
     "title": "Chef's Selection",
+    "titleFood": "Today's Fresh Picks",
     "subtitle": "Hand-picked by our chef — available today only",
+    "subtitleFood": "Fresh arrivals and limited daily offers",
     "order": "Order",
+    "orderFood": "Add to basket",
     "chefPick": "Chef's Pick",
+    "staffPick": "Staff Pick",
     "popular": "Popular",
     "new": "New",
-    "updatedAt": "Updated daily at 11:00"
+    "freshToday": "Fresh today",
+    "updatedAt": "Updated daily at 11:00",
+    "updatedAtFood": "Restocked every morning"
   },
   "reservation": {
     "tagline": "— RESERVATIONS —",

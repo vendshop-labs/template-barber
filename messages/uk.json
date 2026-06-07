@@ -74,7 +74,11 @@
     "allergens": "Алергени",
     "deliveryTime": "Доставка 30–45 хв",
     "dineIn": "Можливо в залі",
-    "takeaway": "На винос"
+    "takeaway": "На винос",
+    "frozen": "Заморожено",
+    "refrigerated": "Охолоджено",
+    "organic": "Органіка",
+    "expiryDays": "{days} дн."
   },
   "home": {
     "bestSellers": "Хіти продаж",
@@ -313,14 +317,21 @@
     "bevande": "Напої"
   },
   "dailySpecials": {
-    "tagline": "— СТРАВИ ДНЯ —",
+    "tagline": "— СПЕЦІАЛЬНІ ПРОПОЗИЦІЇ —",
+    "taglineFood": "— СПЕЦІАЛЬНІ ПРОПОЗИЦІЇ —",
     "title": "Вибір шефа",
-    "subtitle": "Відібрано нашим шефом — тільки сьогодні",
+    "titleFood": "Сьогодні свіже",
+    "subtitle": "Обрано шеф-кухарем — тільки сьогодні",
+    "subtitleFood": "Свіжі надходження та денні пропозиції",
     "order": "Замовити",
+    "orderFood": "У кошик",
     "chefPick": "Вибір шефа",
+    "staffPick": "Наша порада",
     "popular": "Популярне",
     "new": "Новинка",
-    "updatedAt": "Оновлюється щодня о 11:00"
+    "freshToday": "Сьогодні свіже",
+    "updatedAt": "Оновлюється щодня о 11:00",
+    "updatedAtFood": "Поповнюється щоранку"
   },
   "reservation": {
     "tagline": "— БРОНЮВАННЯ —",

@@ -74,7 +74,11 @@
     "allergens": "Allergene",
     "deliveryTime": "Lieferung 30–45 Min",
     "dineIn": "Vor Ort essen",
-    "takeaway": "Zum Mitnehmen"
+    "takeaway": "Zum Mitnehmen",
+    "frozen": "Tiefgekühlt",
+    "refrigerated": "Gekühlt",
+    "organic": "Bio",
+    "expiryDays": "{days} Tage"
   },
   "home": {
     "bestSellers": "Bestseller",
@@ -313,14 +317,21 @@
     "bevande": "Getränke"
   },
   "dailySpecials": {
-    "tagline": "— TAGESGERICHTE —",
+    "tagline": "— TAGESANGEBOTE —",
+    "taglineFood": "— SONDERANGEBOTE —",
     "title": "Auswahl des Küchenchefs",
-    "subtitle": "Handverlesen von unserem Küchenchef — nur heute verfügbar",
+    "titleFood": "Frisch eingetroffen",
+    "subtitle": "Handverlesen vom Chef — nur heute verfügbar",
+    "subtitleFood": "Frische Angebote und tägliche Highlights",
     "order": "Bestellen",
-    "chefPick": "Empfehlung",
+    "orderFood": "In den Korb",
+    "chefPick": "Chef's Wahl",
+    "staffPick": "Unser Tipp",
     "popular": "Beliebt",
     "new": "Neu",
-    "updatedAt": "Täglich um 11:00 aktualisiert"
+    "freshToday": "Heute frisch",
+    "updatedAt": "Täglich aktualisiert um 11:00",
+    "updatedAtFood": "Jeden Morgen frisch aufgefüllt"
   },
   "reservation": {
     "tagline": "— RESERVIERUNG —",

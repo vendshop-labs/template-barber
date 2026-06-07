@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/stores/useCartStore';
+import { useVerticalConfig } from '@/lib/vertical-context';
 import styles from './DailySpecials.module.css';
 
 interface SpecialItem {
@@ -19,7 +20,7 @@ interface DailySpecialsProps {
   items?: SpecialItem[];
 }
 
-const FALLBACK_SPECIALS: SpecialItem[] = [
+const RESTAURANT_SPECIALS: SpecialItem[] = [
   {
     id: 'special-1',
     slug: 'spaghetti-carbonara',
@@ -49,6 +50,36 @@ const FALLBACK_SPECIALS: SpecialItem[] = [
   },
 ];
 
+const FOOD_MARKET_SPECIALS: SpecialItem[] = [
+  {
+    id: 'special-1',
+    slug: 'strawberries',
+    name: 'Fresh Strawberries',
+    description: 'Organic, hand-picked this morning — limited daily supply',
+    price: 3.49,
+    currency: '€',
+    badge: 'new',
+  },
+  {
+    id: 'special-2',
+    slug: 'sourdough-bread',
+    name: 'Sourdough Bread',
+    description: 'Freshly baked today — artisan recipe with 48h fermentation',
+    price: 3.49,
+    currency: '€',
+    badge: 'popular',
+  },
+  {
+    id: 'special-3',
+    slug: 'greek-yogurt',
+    name: 'Greek Yogurt',
+    description: 'Organic, high-protein — perfect for breakfast',
+    price: 2.29,
+    currency: '€',
+    badge: 'new',
+  },
+];
+
 const BADGE_CLASS: Record<NonNullable<SpecialItem['badge']>, string> = {
   chef:    styles.badgeChef,
   popular: styles.badgePopular,
@@ -58,22 +89,30 @@ const BADGE_CLASS: Record<NonNullable<SpecialItem['badge']>, string> = {
 export default function DailySpecials({ items }: DailySpecialsProps) {
   const t = useTranslations('dailySpecials');
   const addItem = useCartStore((s) => s.addItem);
+  const vConfig = useVerticalConfig();
+  const isRestaurant = vConfig.vertical === 'RESTAURANT';
 
-  const specials = items ?? FALLBACK_SPECIALS;
+  const specials = items ?? (isRestaurant ? RESTAURANT_SPECIALS : FOOD_MARKET_SPECIALS);
 
-  const BADGE_LABEL: Record<NonNullable<SpecialItem['badge']>, string> = {
-    chef:    `⭐ ${t('chefPick')}`,
-    popular: `🔥 ${t('popular')}`,
-    new:     `✨ ${t('new')}`,
-  };
+  const BADGE_LABEL: Record<NonNullable<SpecialItem['badge']>, string> = isRestaurant
+    ? {
+        chef:    `⭐ ${t('chefPick')}`,
+        popular: `🔥 ${t('popular')}`,
+        new:     `✨ ${t('new')}`,
+      }
+    : {
+        chef:    `⭐ ${t('staffPick')}`,
+        popular: `🔥 ${t('popular')}`,
+        new:     `✨ ${t('freshToday')}`,
+      };
 
   return (
     <section className={styles.section}>
       {/* Section header */}
       <div className={styles.header}>
-        <p className={styles.tagline}>{t('tagline')}</p>
-        <h2 className={styles.title}>{t('title')}</h2>
-        <p className={styles.subtitle}>{t('subtitle')}</p>
+        <p className={styles.tagline}>{isRestaurant ? t('tagline') : t('taglineFood')}</p>
+        <h2 className={styles.title}>{isRestaurant ? t('title') : t('titleFood')}</h2>
+        <p className={styles.subtitle}>{isRestaurant ? t('subtitle') : t('subtitleFood')}</p>
       </div>
 
       {/* Cards grid */}
@@ -113,7 +152,7 @@ export default function DailySpecials({ items }: DailySpecialsProps) {
                     })
                   }
                 >
-                  {t('order')}
+                  {isRestaurant ? t('order') : t('orderFood')}
                 </button>
               </div>
             </div>
@@ -121,7 +160,7 @@ export default function DailySpecials({ items }: DailySpecialsProps) {
         ))}
       </div>
 
-      <p className={styles.updatedNote}>{t('updatedAt')}</p>
+      <p className={styles.updatedNote}>{isRestaurant ? t('updatedAt') : t('updatedAtFood')}</p>
     </section>
   );
 }
