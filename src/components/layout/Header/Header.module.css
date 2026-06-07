@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   font-family: inherit;
-  background: #ffffff;
+  background: var(--color-bg, #fff);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -41,7 +41,7 @@
 
 /* ── Main bar ──────────────────────────────────────── */
 .bar {
-  background: #ffffff;
+  background: var(--color-bg, #fff);
 }
 
 .barInner {
@@ -64,7 +64,7 @@
   padding: 0;
   border: none;
   background: transparent;
-  color: #1e293b;
+  color: var(--color-text);
   cursor: pointer;
   border-radius: var(--radius-md);
 }
@@ -96,7 +96,7 @@
 .logoText {
   font-size: 20px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--color-text);
   white-space: nowrap;
 }
 
@@ -109,7 +109,7 @@
   padding: 0 20px;
   border: none;
   border-radius: var(--radius-md);
-  background: #22c55e;
+  background: var(--color-primary);
   color: #ffffff;
   text-decoration: none;
   font-size: 15px;
@@ -120,7 +120,7 @@
 }
 
 .catalog:hover {
-  background: var(--color-success);
+  background: var(--color-primary-dark);
 }
 
 /* ── Search ────────────────────────────────────────── */
@@ -140,16 +140,16 @@
   border-right: none;
   border-radius: 8px 0 0 8px;
   font-size: 15px;
-  color: #1e293b;
+  color: var(--color-text);
   outline: none;
 }
 
 .searchInput::placeholder {
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 .searchInput:focus {
-  border-color: #cbd5e1;
+  border-color: var(--color-border);
 }
 
 .searchButton {
@@ -157,7 +157,7 @@
   padding: 0 24px;
   border: none;
   border-radius: 0 8px 8px 0;
-  background: #1e293b;
+  background: var(--color-text);
   color: #ffffff;
   font-size: 15px;
   font-weight: 600;
@@ -167,7 +167,7 @@
 }
 
 .searchButton:hover {
-  background: #0f172a;
+  background: var(--color-text);
 }
 
 /* ── Action icons ──────────────────────────────────── */
@@ -185,12 +185,12 @@
   align-items: center;
   gap: 4px;
   text-decoration: none;
-  color: #475569;
+  color: var(--color-text-secondary);
   transition: color 0.15s ease;
 }
 
 .action:hover {
-  color: #1e293b;
+  color: var(--color-text);
 }
 
 .actionIcon {
@@ -214,7 +214,7 @@
 }
 
 .cart:hover {
-  color: #ea580c;
+  color: var(--color-primary-dark);
 }
 
 /* ── Badges ────────────────────────────────────────── */
@@ -229,7 +229,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 9px;
-  background: #64748b;
+  background: var(--color-text-muted);
   color: #ffffff;
   font-size: 11px;
   font-weight: 700;
@@ -254,7 +254,7 @@
   padding: 0 16px;
   border: none;
   border-radius: var(--radius-md);
-  background: #22c55e;
+  background: var(--color-primary);
   color: #ffffff;
   text-decoration: none;
   font-size: 15px;
@@ -274,7 +274,7 @@
 
 .mobileNav a {
   padding: 12px 4px;
-  color: #1e293b;
+  color: var(--color-text);
   text-decoration: none;
   font-size: 15px;
   border-bottom: 1px solid var(--color-bg-subtle);

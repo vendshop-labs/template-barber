@@ -14,6 +14,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     description: 'Чистий та професійний',
     theme: {
       colors: {
+        bg: '#ffffff',
         primary: '#3b82f6',
         primaryDark: '#2563eb',
         primaryLight: '#eff6ff',
@@ -39,6 +40,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     description: 'Затишний та теплий',
     theme: {
       colors: {
+        bg: '#fffbf5',
         primary: '#ea580c',
         primaryDark: '#c2410c',
         primaryLight: '#fff7ed',
@@ -64,6 +66,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     description: 'Сучасний та стильний',
     theme: {
       colors: {
+        bg: '#0f172a',
         primary: '#22c55e',
         primaryDark: '#16a34a',
         primaryLight: '#052e16',
@@ -89,6 +92,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     description: 'Яскравий та енергійний',
     theme: {
       colors: {
+        bg: '#ffffff',
         primary: '#dc2626',
         primaryDark: '#b91c1c',
         primaryLight: '#fef2f2',
@@ -114,6 +118,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     description: 'Природний та екологічний',
     theme: {
       colors: {
+        bg: '#fafaf5',
         primary: '#15803d',
         primaryDark: '#166534',
         primaryLight: '#f0fdf4',
@@ -139,6 +144,7 @@ export const THEME_PRESETS: ThemePreset[] = [
     description: 'Чистий та довірливий',
     theme: {
       colors: {
+        bg: '#ffffff',
         primary: '#0ea5e9',
         primaryDark: '#0284c7',
         primaryLight: '#f0f9ff',

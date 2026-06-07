@@ -1,7 +1,7 @@
 /* Site footer — dark navy band with four columns + bottom bar. */
 .footer {
-  background: #1e293b;
-  color: #cbd5e1;
+  background: var(--color-text);
+  color: var(--color-bg-subtle);
 }
 
 .wrap {
@@ -50,7 +50,7 @@
 .aboutDesc {
   font-size: 14px;
   line-height: 1.6;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   margin: 0;
   max-width: 320px;
 }
@@ -60,7 +60,7 @@
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   margin: 0;
 }
 
@@ -93,7 +93,7 @@
 
 .link {
   font-size: 14px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   text-decoration: none;
   transition: color 150ms ease;
 }
@@ -118,7 +118,7 @@
   align-items: flex-start;
   gap: 10px;
   font-size: 14px;
-  color: #cbd5e1;
+  color: var(--color-bg-subtle);
   text-decoration: none;
   line-height: 1.4;
 }
@@ -139,7 +139,7 @@
 }
 
 .contactItem {
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 /* ── Bottom bar ───────────────────────────────────── */
@@ -160,7 +160,7 @@
 
 .rights {
   font-size: 13px;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .bottomLinks {
@@ -170,7 +170,7 @@
 
 .bottomLink {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   text-decoration: none;
   transition: color 150ms ease;
 }

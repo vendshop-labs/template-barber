@@ -6,6 +6,7 @@ import { DEFAULT_THEME, type ThemeConfig } from '@/lib/theme';
 import { THEME_PRESETS } from '@/lib/theme-presets';
 
 const COLOR_FIELDS: { key: keyof ThemeConfig['colors']; label: string; hint: string }[] = [
+  { key: 'bg',            label: 'Background',        hint: 'Page background color' },
   { key: 'primary',       label: 'Primary',           hint: 'Buttons, links, accents' },
   { key: 'primaryDark',   label: 'Primary Dark',      hint: 'Hover/active state' },
   { key: 'primaryLight',  label: 'Primary Light',     hint: 'Light tint backgrounds' },

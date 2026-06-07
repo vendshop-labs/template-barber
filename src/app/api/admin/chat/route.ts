@@ -201,6 +201,7 @@ function buildTools(ctx: StoreContext) {
       input_schema: {
         type: 'object' as const,
         properties: {
+          bg:            { type: 'string', description: 'Page background color hex' },
           primary:       { type: 'string', description: 'Main brand color hex' },
           primaryDark:   { type: 'string', description: 'Hover/active state hex' },
           primaryLight:  { type: 'string', description: 'Light background tint hex' },
@@ -491,7 +492,7 @@ async function executeTool(tool: ToolParams): Promise<string> {
     case 'update_theme': {
       const p = tool.input as Record<string, string>;
       const currentT = store.themeConfig as Partial<ThemeConfig> | null;
-      const colorKeys = ['primary', 'primaryDark', 'primaryLight', 'text', 'textSecondary', 'textMuted', 'border', 'bgSubtle', 'success', 'error'];
+      const colorKeys = ['bg', 'primary', 'primaryDark', 'primaryLight', 'text', 'textSecondary', 'textMuted', 'border', 'bgSubtle', 'success', 'error'];
       const layoutKeys = ['heroType', 'cardStyle', 'navPosition', 'borderRadius'];
 
       const newColors: Record<string, string> = {};

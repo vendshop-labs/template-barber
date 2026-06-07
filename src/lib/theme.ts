@@ -1,5 +1,6 @@
 export interface ThemeConfig {
   colors: {
+    bg:            string;
     primary:       string;
     primaryDark:   string;
     primaryLight:  string;
@@ -21,6 +22,7 @@ export interface ThemeConfig {
 
 export const DEFAULT_THEME: ThemeConfig = {
   colors: {
+    bg:            '#ffffff',
     primary:       '#f97316',
     primaryDark:   '#ea6c00',
     primaryLight:  '#fff7ed',
@@ -70,6 +72,7 @@ export function themeToCssVars(theme: ThemeConfig): Record<string, string> {
 
   return {
     // Colors
+    '--color-bg':             theme.colors.bg,
     '--color-primary':        theme.colors.primary,
     '--color-primary-dark':   theme.colors.primaryDark,
     '--color-primary-light':  theme.colors.primaryLight,

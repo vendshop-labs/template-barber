@@ -419,6 +419,7 @@ async function createServer() {
     {
       description: 'Update store theme. Can change colors and layout. Pass only the fields you want to change.',
       inputSchema: {
+        bg:            z.string().optional().describe('Page background color hex'),
         primary:       z.string().optional().describe('Main brand color, e.g. "#3b82f6"'),
         primaryDark:   z.string().optional().describe('Hover/active state color'),
         primaryLight:  z.string().optional().describe('Light background tint'),
