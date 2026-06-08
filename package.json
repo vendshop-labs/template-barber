@@ -12,7 +12,8 @@
     "clean": "powershell -Command \"Remove-Item -Recurse -Force .next -ErrorAction SilentlyContinue\"",
     "seed": "npx tsx prisma/seed.ts",
     "seed:adriano": "npx tsx prisma/seed-adriano.ts",
-    "seed:food-market": "npx tsx prisma/seed-food-market.ts"
+    "seed:food-market": "npx tsx prisma/seed-food-market.ts",
+    "seed:stepstyle": "npx tsx prisma/seed-stepstyle.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
