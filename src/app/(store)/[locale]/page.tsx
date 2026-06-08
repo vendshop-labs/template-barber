@@ -71,6 +71,7 @@ export default async function HomePage({
     rating: t.rating,
     locale: t.locale,
     createdAt: t.createdAt.toISOString(),
+    adminReply: t.adminReply,
   }));
 
   const deliveryZones = dbZones.map((z) => ({

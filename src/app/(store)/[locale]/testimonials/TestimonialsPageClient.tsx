@@ -14,6 +14,7 @@ interface Props {
     rating: number;
     locale: string | null;
     createdAt: string;
+    adminReply?: string | null;
   }[];
   total: number;
 }
@@ -43,6 +44,7 @@ export default function TestimonialsPageClient({ testimonials, total }: Props) {
                 rating={item.rating}
                 createdAt={item.createdAt}
                 locale={item.locale ?? undefined}
+                adminReply={item.adminReply}
               />
             ))}
           </div>

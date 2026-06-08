@@ -6,6 +6,7 @@ interface TestimonialCardProps {
   rating: number;
   createdAt: string;
   locale?: string;
+  adminReply?: string | null;
 }
 
 function formatDate(iso: string, locale?: string): string {
@@ -22,7 +23,7 @@ function formatDate(iso: string, locale?: string): string {
   }
 }
 
-export default function TestimonialCard({ customerName, text, rating, createdAt, locale }: TestimonialCardProps) {
+export default function TestimonialCard({ customerName, text, rating, createdAt, locale, adminReply }: TestimonialCardProps) {
   const safeRating = Math.max(0, Math.min(5, Math.round(rating)));
   const stars = Array.from({ length: 5 }, (_, i) => i < safeRating);
   const initial = (customerName ?? 'C').charAt(0).toUpperCase();
@@ -44,6 +45,12 @@ export default function TestimonialCard({ customerName, text, rating, createdAt,
         ))}
       </div>
       <p className={styles.text}>&ldquo;{text}&rdquo;</p>
+      {adminReply && (
+        <div className={styles.adminReply}>
+          <span className={styles.adminReplyLabel}>Store reply:</span>
+          <p className={styles.adminReplyText}>{adminReply}</p>
+        </div>
+      )}
     </article>
   );
 }

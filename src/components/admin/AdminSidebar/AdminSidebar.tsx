@@ -70,7 +70,7 @@ const NAV_ECOMMERCE: NavItem[] = [
   },
   {
     href: '/admin/reviews',
-    label: 'Відгуки',
+    label: 'Reviews',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 17l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5Z" />
@@ -146,7 +146,7 @@ const NAV_RESTAURANT: NavItem[] = [
   },
   {
     href: '/admin/reviews',
-    label: 'Відгуки',
+    label: 'Reviews',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 17l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5Z" />
@@ -191,7 +191,7 @@ const NAV_FOOD_MARKET: NavItem[] = [
   },
   {
     href: '/admin/reviews',
-    label: 'Відгуки',
+    label: 'Reviews',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 17l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5Z" />

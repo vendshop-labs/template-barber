@@ -186,3 +186,28 @@
   background: var(--color-primary);
   color: var(--color-contrast, #fff);
 }
+
+/* ── Admin Reply on public cards ───────────────────── */
+.adminReply {
+  margin-top: 8px;
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--color-primary) 6%, var(--color-bg));
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 8px 8px 0;
+}
+
+.adminReplyLabel {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 2px;
+}
+
+.adminReplyText {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  font-style: normal;
+}

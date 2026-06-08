@@ -40,6 +40,7 @@ export default async function TestimonialsPage({ params }: { params: Promise<{ l
     rating: t.rating,
     locale: t.locale,
     createdAt: t.createdAt.toISOString(),
+    adminReply: t.adminReply,
   }));
 
   const aggregate =

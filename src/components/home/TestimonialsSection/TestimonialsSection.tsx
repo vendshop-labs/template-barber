@@ -13,6 +13,7 @@ export interface TestimonialItem {
   rating: number;
   locale: string | null;
   createdAt: string;
+  adminReply?: string | null;
 }
 
 interface TestimonialsSectionProps {
@@ -48,6 +49,7 @@ export default function TestimonialsSection({ testimonials, totalCount }: Testim
                 rating={item.rating}
                 createdAt={item.createdAt}
                 locale={item.locale ?? undefined}
+                adminReply={item.adminReply}
               />
             ))}
           </div>
