@@ -16,7 +16,7 @@ export interface FooterProps {
   /** Contact e-mail shown in the contacts column. */
   email?: string;
   /** Controls dark theme + restaurant-specific content. */
-  vertical?: Vertical;
+  vertical?: string;
 }
 
 // Catalog column reuses the existing `categories` namespace so the footer links

@@ -3,7 +3,7 @@ import type { Vertical } from '@prisma/client';
 // ── Feature flags per vertical ────────────────────────────────────────────
 
 export interface VerticalConfig {
-  vertical: Vertical;
+  vertical: string;
   label: string;
 
   product: {

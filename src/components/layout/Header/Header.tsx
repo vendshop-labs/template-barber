@@ -18,7 +18,7 @@ interface HeaderProps {
   /** Contact phone number shown in the announcement strip. */
   phone?: string;
   /** Controls which header variant to render. */
-  vertical?: Vertical;
+  vertical?: string;
 }
 
 type TFn = ReturnType<typeof useTranslations<'Header'>>;
@@ -290,7 +290,7 @@ export default function Header({
     return <RestaurantHeader storeName={storeName} phone={phone} t={t} />;
   }
 
-  if (vertical === 'SHOE_MARKET') {
+  if (String(vertical) === 'SHOE_MARKET') {
     return <ShoeMarketHeader storeName={storeName} t={t} />;
   }
 
