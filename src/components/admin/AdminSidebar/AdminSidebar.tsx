@@ -154,6 +154,51 @@ const NAV_RESTAURANT: NavItem[] = [
   },
 ];
 
+// ── FOOD_MARKET ──────────────────────────────────────────────────────────
+const NAV_FOOD_MARKET: NavItem[] = [
+  {
+    href: '/admin/products',
+    label: 'Продукти',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
+        <path d="M21 8 12 3 3 8v8l9 5 9-5V8Z" />
+        <path d="m3 8 9 5 9-5M12 13v8" />
+      </svg>
+    ),
+  },
+  {
+    href: '/admin/orders',
+    label: 'Замовлення',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
+        <circle cx="9" cy="20" r="1.5" />
+        <circle cx="18" cy="20" r="1.5" />
+        <path d="M2.5 3h2.2l2.2 12.2a1.5 1.5 0 0 0 1.5 1.2h8.8a1.5 1.5 0 0 0 1.5-1.2L21.5 7H6" />
+      </svg>
+    ),
+  },
+  {
+    href: '/admin/delivery-zones',
+    label: 'Зони доставки',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
+        <path d="M3 6.5h11v9H3zM14 9.5h4l3 3v3h-7z" />
+        <circle cx="7" cy="17.5" r="1.6" />
+        <circle cx="17.5" cy="17.5" r="1.6" />
+      </svg>
+    ),
+  },
+  {
+    href: '/admin/reviews',
+    label: 'Відгуки',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
+        <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 17l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5Z" />
+      </svg>
+    ),
+  },
+];
+
 // ── Shared bottom ─────────────────────────────────────────────────────────
 const NAV_SHARED_BOTTOM: NavItem[] = [
   {
@@ -233,7 +278,11 @@ export default function AdminSidebar({ storeName, vertical }: AdminSidebarProps)
     : vertical === 'FOOD_MARKET' ? MarketLogo
     : BoltLogo;
 
-  const verticalNav = vertical === 'RESTAURANT' ? NAV_RESTAURANT : NAV_ECOMMERCE;
+  const verticalNav = vertical === 'RESTAURANT'
+    ? NAV_RESTAURANT
+    : vertical === 'FOOD_MARKET'
+      ? NAV_FOOD_MARKET
+      : NAV_ECOMMERCE;
   const NAV = [...NAV_SHARED_TOP, ...verticalNav, ...NAV_SHARED_BOTTOM];
 
   const handleLogout = async () => {
