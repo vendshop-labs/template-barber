@@ -145,7 +145,6 @@ export const VERTICAL_CONFIGS: Record<Vertical, VerticalConfig> = {
       showBrand: true,
       showSku: false,
       cardVariant: 'food',
-      priceUnit: '/ kg',
     },
     delivery: {
       modes: [

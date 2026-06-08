@@ -212,16 +212,16 @@ export default function ProductCard({
         {isFood && metadata && (
           <div className={styles.foodBadges}>
             {metadata.temperature === 'frozen' && (
-              <span className={styles.badgeCold}>❄️ Заморожено</span>
+              <span className={styles.badgeCold}>❄️ {t('frozen')}</span>
             )}
             {metadata.temperature === 'refrigerated' && (
-              <span className={styles.badgeCold}>🧊 Холодильник</span>
+              <span className={styles.badgeCold}>🧊 {t('refrigerated')}</span>
             )}
             {!!metadata.organic && (
-              <span className={styles.badgeOrganic}>🌿 Organic</span>
+              <span className={styles.badgeOrganic}>🌿 {t('organic')}</span>
             )}
             {!!metadata.expiryDays && Number(metadata.expiryDays) < 7 && (
-              <span className={styles.badgeExpiry}>⏰ {String(metadata.expiryDays)} дн.</span>
+              <span className={styles.badgeExpiry}>⏰ {t('expiryDays', { days: String(metadata.expiryDays) })}</span>
             )}
           </div>
         )}
