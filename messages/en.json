@@ -94,7 +94,10 @@
     "frozen": "Frozen",
     "refrigerated": "Refrigerated",
     "organic": "Organic",
-    "expiryDays": "{days}d left"
+    "expiryDays": "{days}d left",
+    "zoomImage": "Zoom image",
+    "viewProduct": "View product",
+    "close": "Close"
   },
   "home": {
     "bestSellers": "Best Sellers",

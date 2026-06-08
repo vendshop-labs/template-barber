@@ -1,9 +1,10 @@
 'use client';
 
-import { type CSSProperties } from 'react';
+import { useState, type CSSProperties } from 'react';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import ImageLightbox from '@/components/ui/ImageLightbox';
 import { useCartStore } from '@/stores/useCartStore';
 import { useFavoritesStore } from '@/stores/useFavoritesStore';
 import { useCompareStore } from '@/stores/useCompareStore';
@@ -159,6 +160,7 @@ export default function ProductCard({
   const isFood = vConfig.product.cardVariant === 'food';
 
   const isPlaceholder = image === '/placeholder-product.svg';
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const effectiveImage =
     isRestaurant && isPlaceholder
@@ -187,6 +189,23 @@ export default function ProductCard({
         >
           <HeartIcon />
         </button>
+
+        {/* Zoom trigger — opens lightbox */}
+        {!isPlaceholder && (
+          <button
+            type="button"
+            className={styles.zoom}
+            onClick={() => setLightboxOpen(true)}
+            aria-label={t('zoomImage')}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+              <path d="M11 8v6" />
+              <path d="M8 11h6" />
+            </svg>
+          </button>
+        )}
 
         <Link className={styles.imageLink} href={href} aria-label={name}>
           <Image
@@ -285,6 +304,18 @@ export default function ProductCard({
           </button>
         )}
       </div>
+      {/* Image lightbox */}
+      {lightboxOpen && (
+        <ImageLightbox
+          src={effectiveImage}
+          alt={name}
+          productName={name}
+          brand={brand}
+          price={`${formatPrice(price)} ${currency}`}
+          href={href}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
     </article>
   );
 }

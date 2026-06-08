@@ -94,7 +94,10 @@
     "frozen": "Заморожено",
     "refrigerated": "Охолоджено",
     "organic": "Органіка",
-    "expiryDays": "{days} дн."
+    "expiryDays": "{days} дн.",
+    "zoomImage": "Збільшити зображення",
+    "viewProduct": "Переглянути товар",
+    "close": "Закрити"
   },
   "home": {
     "bestSellers": "Хіти продаж",

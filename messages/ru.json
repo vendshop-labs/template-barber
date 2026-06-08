@@ -94,7 +94,10 @@
     "frozen": "Заморожено",
     "refrigerated": "Охлаждённое",
     "organic": "Органик",
-    "expiryDays": "Срок {days} дн"
+    "expiryDays": "Срок {days} дн",
+    "zoomImage": "Увеличить изображение",
+    "viewProduct": "Просмотреть товар",
+    "close": "Закрыть"
   },
   "home": {
     "bestSellers": "Хиты продаж",

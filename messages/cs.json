@@ -94,7 +94,10 @@
     "frozen": "Zmrazené",
     "refrigerated": "Chlazené",
     "organic": "Bio",
-    "expiryDays": "{days} dní"
+    "expiryDays": "{days} dní",
+    "zoomImage": "Zvětšit obrázek",
+    "viewProduct": "Zobrazit produkt",
+    "close": "Zavřít"
   },
   "home": {
     "bestSellers": "Nejprodávanější",

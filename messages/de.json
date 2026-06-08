@@ -94,7 +94,10 @@
     "frozen": "Tiefgekühlt",
     "refrigerated": "Gekühlt",
     "organic": "Bio",
-    "expiryDays": "{days} Tage"
+    "expiryDays": "{days} Tage",
+    "zoomImage": "Bild vergroßern",
+    "viewProduct": "Produkt ansehen",
+    "close": "Schließen"
   },
   "home": {
     "bestSellers": "Bestseller",

@@ -94,7 +94,10 @@
     "frozen": "Mrożony",
     "refrigerated": "Chłodzony",
     "organic": "Ekologiczny",
-    "expiryDays": "Jeszcze {days} dni"
+    "expiryDays": "Jeszcze {days} dni",
+    "zoomImage": "Powiększ zdjęcie",
+    "viewProduct": "Zobacz produkt",
+    "close": "Zamknij"
   },
   "home": {
     "bestSellers": "Bestsellery",
