@@ -9,6 +9,7 @@ import { useFavoritesStore } from '@/stores/useFavoritesStore';
 import { useCompareStore } from '@/stores/useCompareStore';
 import StoreLogo from '@/components/ui/StoreLogo';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import { useCustomer } from '@/lib/useCustomer';
 import styles from './Header.module.css';
 
 interface HeaderProps {
@@ -24,6 +25,7 @@ type TFn = ReturnType<typeof useTranslations<'Header'>>;
 
 function RestaurantHeader({ storeName, phone, t }: { storeName: string; phone: string; t: TFn }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { customer } = useCustomer();
 
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -80,6 +82,9 @@ function RestaurantHeader({ storeName, phone, t }: { storeName: string; phone: s
           <a href="/#gallery" onClick={(e) => scrollTo(e, 'gallery')}>{t('restaurantGallery')}</a>
           <a href="/#about" onClick={(e) => scrollTo(e, 'about')}>{t('restaurantAbout')}</a>
           <a href="/#contacts" onClick={(e) => scrollTo(e, 'contacts')}>{t('restaurantContacts')}</a>
+          <Link href="/login" className={styles.restNavLink}>
+            {customer ? (customer.name?.split(' ')[0] ?? t('myAccount')) : t('login')}
+          </Link>
         </nav>
 
         {/* Phone */}
@@ -126,6 +131,9 @@ function RestaurantHeader({ storeName, phone, t }: { storeName: string; phone: s
           <a href="/#about" onClick={(e) => scrollTo(e, 'about')}>{t('restaurantAbout')}</a>
           <a href="/#contacts" onClick={(e) => scrollTo(e, 'contacts')}>{t('restaurantContacts')}</a>
           <a href={`tel:${phone.replace(/[^+\d]/g, '')}`} onClick={() => setIsMenuOpen(false)}>{phone}</a>
+          <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+            {customer ? (customer.name?.split(' ')[0] ?? t('myAccount')) : t('login')}
+          </Link>
         </div>
       )}
     </header>
@@ -134,6 +142,7 @@ function RestaurantHeader({ storeName, phone, t }: { storeName: string; phone: s
 
 function ShoeMarketHeader({ storeName, t }: { storeName: string; t: TFn }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { customer } = useCustomer();
 
   return (
     <header className={styles.shoeHeader}>
@@ -208,6 +217,12 @@ function ShoeMarketHeader({ storeName, t }: { storeName: string; t: TFn }) {
 
           {/* Actions */}
           <nav className={styles.shoeActions}>
+            <Link className={styles.shoeAction} href="/login">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill={customer ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </Link>
             <Link className={styles.shoeAction} href="/favorites">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -233,6 +248,9 @@ function ShoeMarketHeader({ storeName, t }: { storeName: string; t: TFn }) {
           <Link href="/catalog?gender=kids" onClick={() => setIsMenuOpen(false)}>{t('shoeNavKids')}</Link>
           <Link href="/catalog?tab=brands" onClick={() => setIsMenuOpen(false)}>{t('shoeNavBrands')}</Link>
           <Link href="/catalog?sale=true" onClick={() => setIsMenuOpen(false)} className={styles.shoeNavSale}>{t('shoeNavSale')}</Link>
+          <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+            {customer ? (customer.name?.split(' ')[0] ?? t('myAccount')) : t('login')}
+          </Link>
           <LanguageSwitcher variant="inline" />
         </div>
       )}
@@ -251,6 +269,7 @@ export default function Header({
   const [searchQuery, setSearchQuery] = useState('');
   const favoritesCount = useFavoritesStore((s) => s.items.length);
   const compareCount = useCompareStore((s) => s.items.length);
+  const { customer } = useCustomer();
 
   useEffect(() => {
     useFavoritesStore.persist.rehydrate();
@@ -406,25 +425,27 @@ export default function Header({
 
           {/* Action icons */}
           <nav className={styles.actions} aria-label={t('menu')}>
-            <Link className={styles.action} href="/login">
-              <span className={styles.actionIcon}>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-              </span>
-              <span className={styles.actionLabel}>{t('login')}</span>
-            </Link>
+            {customer ? (
+              <Link className={styles.action} href="/login">
+                <span className={`${styles.actionIcon} ${styles.actionIconActive}`}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </span>
+                <span className={styles.actionLabel}>{customer.name?.split(' ')[0] ?? t('myAccount')}</span>
+              </Link>
+            ) : (
+              <Link className={styles.action} href="/login">
+                <span className={styles.actionIcon}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </span>
+                <span className={styles.actionLabel}>{t('login')}</span>
+              </Link>
+            )}
 
             <Link className={styles.action} href="/compare">
               <span className={styles.actionIcon}>
@@ -539,7 +560,7 @@ export default function Header({
 
           <nav className={styles.mobileNav}>
             <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-              {t('login')}
+              {customer ? (customer.name?.split(' ')[0] ?? t('myAccount')) : t('login')}
             </Link>
             <Link href="/compare" onClick={() => setIsMenuOpen(false)}>
               {t('compare')}

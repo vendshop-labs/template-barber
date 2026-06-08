@@ -701,3 +701,18 @@
     color: var(--color-primary);
   }
 }
+
+.actionIconActive {
+  color: var(--color-primary);
+}
+
+.restNavLink {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
+}
+
+.restNavLink:hover {
+  opacity: 1;
+}
