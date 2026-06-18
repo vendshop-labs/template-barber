@@ -29,10 +29,7 @@ export default function HeroAdminPage() {
   useEffect(() => {
     fetch('/api/admin/hero')
       .then((r) => r.ok ? r.json() as Promise<HeroConfig | null> : null)
-      .then((cfg) => {
-        if (cfg) setForm(cfg);
-        setLoading(false);
-      })
+      .then((cfg) => { if (cfg) setForm(cfg); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 
@@ -54,8 +51,7 @@ export default function HeroAdminPage() {
       setUploading(true);
       const fd = new FormData();
       fd.append('file', file);
-      fd.append('purpose', 'hero');
-      const up = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+      const up = await fetch('/api/admin/hero/upload', { method: 'POST', body: fd });
       setUploading(false);
       if (!up.ok) {
         const d = await up.json() as { error?: string };
@@ -100,9 +96,7 @@ export default function HeroAdminPage() {
     <div className="admin-page">
       <div className="admin-page__header">
         <h1>Hero sekcia</h1>
-        {saved && (
-          <span style={{ color: '#4ade80', fontSize: '0.875rem' }}>✓ Uložené</span>
-        )}
+        {saved && <span style={{ color: '#4ade80', fontSize: '0.875rem' }}>✓ Uložené</span>}
       </div>
 
       <form onSubmit={save} className="admin-masters__form">
@@ -133,34 +127,40 @@ export default function HeroAdminPage() {
           </div>
           <div className="booking__field" style={{ gridColumn: '1 / -1' }}>
             <label>Hero foto</label>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-              {displayImage && (
-                <img
-                  src={displayImage}
-                  alt="hero náhľad"
-                  style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 6, flexShrink: 0 }}
-                />
-              )}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                <input
-                  ref={fileRef}
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  onChange={handleFileChange}
-                  style={{ color: 'var(--color-text-secondary, #b0a898)' }}
-                />
-                {form.imageUrl && (
-                  <button
-                    type="button"
-                    className="btn-sm btn-danger"
-                    onClick={() => setForm((p) => ({ ...p, imageUrl: null }))}
-                    style={{ alignSelf: 'flex-start' }}
-                  >
-                    Odstrániť foto
-                  </button>
-                )}
-              </div>
-            </div>
+            {displayImage && (
+              <img
+                src={displayImage}
+                alt="hero náhľad"
+                style={{
+                  width: '100%',
+                  maxHeight: '280px',
+                  objectFit: 'cover',
+                  borderRadius: '8px',
+                  border: '1px solid var(--color-border, rgba(184,115,51,0.2))',
+                  marginBottom: '0.75rem',
+                }}
+              />
+            )}
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{ color: 'var(--color-text-secondary, #b0a898)' }}
+            />
+            <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '0.35rem' }}>
+              Všetky formáty (JPEG, PNG, WebP, GIF, AVIF). Výstup: WebP 1920×1080. Max. 10MB
+            </span>
+            {form.imageUrl && (
+              <button
+                type="button"
+                className="btn-sm btn-danger"
+                onClick={() => { setForm((p) => ({ ...p, imageUrl: null })); setPreview(null); }}
+                style={{ alignSelf: 'flex-start', marginTop: '0.5rem' }}
+              >
+                Odstrániť foto
+              </button>
+            )}
           </div>
         </div>
 
@@ -169,11 +169,7 @@ export default function HeroAdminPage() {
         )}
 
         <div style={{ marginTop: '1.5rem' }}>
-          <button
-            type="submit"
-            className="btn-primary btn-sm"
-            disabled={saving || uploading}
-          >
+          <button type="submit" className="btn-primary btn-sm" disabled={saving || uploading}>
             {uploading ? 'Nahrávam fotku...' : saving ? 'Ukladá sa...' : 'Uložiť zmeny'}
           </button>
         </div>

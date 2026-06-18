@@ -7,8 +7,24 @@ import { usePathname, useRouter } from 'next/navigation';
 import StoreLogo from '@/components/ui/StoreLogo';
 import styles from './AdminSidebar.module.css';
 
-// Admin is a standalone Ukrainian-only owner tool — strings are hardcoded by
-// design (the storefront's i18n rule does not apply here).
+const ADMIN_NAV_LABELS = {
+  dashboard:      'Prehľad',
+  hero:           'Hero sekcia',
+  services:       'Služby',
+  reservations:   'Rezervácie',
+  masters:        'Majstri',
+  gallery:        'Galéria',
+  reviews:        'Recenzie',
+  products:       'Produkty',
+  orders:         'Objednávky',
+  promotions:     'Akcie',
+  menu:           'Jedálny lístok',
+  tables:         'Stoly',
+  deliveryZones:  'Doručovacie zóny',
+  theme:          'Téma',
+  ai:             'AI správa',
+  settings:       'Nastavenia',
+} as const;
 
 const ico = {
   fill: 'none',
@@ -33,7 +49,7 @@ interface AdminSidebarProps {
 const NAV_SHARED_TOP: NavItem[] = [
   {
     href: '/admin',
-    label: 'Prehľad',
+    label: ADMIN_NAV_LABELS.dashboard,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <rect x="3" y="3" width="7" height="9" rx="1.5" />
@@ -49,7 +65,7 @@ const NAV_SHARED_TOP: NavItem[] = [
 const NAV_ECOMMERCE: NavItem[] = [
   {
     href: '/admin/products',
-    label: 'Товари',
+    label: ADMIN_NAV_LABELS.products,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M21 8 12 3 3 8v8l9 5 9-5V8Z" />
@@ -59,7 +75,7 @@ const NAV_ECOMMERCE: NavItem[] = [
   },
   {
     href: '/admin/orders',
-    label: 'Замовлення',
+    label: ADMIN_NAV_LABELS.orders,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <circle cx="9" cy="20" r="1.5" />
@@ -70,7 +86,7 @@ const NAV_ECOMMERCE: NavItem[] = [
   },
   {
     href: '/admin/reviews',
-    label: 'Reviews',
+    label: ADMIN_NAV_LABELS.reviews,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 17l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5Z" />
@@ -79,7 +95,7 @@ const NAV_ECOMMERCE: NavItem[] = [
   },
   {
     href: '/admin/promotions',
-    label: 'Акції',
+    label: ADMIN_NAV_LABELS.promotions,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M3 11V6.5A1.5 1.5 0 0 1 4.5 5H11l9 9-6.5 6.5-9-9Z" />
@@ -93,7 +109,7 @@ const NAV_ECOMMERCE: NavItem[] = [
 const NAV_RESTAURANT: NavItem[] = [
   {
     href: '/admin/reservations',
-    label: 'Бронювання',
+    label: ADMIN_NAV_LABELS.reservations,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -104,7 +120,7 @@ const NAV_RESTAURANT: NavItem[] = [
   },
   {
     href: '/admin/products',
-    label: 'Меню (страви)',
+    label: ADMIN_NAV_LABELS.menu,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M21 8 12 3 3 8v8l9 5 9-5V8Z" />
@@ -114,7 +130,7 @@ const NAV_RESTAURANT: NavItem[] = [
   },
   {
     href: '/admin/tables',
-    label: 'Столи',
+    label: ADMIN_NAV_LABELS.tables,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <rect x="4" y="8" width="16" height="8" rx="2" />
@@ -124,7 +140,7 @@ const NAV_RESTAURANT: NavItem[] = [
   },
   {
     href: '/admin/gallery',
-    label: 'Галерея',
+    label: ADMIN_NAV_LABELS.gallery,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -135,7 +151,7 @@ const NAV_RESTAURANT: NavItem[] = [
   },
   {
     href: '/admin/orders',
-    label: 'Замовлення',
+    label: ADMIN_NAV_LABELS.orders,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <circle cx="9" cy="20" r="1.5" />
@@ -146,7 +162,7 @@ const NAV_RESTAURANT: NavItem[] = [
   },
   {
     href: '/admin/reviews',
-    label: 'Reviews',
+    label: ADMIN_NAV_LABELS.reviews,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 17l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5Z" />
@@ -159,7 +175,7 @@ const NAV_RESTAURANT: NavItem[] = [
 const NAV_SERVICES: NavItem[] = [
   {
     href: '/admin/hero',
-    label: 'Hero sekcia',
+    label: ADMIN_NAV_LABELS.hero,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <rect x="3" y="3" width="18" height="14" rx="2" />
@@ -169,7 +185,7 @@ const NAV_SERVICES: NavItem[] = [
   },
   {
     href: '/admin/services',
-    label: 'Služby',
+    label: ADMIN_NAV_LABELS.services,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M6 3v12M6 3C6 3 3 6 3 9s3 3 3 3M6 15c0 0-3-1-3-3M18 3v12M18 3c0 0 3 3 3 6s-3 3-3 3M18 15c0 0 3-1 3-3M6 19h12M9 19v2M15 19v2" />
@@ -178,7 +194,7 @@ const NAV_SERVICES: NavItem[] = [
   },
   {
     href: '/admin/appointments',
-    label: 'Rezervácie',
+    label: ADMIN_NAV_LABELS.reservations,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -189,7 +205,7 @@ const NAV_SERVICES: NavItem[] = [
   },
   {
     href: '/admin/masters',
-    label: 'Majstri',
+    label: ADMIN_NAV_LABELS.masters,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <circle cx="12" cy="8" r="4" />
@@ -199,7 +215,7 @@ const NAV_SERVICES: NavItem[] = [
   },
   {
     href: '/admin/gallery',
-    label: 'Galéria',
+    label: ADMIN_NAV_LABELS.gallery,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -210,7 +226,7 @@ const NAV_SERVICES: NavItem[] = [
   },
   {
     href: '/admin/testimonials',
-    label: 'Recenzie',
+    label: ADMIN_NAV_LABELS.reviews,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 17l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5Z" />
@@ -223,7 +239,7 @@ const NAV_SERVICES: NavItem[] = [
 const NAV_FOOD_MARKET: NavItem[] = [
   {
     href: '/admin/products',
-    label: 'Продукти',
+    label: ADMIN_NAV_LABELS.products,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M21 8 12 3 3 8v8l9 5 9-5V8Z" />
@@ -233,7 +249,7 @@ const NAV_FOOD_MARKET: NavItem[] = [
   },
   {
     href: '/admin/orders',
-    label: 'Замовлення',
+    label: ADMIN_NAV_LABELS.orders,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <circle cx="9" cy="20" r="1.5" />
@@ -244,7 +260,7 @@ const NAV_FOOD_MARKET: NavItem[] = [
   },
   {
     href: '/admin/delivery-zones',
-    label: 'Зони доставки',
+    label: ADMIN_NAV_LABELS.deliveryZones,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M3 6.5h11v9H3zM14 9.5h4l3 3v3h-7z" />
@@ -255,7 +271,7 @@ const NAV_FOOD_MARKET: NavItem[] = [
   },
   {
     href: '/admin/reviews',
-    label: 'Reviews',
+    label: ADMIN_NAV_LABELS.reviews,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 17l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5Z" />
@@ -268,7 +284,7 @@ const NAV_FOOD_MARKET: NavItem[] = [
 const NAV_SHARED_BOTTOM: NavItem[] = [
   {
     href: '/admin/theme',
-    label: 'Téma',
+    label: ADMIN_NAV_LABELS.theme,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <circle cx="13.5" cy="6.5" r="2" />
@@ -281,7 +297,7 @@ const NAV_SHARED_BOTTOM: NavItem[] = [
   },
   {
     href: '/admin/ai',
-    label: 'AI správa',
+    label: ADMIN_NAV_LABELS.ai,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <rect x="5" y="7" width="14" height="12" rx="3" />
@@ -292,7 +308,7 @@ const NAV_SHARED_BOTTOM: NavItem[] = [
   },
   {
     href: '/admin/settings',
-    label: 'Nastavenia',
+    label: ADMIN_NAV_LABELS.settings,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
         <circle cx="12" cy="12" r="3" />
