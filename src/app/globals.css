@@ -172,7 +172,9 @@ body::after {
 .header__logo-span {
   color: var(--color-text-primary);
   font-weight: 400;
+  transition: color 0.2s;
 }
+.header__logo:hover .header__logo-span { color: var(--color-gold); }
 
 .header__nav {
   display: flex;

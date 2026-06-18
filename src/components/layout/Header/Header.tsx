@@ -50,7 +50,7 @@ export default function Header() {
   return (
     <header className={headerClass}>
       <div className="header__inner">
-        <Link href="#" className="header__logo">
+        <Link href="/sk" className="header__logo">
           Kate <span className="header__logo-span">Barber Studio</span>
         </Link>
 
