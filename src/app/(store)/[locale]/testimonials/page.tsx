@@ -1,72 +1,93 @@
-import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { db } from '@/lib/db';
-import TestimonialsPageClient from './TestimonialsPageClient';
+'use client';
 
-const STORE_SLUG = process.env.STORE_SLUG ?? 'electromarket';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import TestimonialCard from '@/components/ui/TestimonialCard';
 
-export const dynamic = 'force-dynamic';
-
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'testimonials' });
-  return {
-    title: t('pageTitle'),
-    description: t('pageDescription'),
-  };
+interface TestimonialItem {
+  id: string;
+  name: string;
+  content: string;
+  rating: number;
+  createdAt: string;
+  adminReply?: string | null;
+  adminReplyAt?: string | null;
 }
 
-export default async function TestimonialsPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+interface ApiResponse {
+  items: Array<{
+    id: string;
+    name: string;
+    content: string;
+    rating: number;
+    createdAt: string;
+    adminReply?: string | null;
+    adminReplyAt?: string | null;
+  }>;
+  total: number;
+}
 
-  const store = await db.store.findUnique({ where: { slug: STORE_SLUG } });
-  if (!store) return <p>Store not found</p>;
+export default function TestimonialsPage() {
+  const [testimonials, setTestimonials] = useState<TestimonialItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const [items, total] = await Promise.all([
-    db.testimonial.findMany({
-      where: { storeId: store.id, status: 'APPROVED' },
-      orderBy: { createdAt: 'desc' },
-      include: { customer: { select: { name: true } } },
-    }),
-    db.testimonial.count({
-      where: { storeId: store.id, status: 'APPROVED' },
-    }),
-  ]);
+  useEffect(() => {
+    fetch('/api/testimonials')
+      .then((r) => r.json())
+      .then((d: ApiResponse) => {
+        setTestimonials(d.items ?? []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
 
-  const testimonials = items.map((t) => ({
-    id: t.id,
-    customerName: t.customer.name ?? 'Klient',
-    text: t.text,
-    rating: t.rating,
-    locale: t.locale,
-    createdAt: t.createdAt.toISOString(),
-    adminReply: t.adminReply,
-    adminReplyAt: t.adminReplyAt?.toISOString() ?? null,
-  }));
-
-  const aggregate =
-    total > 0
-      ? { count: total, average: +(items.reduce((s, t) => s + t.rating, 0) / items.length).toFixed(1) }
-      : null;
+  const avgRating = testimonials.length
+    ? (testimonials.reduce((s, t) => s + t.rating, 0) / testimonials.length).toFixed(1)
+    : null;
 
   return (
-    <>
-      {aggregate && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'AggregateRating',
-              ratingValue: aggregate.average,
-              reviewCount: aggregate.count,
-              bestRating: 5,
-              worstRating: 1,
-            }),
-          }}
-        />
-      )}
-      <TestimonialsPageClient testimonials={testimonials} total={total} />
-    </>
+    <main style={{ paddingTop: '5rem', minHeight: '100vh' }}>
+      <section className="testimonials-page__section">
+
+        <div className="testimonials-list__header">
+          <div className="section-header" style={{ textAlign: 'left', margin: 0 }}>
+            <p className="section-label">Recenzie</p>
+            <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--color-text-primary)' }}>
+              Čo hovoria naši klienti
+            </h1>
+            {avgRating && (
+              <p style={{ color: 'var(--color-text-muted)', marginTop: '0.5rem' }}>
+                ⭐ {avgRating} · {testimonials.length} recenzií
+              </p>
+            )}
+          </div>
+          <Link href="/sk/testimonials/submit" className="btn-primary">
+            Zanechať recenziu
+          </Link>
+        </div>
+
+        {loading ? (
+          <div className="testimonials-page__grid">
+            {[0, 1, 2, 3].map((i) => (
+              <div key={i} className="testimonial-card" style={{ opacity: 0.3, minHeight: 160 }} />
+            ))}
+          </div>
+        ) : testimonials.length > 0 ? (
+          <div className="testimonials-page__grid">
+            {testimonials.map((t) => (
+              <TestimonialCard key={t.id} {...t} />
+            ))}
+          </div>
+        ) : (
+          <div className="testimonials-page__empty">
+            <p>Zatiaľ žiadne recenzie.</p>
+            <Link href="/sk/testimonials/submit" className="btn-outline" style={{ marginTop: '1rem', display: 'inline-flex' }}>
+              Buďte prvý!
+            </Link>
+          </div>
+        )}
+
+      </section>
+    </main>
   );
 }
