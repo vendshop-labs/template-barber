@@ -802,6 +802,46 @@ body::after {
 .booking__form-row { display: flex; gap: 1rem; }
 .booking__form-row > div { flex: 1; }
 
+/* Generic field wrapper — label stacked above input/textarea */
+.booking__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.booking__field label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text-secondary, #B0A898);
+}
+.booking__field input,
+.booking__field textarea {
+  width: 100%;
+  background: rgba(22, 22, 22, 0.8);
+  border: 1px solid rgba(201, 96, 48, 0.2);
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  color: var(--color-text-primary, #FFFFFF);
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.booking__field textarea { resize: vertical; min-height: 100px; }
+.booking__field input:focus,
+.booking__field textarea:focus {
+  border-color: var(--color-gold, #C96030);
+  background: rgba(30, 30, 30, 0.9);
+}
+.booking__field input::placeholder,
+.booking__field textarea::placeholder {
+  color: var(--color-text-muted, #666666);
+}
+
 .booking__label {
   display: block;
   font-size: 0.75rem;
