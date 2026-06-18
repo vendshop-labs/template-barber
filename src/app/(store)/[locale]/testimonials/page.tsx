@@ -35,12 +35,13 @@ export default async function TestimonialsPage({ params }: { params: Promise<{ l
 
   const testimonials = items.map((t) => ({
     id: t.id,
-    customerName: t.customer.name ?? 'Customer',
+    customerName: t.customer.name ?? 'Klient',
     text: t.text,
     rating: t.rating,
     locale: t.locale,
     createdAt: t.createdAt.toISOString(),
     adminReply: t.adminReply,
+    adminReplyAt: t.adminReplyAt?.toISOString() ?? null,
   }));
 
   const aggregate =

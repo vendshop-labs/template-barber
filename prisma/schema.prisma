@@ -380,9 +380,10 @@ model Testimonial {
   text   String
   rating Int    @default(5)
 
-  status     TestimonialStatus @default(PENDING)
-  locale     String?
-  adminReply String?
+  status        TestimonialStatus @default(PENDING)
+  locale        String?
+  adminReply    String?
+  adminReplyAt  DateTime?
 
   customerId String
   customer   Customer @relation(fields: [customerId], references: [id])

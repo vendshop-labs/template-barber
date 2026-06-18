@@ -155,6 +155,51 @@ const NAV_RESTAURANT: NavItem[] = [
   },
 ];
 
+// ── SERVICES (Barbershop / Beauty / etc.) ────────────────────────────────
+const NAV_SERVICES: NavItem[] = [
+  {
+    href: '/admin/appointments',
+    label: 'Записи',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
+        <circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+  },
+  {
+    href: '/admin/masters',
+    label: 'Майстри',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
+        <circle cx="12" cy="8" r="4" />
+        <path d="M5.5 21a7.5 7.5 0 0 1 13 0" />
+      </svg>
+    ),
+  },
+  {
+    href: '/admin/gallery',
+    label: 'Галерея',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <path d="M21 15l-5-5L5 21" />
+      </svg>
+    ),
+  },
+  {
+    href: '/admin/testimonials',
+    label: 'Recenzie',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
+        <path d="M12 3.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L12 17l-5.25 2.75 1-5.85L3.5 9.65l5.9-.85L12 3.5Z" />
+      </svg>
+    ),
+  },
+];
+
 // ── FOOD_MARKET ──────────────────────────────────────────────────────────
 const NAV_FOOD_MARKET: NavItem[] = [
   {
@@ -255,7 +300,9 @@ export default function AdminSidebar({ storeName, vertical }: AdminSidebarProps)
     ? NAV_RESTAURANT
     : vertical === 'FOOD_MARKET'
       ? NAV_FOOD_MARKET
-      : NAV_ECOMMERCE;
+      : vertical === 'SERVICES'
+        ? NAV_SERVICES
+        : NAV_ECOMMERCE;
   const NAV = [...NAV_SHARED_TOP, ...verticalNav, ...NAV_SHARED_BOTTOM];
 
   const handleLogout = async () => {

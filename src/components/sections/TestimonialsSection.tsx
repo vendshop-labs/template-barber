@@ -1,8 +1,37 @@
-import { TESTIMONIALS } from '@/lib/constants';
-import GoldDivider from '@/components/ui/GoldDivider';
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import TestimonialCard from '@/components/ui/TestimonialCard';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import GoldDivider from '@/components/ui/GoldDivider';
+
+interface TestimonialItem {
+  id: string;
+  name: string;
+  content: string;
+  rating: number;
+  createdAt: string;
+  adminReply?: string | null;
+  adminReplyAt?: string | null;
+}
 
 export default function TestimonialsSection() {
+  const [testimonials, setTestimonials] = useState<TestimonialItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/testimonials?limit=3')
+      .then((r) => r.json())
+      .then((data: { items?: TestimonialItem[] }) => {
+        setTestimonials(data.items ?? []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (!loading && testimonials.length === 0) return null;
+
   return (
     <section id="recenzie" className="testimonials">
       <ScrollReveal direction="up" className="section-header">
@@ -11,17 +40,32 @@ export default function TestimonialsSection() {
         <GoldDivider />
       </ScrollReveal>
 
-      <div className="testimonials-grid">
-        {TESTIMONIALS.map((testimonial, i) => (
-          <ScrollReveal key={testimonial.author} direction="up" delay={i * 150}>
-            <div className="testimonial-card">
-              <div className="testimonial-stars">{'★'.repeat(testimonial.stars)}</div>
-              <p className="testimonial-text">{testimonial.text}</p>
-              <p className="testimonial-author">{testimonial.author}</p>
-              <p className="testimonial-date">{testimonial.date}</p>
-            </div>
-          </ScrollReveal>
-        ))}
+      <div className="testimonials__grid">
+        {loading
+          ? [0, 1, 2].map((i) => (
+              <div key={i} className="testimonial-card" style={{ opacity: 0.3, minHeight: 180 }} />
+            ))
+          : testimonials.map((t, i) => (
+              <ScrollReveal key={t.id} direction="up" delay={i * 120}>
+                <TestimonialCard
+                  name={t.name}
+                  content={t.content}
+                  rating={t.rating}
+                  createdAt={t.createdAt}
+                  adminReply={t.adminReply}
+                  adminReplyAt={t.adminReplyAt}
+                />
+              </ScrollReveal>
+            ))}
+      </div>
+
+      <div className="testimonials__footer">
+        <Link href="testimonials" className="btn-outline">
+          Zobraziť všetky recenzie
+        </Link>
+        <Link href="testimonials#submit" className="btn-primary">
+          Zanechať recenziu
+        </Link>
       </div>
     </section>
   );

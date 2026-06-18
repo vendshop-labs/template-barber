@@ -28,7 +28,9 @@ export async function PATCH(
     }
 
     if (typeof body.adminReply === 'string') {
-      data.adminReply = body.adminReply.trim() || null;
+      const trimmed = body.adminReply.trim();
+      data.adminReply = trimmed || null;
+      data.adminReplyAt = trimmed ? new Date() : null;
     }
 
     if (Object.keys(data).length === 0) {
