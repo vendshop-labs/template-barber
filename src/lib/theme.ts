@@ -60,6 +60,37 @@ export const DEFAULT_THEME: ThemeConfig = {
   },
 };
 
+export const DARK_THEME: ThemeConfig = {
+  colors: {
+    bg:            '#0A0A0A',
+    primary:       '#C96030',
+    primaryDark:   '#A84E25',
+    primaryLight:  '#E07848',
+    text:          '#FFFFFF',
+    textSecondary: '#B0A898',
+    textMuted:     '#666666',
+    border:        'rgba(201, 96, 48, 0.15)',
+    bgSubtle:      '#111111',
+    success:       '#16a34a',
+    error:         '#ef4444',
+    contrast:      '#FFFFFF',
+    overlay:       '#000000',
+    overlayAlpha:  'rgba(0,0,0,0.6)',
+    headerBg:      'rgba(10, 10, 10, 0.95)',
+    bgDark:        '#0A0A0A',
+    warning:       '#fbbf24',
+    successLight:  '#dcfce7',
+    errorLight:    '#fef2f2',
+    infoLight:     '#eff6ff',
+  },
+  layout: {
+    heroType:     'split',
+    cardStyle:    'border',
+    navPosition:  'top',
+    borderRadius: 'sharp',
+  },
+};
+
 export function themeToCssVars(theme: ThemeConfig): Record<string, string> {
   const radiusMap = {
     sharp:   { xs: '2px',    sm: '3px',    md: '4px',    lg: '6px',    xl: '8px'    },

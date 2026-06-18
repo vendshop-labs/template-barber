@@ -7,7 +7,7 @@ import { routing, type Locale } from '@/i18n/routing';
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import { getStoreConfig } from '@/lib/store-config';
-import { themeToCssVars } from '@/lib/theme';
+import { themeToCssVars, DARK_THEME } from '@/lib/theme';
 import { VerticalProvider } from '@/lib/vertical-context';
 import { PresenceProvider } from '@/lib/presence-context';
 import { CustomerProvider } from '@/lib/useCustomer';
@@ -101,20 +101,8 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
   const config = await getStoreConfig();
-  // Merge ecommerce theme vars with kate-barber dark vars that must win
-  const cssVars = {
-    ...themeToCssVars(config.theme),
-    '--color-bg':            '#0A0A0A',
-    '--color-bg-alt':        '#111111',
-    '--color-bg-card':       '#161616',
-    '--color-text-primary':  '#FFFFFF',
-    '--color-text-secondary':'#B0A898',
-    '--color-text-muted':    '#666666',
-    '--color-gold':          '#C96030',
-    '--color-border':        'rgba(201, 96, 48, 0.15)',
-  };
-
   const theme = process.env.NEXT_PUBLIC_THEME ?? 'dark';
+  const cssVars = themeToCssVars(theme === 'dark' ? DARK_THEME : config.theme);
 
   return (
     <html lang={locale} data-vertical={config.vertical.vertical} data-theme={theme} className={`${playfair.variable} ${dmSans.variable}`}>
