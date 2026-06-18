@@ -1644,9 +1644,9 @@ body {
 .skeleton {
   background: linear-gradient(
     90deg,
-    rgba(255,255,255,0.04) 25%,
-    rgba(255,255,255,0.09) 50%,
-    rgba(255,255,255,0.04) 75%
+    #1e1e1e 25%,
+    #2c2c2c 50%,
+    #1e1e1e 75%
   );
   background-size: 600px 100%;
   animation: shimmer 1.6s ease-in-out infinite;
