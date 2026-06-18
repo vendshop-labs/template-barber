@@ -6,11 +6,11 @@ import { WHATSAPP_LINKS } from '@/lib/constants';
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 
 const NAV_LINKS = [
-  { href: '#sluzby', label: 'Služby' },
-  { href: '#galeria', label: 'Galéria' },
-  { href: '#tim', label: 'Tím' },
-  { href: '#recenzie', label: 'Recenzie' },
-  { href: '#kontakt', label: 'Kontakt' },
+  { href: '/sk/#sluzby',   label: 'Služby' },
+  { href: '/sk/#galeria',  label: 'Galéria' },
+  { href: '/sk/#tim',      label: 'Tím' },
+  { href: '/sk/#recenzie', label: 'Recenzie' },
+  { href: '/sk/#kontakt',  label: 'Kontakt' },
 ];
 
 export default function Header() {

@@ -1,103 +1,146 @@
 'use client';
 
-import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useState, useEffect } from 'react';
 import TestimonialCard from '@/components/ui/TestimonialCard';
-import styles from './testimonials.module.css';
+
+interface TestimonialItem {
+  id: string;
+  customerName: string;
+  text: string;
+  rating: number;
+  createdAt: string;
+  adminReply?: string | null;
+  adminReplyAt?: string | null;
+}
+
+interface Customer {
+  id: string;
+  name: string;
+  email: string;
+}
 
 interface Props {
-  testimonials: {
-    id: string;
-    customerName: string;
-    text: string;
-    rating: number;
-    locale: string | null;
-    createdAt: string;
-    adminReply?: string | null;
-    adminReplyAt?: string | null;
-  }[];
+  testimonials: TestimonialItem[];
   total: number;
 }
 
 export default function TestimonialsPageClient({ testimonials, total }: Props) {
-  const t = useTranslations('testimonials');
-
-  const [form, setForm] = useState({ name: '', content: '', rating: 5 });
+  const [customer, setCustomer] = useState<Customer | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [form, setForm] = useState({ content: '', rating: 5 });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    fetch('/api/auth/me')
+      .then((r) => r.json())
+      .then((data: { customer: Customer | null }) => {
+        setCustomer(data.customer ?? null);
+        setAuthChecked(true);
+      })
+      .catch(() => setAuthChecked(true));
+  }, []);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSending(true);
+    if (!customer) return;
     setError('');
-    try {
-      const res = await fetch('/api/testimonials/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form }),
-      });
-      if (res.ok) {
-        setSent(true);
-      } else {
-        const data = await res.json() as { error?: string };
-        setError(data.error ?? 'Chyba pri odosielaní');
-      }
-    } catch {
-      setError('Chyba siete, skúste znova');
-    } finally {
-      setSending(false);
+    setSending(true);
+
+    const res = await fetch('/api/testimonials/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: customer.name,
+        content: form.content,
+        rating: form.rating,
+      }),
+    });
+
+    if (res.ok) {
+      setSent(true);
+    } else {
+      setError('Chyba pri odosielaní. Skúste znova.');
     }
+    setSending(false);
   }
 
   return (
-    <main className={styles.page}>
-      <div className={styles.wrap}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>{t('pageTitle')}</h1>
-          <p className={styles.subtitle}>{t('pageSubtitle')}</p>
-          {total > 0 && (
-            <span className={styles.badge}>{total} {t('reviews')}</span>
-          )}
-        </header>
+    <main style={{ paddingTop: '5rem', minHeight: '100vh' }}>
+
+      {/* ── СЕКЦИЯ 1: Список отзывов ── */}
+      <section className="testimonials-page__section">
+        <div className="section-header">
+          <p className="section-label">Recenzie</p>
+          <h1 className="section-title">Čo hovoria naši klienti</h1>
+          <p style={{ color: 'var(--color-text-muted)', marginTop: '0.5rem' }}>
+            {total} overených recenzií
+          </p>
+        </div>
 
         {testimonials.length > 0 ? (
           <div className="testimonials-page__grid">
-            {testimonials.map((item) => (
+            {testimonials.map((t) => (
               <TestimonialCard
-                key={item.id}
-                name={item.customerName}
-                content={item.text}
-                rating={item.rating}
-                createdAt={item.createdAt}
-                adminReply={item.adminReply}
-                adminReplyAt={item.adminReplyAt}
+                key={t.id}
+                name={t.customerName}
+                content={t.text}
+                rating={t.rating}
+                createdAt={t.createdAt}
+                adminReply={t.adminReply}
+                adminReplyAt={t.adminReplyAt}
               />
             ))}
           </div>
         ) : (
-          <p className={styles.empty}>{t('noReviews')}</p>
+          <p className="testimonials-page__empty">
+            Zatiaľ žiadne recenzie. Buďte prvý!
+          </p>
         )}
+      </section>
 
-        {/* Anonymous submit form */}
-        <section id="submit" className="testimonials-page__form-section">
-          <h2>Zanechajte recenziu</h2>
-          {sent ? (
-            <div className="testimonials-page__success">
-              <p>Ďakujeme! Vaša recenzia bude zverejnená po schválení.</p>
+      {/* ── РАЗДЕЛИТЕЛЬ ── */}
+      <div className="testimonials-page__divider" />
+
+      {/* ── СЕКЦИЯ 2: Форма ── */}
+      <section className="testimonials-page__form-section" id="submit">
+        <h2>Zanechajte recenziu</h2>
+
+        {!authChecked ? (
+          <p style={{ color: 'var(--color-text-muted)' }}>Načítava sa...</p>
+
+        ) : !customer ? (
+          <div className="testimonials-page__auth-gate">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+              stroke="var(--color-gold, #C96030)" strokeWidth="1.5" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <p>Recenziu môžu zanechať iba registrovaní klienti.</p>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <a href="/sk/login" className="btn-primary">Prihlásiť sa</a>
+              <a href="/sk/register" className="btn-outline">Registrovať sa</a>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="testimonials-page__form">
-              <div className="booking__field">
-                <label>Vaše meno *</label>
-                <input
-                  value={form.name}
-                  onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
-                  placeholder="Ján Novák"
-                  required
-                />
-              </div>
+          </div>
 
+        ) : sent ? (
+          <div className="testimonials-page__success">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+              stroke="var(--color-gold, #C96030)" strokeWidth="1.5" aria-hidden="true">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <h3>Ďakujeme, {customer.name}!</h3>
+            <p>Vaša recenzia bude zverejnená po schválení.</p>
+          </div>
+
+        ) : (
+          <>
+            <p className="testimonials-page__logged-as">
+              Píšete ako: <strong>{customer.name}</strong>
+            </p>
+            <form onSubmit={handleSubmit} className="testimonials-page__form">
               <div className="booking__field">
                 <label>Hodnotenie *</label>
                 <div className="testimonials-page__rating">
@@ -106,14 +149,7 @@ export default function TestimonialsPageClient({ testimonials, total }: Props) {
                       key={n}
                       type="button"
                       onClick={() => setForm((p) => ({ ...p, rating: n }))}
-                      style={{
-                        color: n <= form.rating ? 'var(--color-gold, #C96030)' : '#444',
-                        fontSize: '1.5rem',
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        padding: '0.1rem',
-                      }}
+                      className={`testimonials-page__star${n <= form.rating ? ' active' : ''}`}
                       aria-label={`${n} hviezd`}
                     >
                       ★
@@ -125,25 +161,32 @@ export default function TestimonialsPageClient({ testimonials, total }: Props) {
               <div className="booking__field">
                 <label>Vaša recenzia *</label>
                 <textarea
-                  rows={4}
+                  rows={5}
                   value={form.content}
                   onChange={(e) => setForm((p) => ({ ...p, content: e.target.value }))}
-                  placeholder="Opíšte vašu skúsenosť..."
+                  placeholder="Opíšte vašu skúsenosť v Kate Barber Studio..."
                   required
+                  minLength={20}
                 />
               </div>
 
               {error && (
-                <p style={{ color: '#f87171', fontSize: '0.85rem' }}>{error}</p>
+                <p style={{ color: '#f87171', fontSize: '0.875rem' }}>{error}</p>
               )}
 
-              <button type="submit" className="btn-primary" disabled={sending}>
+              <button
+                type="submit"
+                className="btn-primary"
+                disabled={sending}
+                style={{ alignSelf: 'flex-start' }}
+              >
                 {sending ? 'Odosiela sa...' : 'Odoslať recenziu'}
               </button>
             </form>
-          )}
-        </section>
-      </div>
+          </>
+        )}
+      </section>
+
     </main>
   );
 }

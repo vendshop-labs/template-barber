@@ -61,10 +61,7 @@ export default function TestimonialsSection() {
 
       <div className="testimonials__footer">
         <Link href="/sk/testimonials" className="btn-outline">
-          Zobraziť všetky recenzie
-        </Link>
-        <Link href="/sk/testimonials#submit" className="btn-primary">
-          Zanechať recenziu
+          Zobraziť všetky recenzie →
         </Link>
       </div>
     </section>
