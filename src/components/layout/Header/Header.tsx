@@ -60,7 +60,7 @@ export default function Header() {
               {link.label}
             </a>
           ))}
-          <a href="#rezervacia" className="header__btn-reserve">
+          <a href="/sk/#rezervacia" className="header__btn-reserve">
             Rezervácia
           </a>
           <a
@@ -95,7 +95,7 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="#rezervacia"
+              href="/sk/#rezervacia"
               className="header__mobile-btn-reserve"
               onClick={() => setMenuOpen(false)}
             >
