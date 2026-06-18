@@ -18,7 +18,8 @@ const DEFAULTS: HeroConfig = {
 
 export default function HeroAdminPage() {
   const [form, setForm] = useState<HeroConfig>(DEFAULTS);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -28,14 +29,22 @@ export default function HeroAdminPage() {
 
   useEffect(() => {
     fetch('/api/admin/hero')
-      .then((r) => r.ok ? r.json() as Promise<HeroConfig | null> : null)
-      .then((cfg) => { if (cfg) setForm(cfg); setLoading(false); })
+      .then((r) => (r.ok ? (r.json() as Promise<HeroConfig | null>) : null))
+      .then((cfg) => {
+        if (cfg) {
+          setForm(cfg);
+          setCurrentImageUrl(cfg.imageUrl ?? null);
+        }
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
   }, []);
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    if (file) setPreview(URL.createObjectURL(file));
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+    }
   }
 
   async function save(e: React.FormEvent) {
@@ -54,12 +63,12 @@ export default function HeroAdminPage() {
       const up = await fetch('/api/admin/hero/upload', { method: 'POST', body: fd });
       setUploading(false);
       if (!up.ok) {
-        const d = await up.json() as { error?: string };
+        const d = (await up.json()) as { error?: string };
         setError(d.error ?? 'Chyba pri nahrávaní fotky');
         setSaving(false);
         return;
       }
-      const { url } = await up.json() as { url: string };
+      const { url } = (await up.json()) as { url: string };
       imageUrl = url;
     }
 
@@ -70,13 +79,14 @@ export default function HeroAdminPage() {
     });
 
     if (res.ok) {
-      const updated = await res.json() as HeroConfig;
+      const updated = (await res.json()) as HeroConfig;
       setForm(updated);
+      setCurrentImageUrl(updated.imageUrl ?? null);
+      setPreviewUrl(null);
       setSaved(true);
       if (fileRef.current) fileRef.current.value = '';
-      setPreview(null);
     } else {
-      const d = await res.json() as { error?: string };
+      const d = (await res.json()) as { error?: string };
       setError(d.error ?? 'Chyba pri ukladaní');
     }
     setSaving(false);
@@ -89,8 +99,6 @@ export default function HeroAdminPage() {
       </div>
     );
   }
-
-  const displayImage = preview ?? form.imageUrl;
 
   return (
     <div className="admin-page">
@@ -125,22 +133,64 @@ export default function HeroAdminPage() {
               placeholder="Rezervovať termín"
             />
           </div>
+
           <div className="booking__field" style={{ gridColumn: '1 / -1' }}>
             <label>Hero foto</label>
-            {displayImage && (
-              <img
-                src={displayImage}
-                alt="hero náhľad"
-                style={{
-                  width: '100%',
-                  maxHeight: '280px',
-                  objectFit: 'cover',
-                  borderRadius: '8px',
-                  border: '1px solid var(--color-border, rgba(184,115,51,0.2))',
-                  marginBottom: '0.75rem',
-                }}
-              />
+
+            {!previewUrl && currentImageUrl && (
+              <div style={{ marginBottom: '1rem' }}>
+                <p
+                  style={{
+                    color: 'var(--color-text-muted)',
+                    fontSize: '0.8rem',
+                    marginBottom: '0.5rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  Aktuálna hero fotka:
+                </p>
+                <img
+                  src={currentImageUrl}
+                  alt="Current hero"
+                  style={{
+                    width: '100%',
+                    maxHeight: '260px',
+                    objectFit: 'cover',
+                    borderRadius: '8px',
+                    border: '1px solid var(--color-border)',
+                  }}
+                />
+              </div>
             )}
+
+            {previewUrl && (
+              <div style={{ marginBottom: '1rem' }}>
+                <p
+                  style={{
+                    color: 'var(--color-copper, #B87333)',
+                    fontSize: '0.8rem',
+                    marginBottom: '0.5rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  Nová fotka (ešte neuložená):
+                </p>
+                <img
+                  src={previewUrl}
+                  alt="New hero preview"
+                  style={{
+                    width: '100%',
+                    maxHeight: '260px',
+                    objectFit: 'cover',
+                    borderRadius: '8px',
+                    border: '2px solid var(--color-copper, #B87333)',
+                  }}
+                />
+              </div>
+            )}
+
             <input
               ref={fileRef}
               type="file"
@@ -148,14 +198,24 @@ export default function HeroAdminPage() {
               onChange={handleFileChange}
               style={{ color: 'var(--color-text-secondary, #b0a898)' }}
             />
-            <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '0.35rem' }}>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                color: 'var(--color-text-muted)',
+                marginTop: '0.35rem',
+              }}
+            >
               Všetky formáty (JPEG, PNG, WebP, GIF, AVIF). Výstup: WebP 1920×1080. Max. 10MB
             </span>
-            {form.imageUrl && (
+            {currentImageUrl && (
               <button
                 type="button"
                 className="btn-sm btn-danger"
-                onClick={() => { setForm((p) => ({ ...p, imageUrl: null })); setPreview(null); }}
+                onClick={() => {
+                  setForm((p) => ({ ...p, imageUrl: null }));
+                  setCurrentImageUrl(null);
+                  setPreviewUrl(null);
+                }}
                 style={{ alignSelf: 'flex-start', marginTop: '0.5rem' }}
               >
                 Odstrániť foto
@@ -169,7 +229,11 @@ export default function HeroAdminPage() {
         )}
 
         <div style={{ marginTop: '1.5rem' }}>
-          <button type="submit" className="btn-primary btn-sm" disabled={saving || uploading}>
+          <button
+            type="submit"
+            className="btn-primary btn-sm"
+            disabled={saving || uploading}
+          >
             {uploading ? 'Nahrávam fotku...' : saving ? 'Ukladá sa...' : 'Uložiť zmeny'}
           </button>
         </div>
