@@ -193,6 +193,39 @@
   cursor: progress;
 }
 
+/* ── Color picker ─────────────────────────────────── */
+.colorPicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.colorSwatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: border-color 150ms ease, transform 100ms ease;
+  flex-shrink: 0;
+}
+
+.colorSwatch:hover {
+  transform: scale(1.1);
+}
+
+.colorInput {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
 /* ── Two-column settings ──────────────────────────── */
 .twoCol {
   display: grid;
@@ -626,6 +659,20 @@
   background: rgba(184, 115, 51, 0.15);
   color: #B87333;
   border: 1px solid rgba(184, 115, 51, 0.3);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+/* Green badge for write actions (update_*, reply_*) */
+.toolBadgeAction {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
   border-radius: 6px;
   font-size: 11px;
   font-weight: 600;

@@ -34,6 +34,8 @@ const DEFAULT_PRIORITIES: PriorityItem[] = [
 ];
 
 const PRIORITIES_KEY = 'ai_priorities';
+const CHAT_BG_KEY    = 'ai_chat_bg';
+const CHAT_BG_PRESETS = ['#0d0d0d', '#0a0a0a', '#111827', '#1a0a00', '#0a0a1a'];
 
 const SUGGESTIONS = [
   'Dnešné rezervácie',
@@ -79,11 +81,23 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
 export default function AdminAiPage() {
   // Chat state
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [input, setInput]       = useState('');
+  const [loading, setLoading]   = useState(false);
   const [lastUsed, setLastUsed] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef    = useRef<HTMLTextAreaElement>(null);
+
+  // Chat background (from localStorage, default #0d0d0d)
+  const [chatBg, setChatBg] = useState('#0d0d0d');
+  useEffect(() => {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem(CHAT_BG_KEY) : null;
+    if (saved) setChatBg(saved);
+  }, []);
+
+  const saveChatBg = (color: string) => {
+    setChatBg(color);
+    localStorage.setItem(CHAT_BG_KEY, color);
+  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -112,11 +126,21 @@ export default function AdminAiPage() {
         throw new Error(errMsg);
       }
 
-      const data = (await res.json()) as { reply: string; chunksUsed: number; sources: string[] };
+      const data = (await res.json()) as {
+        reply: string;
+        chunksUsed: number;
+        sources: string[];
+        toolsUsed: string[];
+      };
 
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: data.reply, toolsUsed: data.sources, timestamp: Date.now() },
+        {
+          role: 'assistant',
+          content: data.reply ?? '',
+          toolsUsed: data.toolsUsed?.length ? data.toolsUsed : data.sources,
+          timestamp: Date.now(),
+        },
       ]);
       setLastUsed(new Date().toLocaleTimeString('sk-SK', { hour: '2-digit', minute: '2-digit' }));
     } catch (err) {
@@ -138,7 +162,7 @@ export default function AdminAiPage() {
   };
 
   // ── Knowledge status ──────────────────────────────────────────────────────
-  const [status, setStatus] = useState<KnowledgeStatus | null>(null);
+  const [status, setStatus]   = useState<KnowledgeStatus | null>(null);
   const [indexing, setIndexing] = useState(false);
 
   const loadStatus = async () => {
@@ -146,9 +170,7 @@ export default function AdminAiPage() {
     setStatus(data);
   };
 
-  useEffect(() => {
-    loadStatus();
-  }, []);
+  useEffect(() => { loadStatus(); }, []);
 
   const reindex = async () => {
     if (indexing) return;
@@ -165,37 +187,29 @@ export default function AdminAiPage() {
 
   // ── Settings modal ────────────────────────────────────────────────────────
   const [showSettings, setShowSettings] = useState(false);
-  const [settingsTab, setSettingsTab] = useState<'status' | 'settings'>('status');
-  const [savedToast, setSavedToast] = useState(false);
+  const [settingsTab, setSettingsTab]   = useState<'status' | 'settings'>('status');
+  const [savedToast, setSavedToast]     = useState(false);
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // ── Settings state ────────────────────────────────────────────────────────
-  const [aiActive, setAiActive] = useState(true);
-  const [tone, setTone] = useState<Tone>('friendly');
-  const [assistantName, setAssistantName] = useState('Kate AI');
-  const [greeting, setGreeting] = useState('Dobrý deň! Som AI asistent Kate Barber Studio. Čím môžem pomôcť?');
-  const [priorities, setPriorities] = useState<PriorityItem[]>(DEFAULT_PRIORITIES);
+  const [aiActive,       setAiActive]       = useState(true);
+  const [tone,           setTone]           = useState<Tone>('friendly');
+  const [assistantName,  setAssistantName]  = useState('Kate AI');
+  const [greeting,       setGreeting]       = useState('Dobrý deň! Som AI asistent Kate Barber Studio. Čím môžem pomôcť?');
+  const [priorities,     setPriorities]     = useState<PriorityItem[]>(DEFAULT_PRIORITIES);
 
-  // Load priorities from localStorage
   useEffect(() => {
     try {
       const saved = localStorage.getItem(PRIORITIES_KEY);
       if (saved) setPriorities(JSON.parse(saved) as PriorityItem[]);
-    } catch {
-      // ignore
-    }
+    } catch { /* ignore */ }
   }, []);
 
-  const togglePriority = (id: string) => {
+  const togglePriority = (id: string) =>
     setPriorities((prev) => prev.map((p) => (p.id === id ? { ...p, enabled: !p.enabled } : p)));
-  };
 
   const saveSettings = () => {
-    try {
-      localStorage.setItem(PRIORITIES_KEY, JSON.stringify(priorities));
-    } catch {
-      // ignore
-    }
+    try { localStorage.setItem(PRIORITIES_KEY, JSON.stringify(priorities)); } catch { /* ignore */ }
     setShowSettings(false);
     setSavedToast(true);
     if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
@@ -220,13 +234,11 @@ export default function AdminAiPage() {
           {indexing ? 'Indexujem...' : 'Aktualizovať znalosti'}
         </button>
         {status && status.total > 0 && (
-          <span className={styles.statusChipIndexed}>
-            ✓ {status.total} chunks
-          </span>
+          <span className={styles.statusChipIndexed}>✓ {status.total} chunks</span>
         )}
         {lastUsed && <span className={styles.statusChipGray}>Posledná odpoveď: {lastUsed}</span>}
         <span className={`${styles.statusChipGray} ${styles.statusChipRight}`}>
-          OpenAI gpt-4o-mini
+          OpenAI gpt-4o-mini · function calling
         </span>
       </div>
 
@@ -256,27 +268,40 @@ export default function AdminAiPage() {
         </div>
 
         {/* Messages */}
-        <div className={styles.chatMessages}>
+        <div className={styles.chatMessages} style={{ background: chatBg }}>
           {messages.length === 0 && !loading && (
             <div className={styles.chatEmpty}>
               <BotIcon />
-              <p>Opýtajte sa čokoľvek o vašom barbershope.<br />
-                Môžem zobraziť rezervácie, recenzie, informácie o majstroch a službách.</p>
+              <p>Opýtajte sa čokoľvek alebo dajte pokyn.<br />
+                Môžem zobraziť rezervácie, <strong>zmeniť hodiny</strong>, <strong>odpovedať na recenzie</strong> a oveľa viac.</p>
             </div>
           )}
 
           {messages.map((msg, i) => (
-            <div key={i} className={`${styles.chatMsg} ${msg.role === 'user' ? styles.chatMsgUser : styles.chatMsgAi}`}>
+            <div
+              key={i}
+              className={`${styles.chatMsg} ${msg.role === 'user' ? styles.chatMsgUser : styles.chatMsgAi}`}
+            >
               <div className={styles.chatMsgContent}>
                 {msg.content.split('\n').map((line, j) => (
                   <p key={j}>{line}</p>
                 ))}
               </div>
+
+              {/* Tool action badges (green for real actions) */}
               {msg.toolsUsed && msg.toolsUsed.length > 0 && (
                 <div className={styles.chatMsgTools}>
-                  {msg.toolsUsed.map((tool) => (
-                    <span key={tool} className={styles.toolBadge}>{tool}</span>
-                  ))}
+                  {msg.toolsUsed.map((tool) => {
+                    const isAction = tool.startsWith('update_') || tool.startsWith('reply_');
+                    return (
+                      <span
+                        key={tool}
+                        className={isAction ? styles.toolBadgeAction : styles.toolBadge}
+                      >
+                        {isAction ? '✓ ' : ''}{tool.replace(/_/g, ' ')}
+                      </span>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -299,7 +324,7 @@ export default function AdminAiPage() {
             ref={textareaRef}
             className={styles.chatTextarea}
             rows={1}
-            placeholder="Opýtajte sa... (Enter — odoslať, Shift+Enter — nový riadok)"
+            placeholder="Opýtajte sa alebo dajte pokyn... (Enter — odoslať)"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -319,7 +344,13 @@ export default function AdminAiPage() {
         {/* Suggestions */}
         <div className={styles.chatSuggestions}>
           {SUGGESTIONS.map((s) => (
-            <button key={s} type="button" className={styles.chatSuggestion} onClick={() => sendMessage(s)} disabled={loading}>
+            <button
+              key={s}
+              type="button"
+              className={styles.chatSuggestion}
+              onClick={() => sendMessage(s)}
+              disabled={loading}
+            >
               {s}
             </button>
           ))}
@@ -327,13 +358,14 @@ export default function AdminAiPage() {
       </section>
 
       {/* ── Save toast ───────────────────────────────────────────────────── */}
-      {savedToast && (
-        <div className={styles.toast}>✓ Nastavenia uložené</div>
-      )}
+      {savedToast && <div className={styles.toast}>✓ Nastavenia uložené</div>}
 
       {/* ── Settings Modal ────────────────────────────────────────────────── */}
       {showSettings && (
-        <div className={styles.overlay} onClick={(e) => { if (e.target === e.currentTarget) setShowSettings(false); }}>
+        <div
+          className={styles.overlay}
+          onClick={(e) => { if (e.target === e.currentTarget) setShowSettings(false); }}
+        >
           <div className={styles.modal}>
             {/* Modal header */}
             <div className={styles.modalHeader}>
@@ -343,24 +375,22 @@ export default function AdminAiPage() {
 
             {/* Tabs */}
             <div className={styles.modalTabs}>
-              <button
-                type="button"
-                className={`${styles.modalTab} ${settingsTab === 'status' ? styles.modalTabActive : ''}`}
-                onClick={() => setSettingsTab('status')}
-              >
-                Status
-              </button>
-              <button
-                type="button"
-                className={`${styles.modalTab} ${settingsTab === 'settings' ? styles.modalTabActive : ''}`}
-                onClick={() => setSettingsTab('settings')}
-              >
-                Settings
-              </button>
+              {(['status', 'settings'] as const).map((tab) => (
+                <button
+                  key={tab}
+                  type="button"
+                  className={`${styles.modalTab} ${settingsTab === tab ? styles.modalTabActive : ''}`}
+                  onClick={() => setSettingsTab(tab)}
+                >
+                  {tab === 'status' ? 'Status' : 'Settings'}
+                </button>
+              ))}
             </div>
 
             {/* Tab body */}
             <div className={styles.modalBody}>
+
+              {/* ── Status tab ────────────────────────────────────────────── */}
               {settingsTab === 'status' && (
                 <>
                   <div className={styles.statusRow}>
@@ -368,7 +398,11 @@ export default function AdminAiPage() {
                       {indexing ? <WarnIcon /> : <CheckIcon />}
                     </span>
                     <span className={styles.statusText}>
-                      {indexing ? 'Indexujem...' : status && status.total > 0 ? '✅ AI up to date' : 'Nie je indexované'}
+                      {indexing
+                        ? 'Indexujem...'
+                        : status && status.total > 0
+                          ? '✅ AI up to date'
+                          : 'Nie je indexované'}
                     </span>
                   </div>
 
@@ -403,16 +437,23 @@ export default function AdminAiPage() {
                     />
                   </div>
 
-                  <button type="button" className={styles.reindexBtnOutline} onClick={reindex} disabled={indexing}>
+                  <button
+                    type="button"
+                    className={styles.reindexBtnOutline}
+                    onClick={reindex}
+                    disabled={indexing}
+                  >
                     <RefreshIcon spin={indexing} />
                     {indexing ? 'Indexujem...' : 'Aktualizovať znalosti'}
                   </button>
-                  <p className={styles.hint}>Automaticky aktualizuje znalosti o barbershope z databázy a webu</p>
+                  <p className={styles.hint}>Aktualizuje znalosti z databázy a webu barbershopu</p>
                 </>
               )}
 
+              {/* ── Settings tab ───────────────────────────────────────────── */}
               {settingsTab === 'settings' && (
                 <div className={styles.twoCol}>
+                  {/* Left column */}
                   <div>
                     <h4 className={styles.subTitle}>AI Správanie</h4>
                     <div className={styles.settingRow}>
@@ -421,23 +462,67 @@ export default function AdminAiPage() {
                     </div>
                     <label className={styles.field}>
                       <span className={styles.label}>Tón</span>
-                      <select className={styles.input} value={tone} onChange={(e) => setTone(e.target.value as Tone)}>
+                      <select
+                        className={styles.input}
+                        value={tone}
+                        onChange={(e) => setTone(e.target.value as Tone)}
+                      >
                         {TONES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
                       </select>
                     </label>
                     <label className={styles.field}>
                       <span className={styles.label}>Meno asistenta</span>
-                      <input className={styles.input} type="text" value={assistantName} onChange={(e) => setAssistantName(e.target.value)} />
+                      <input
+                        className={styles.input}
+                        type="text"
+                        value={assistantName}
+                        onChange={(e) => setAssistantName(e.target.value)}
+                      />
                     </label>
                     <label className={styles.field}>
                       <span className={styles.label}>Uvítacia správa</span>
-                      <textarea className={styles.textarea} rows={3} value={greeting} onChange={(e) => setGreeting(e.target.value)} />
+                      <textarea
+                        className={styles.textarea}
+                        rows={3}
+                        value={greeting}
+                        onChange={(e) => setGreeting(e.target.value)}
+                      />
                     </label>
+
+                    {/* Chat background color picker */}
+                    <div className={styles.field}>
+                      <span className={styles.label}>FARBA POZADIA CHATU</span>
+                      <div className={styles.colorPicker}>
+                        {CHAT_BG_PRESETS.map((color) => (
+                          <button
+                            key={color}
+                            type="button"
+                            className={styles.colorSwatch}
+                            onClick={() => saveChatBg(color)}
+                            style={{
+                              background: color,
+                              borderColor: chatBg === color ? '#B87333' : 'rgba(255,255,255,0.1)',
+                            }}
+                            title={color}
+                          />
+                        ))}
+                        <input
+                          type="color"
+                          value={chatBg}
+                          onChange={(e) => saveChatBg(e.target.value)}
+                          className={styles.colorInput}
+                          title="Vlastná farba"
+                        />
+                        <span className={styles.label} style={{ marginBottom: 0 }}>vlastná</span>
+                      </div>
+                    </div>
+
                     <button type="button" className={styles.saveBtn} onClick={saveSettings}>
                       Uložiť nastavenia
                     </button>
                   </div>
 
+                  {/* Right column */}
                   <div>
                     <h4 className={styles.subTitle}>Prioritizovať informácie o:</h4>
                     <ul className={styles.priorityList}>
