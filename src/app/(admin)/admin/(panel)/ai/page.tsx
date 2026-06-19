@@ -29,12 +29,12 @@ const INITIAL_CATEGORIES: PriorityCategory[] = [
 ];
 
 const SUGGESTIONS = [
-  'Analytics this month',
-  'Orders this week',
-  'Top customers by revenue',
-  'Show products in stock',
-  'How many orders?',
-  'Create a discount promo',
+  'Dnešné rezervácie',
+  'Najlepší majster',
+  'Priemerný rating',
+  'Aké máme služby?',
+  'Pracovné hodiny',
+  'Kontakt a adresa',
 ];
 
 const TOOLS_COUNT = 12;
@@ -101,37 +101,37 @@ export default function AdminAiPage() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/admin/chat', {
+      const res = await fetch('/api/admin/ai/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: trimmed, history: apiHistoryRef.current }),
+        body: JSON.stringify({ message: trimmed }),
       });
 
       if (!res.ok) {
         const errData = await res.json().catch(() => ({})) as { error?: string };
         const errMsg = errData.error?.includes('not configured')
-          ? 'API key not configured. Add OPENAI_API_KEY or ANTHROPIC_API_KEY to environment variables.'
+          ? 'API key not configured. Add OPENAI_API_KEY to environment variables.'
           : (errData.error ?? `AI request failed (HTTP ${res.status})`);
         throw new Error(errMsg);
       }
 
       const data = (await res.json()) as {
-        response: string;
-        toolsUsed: string[];
-        provider: 'openai' | 'anthropic';
+        reply: string;
+        chunksUsed: number;
+        sources: string[];
       };
 
       apiHistoryRef.current = [
         ...apiHistoryRef.current,
         { role: 'user', content: trimmed },
-        { role: 'assistant', content: data.response },
+        { role: 'assistant', content: data.reply },
       ];
 
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: data.response, toolsUsed: data.toolsUsed, provider: data.provider, timestamp: Date.now() },
+        { role: 'assistant', content: data.reply, toolsUsed: data.sources, provider: 'openai', timestamp: Date.now() },
       ]);
-      setProvider(data.provider);
+      setProvider('openai');
       setLastUsed(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
     } catch (err) {
       console.error('[admin chat]', err);
@@ -168,24 +168,25 @@ export default function AdminAiPage() {
 
   // ── Indexing state ────────────────────────────────────────────────────────
   const [indexing, setIndexing] = useState(false);
+  const [indexed, setIndexed] = useState<number | null>(null);
   const [progress, setProgress] = useState(TOTAL_PRODUCTS);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  useEffect(() => () => { if (intervalRef.current) clearInterval(intervalRef.current); }, []);
 
-  const reindex = () => {
+  const reindex = async () => {
     if (indexing) return;
-    setIndexing(true); setProgress(0);
-    let step = 0;
-    intervalRef.current = setInterval(() => {
-      step += 1;
-      if (step === 1) setProgress(17);
-      else if (step === 2) setProgress(TOTAL_PRODUCTS);
-      else {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        intervalRef.current = null;
-        setIndexing(false); setProgress(TOTAL_PRODUCTS);
+    setIndexing(true);
+    setIndexed(null);
+    try {
+      const res = await fetch('/api/admin/ai/crawl', { method: 'POST' });
+      const data = (await res.json()) as { chunksIndexed?: number; error?: string };
+      if (data.chunksIndexed !== undefined) {
+        setIndexed(data.chunksIndexed);
+        setProgress(data.chunksIndexed);
       }
-    }, 1000);
+    } catch {
+      // silent
+    } finally {
+      setIndexing(false);
+    }
   };
 
   // ── Settings state ────────────────────────────────────────────────────────
@@ -208,10 +209,25 @@ export default function AdminAiPage() {
 
       {/* ── Status bar ─────────────────────────────────────────────────────── */}
       <div className={styles.statusBar}>
-        <span className={styles.statusChip}><BotIcon /> {TOOLS_COUNT} tools available</span>
-        {lastUsed && <span className={styles.statusChipGray}>Last response: {lastUsed}</span>}
+        <span className={styles.statusChip}><BotIcon /> RAG · pgvector</span>
+        <button
+          type="button"
+          className={styles.statusChip}
+          onClick={reindex}
+          disabled={indexing}
+          style={{ cursor: indexing ? 'wait' : 'pointer', border: 'none', background: 'none', padding: 0 }}
+        >
+          <RefreshIcon spin={indexing} />
+          {indexing ? 'Indexujem...' : 'Aktualizovať znalosti'}
+        </button>
+        {indexed !== null && (
+          <span className={styles.statusChipGray} style={{ color: 'var(--color-copper, #c97c3a)' }}>
+            ✓ {indexed} chunks
+          </span>
+        )}
+        {lastUsed && <span className={styles.statusChipGray}>Posledná odpoveď: {lastUsed}</span>}
         <span className={`${styles.statusChipGray} ${styles.statusChipRight}`}>
-          {provider === 'openai' ? 'OpenAI GPT-4o-mini' : provider === 'anthropic' ? 'Claude Haiku' : 'AI ready'}
+          OpenAI gpt-4o-mini
         </span>
       </div>
 

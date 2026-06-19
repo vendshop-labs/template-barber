@@ -554,3 +554,17 @@ model AdminUser {
 
   createdAt DateTime @default(now())
 }
+
+// ============ RAG KNOWLEDGE BASE ============
+
+model StoreKnowledge {
+  id        String   @id @default(cuid())
+  storeId   String
+  chunkType String   // 'service' | 'master' | 'review' | 'about' | 'faq' | 'hours'
+  content   String
+  embedding Unsupported("vector(1536)")?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([storeId])
+}
