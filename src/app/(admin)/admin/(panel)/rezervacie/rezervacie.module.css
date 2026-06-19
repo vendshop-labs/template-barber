@@ -1,0 +1,348 @@
+.page {
+  padding: 32px;
+  min-height: 100vh;
+  background: var(--admin-bg, #111111);
+}
+
+/* ── Top bar ───────────────────────────────────── */
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.topRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.datePicker {
+  padding: 8px 14px;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #e0e0e0;
+  background: #1c1c1c;
+  cursor: pointer;
+  transition: border-color 150ms;
+}
+
+.datePicker:focus {
+  outline: none;
+  border-color: #B87333;
+}
+
+.clearDateBtn {
+  padding: 8px 12px;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  background: #1c1c1c;
+  color: #888;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 150ms;
+}
+
+.clearDateBtn:hover {
+  border-color: #B87333;
+  color: #B87333;
+}
+
+/* ── Stats ─────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statCard {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.statValue {
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statPending   .statValue { color: #f59e0b; }
+.statConfirmed .statValue { color: #22c55e; }
+.statCompleted .statValue { color: #B87333; }
+.statCancelled .statValue { color: #ef4444; }
+
+/* ── Filters ───────────────────────────────────── */
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  padding: 7px 16px;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  background: #1a1a1a;
+  color: #888;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 150ms;
+}
+
+.filterBtn:hover {
+  border-color: #B87333;
+  color: #B87333;
+}
+
+.filterActive {
+  background: #B87333;
+  border-color: #B87333;
+  color: #fff;
+}
+
+.filterActive:hover {
+  background: #9a6128;
+  border-color: #9a6128;
+  color: #fff;
+}
+
+/* ── Cards grid ────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: #161616;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 200ms;
+}
+
+.card:hover {
+  border-color: #3a3a3a;
+}
+
+.cardCancelled {
+  opacity: 0.55;
+}
+
+/* ── Card header ───────────────────────────────── */
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  color: #B87333;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.clientInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.clientName {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clientPhone {
+  font-size: 13px;
+  color: #888;
+  text-decoration: none;
+  transition: color 150ms;
+}
+
+.clientPhone:hover {
+  color: #B87333;
+}
+
+/* ── Status badge ──────────────────────────────── */
+.badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badgePENDING   { background: rgba(245,158,11,0.15);  color: #f59e0b; }
+.badgeCONFIRMED { background: rgba(34,197,94,0.15);   color: #22c55e; }
+.badgeCANCELLED { background: rgba(239,68,68,0.15);   color: #ef4444; }
+.badgeCOMPLETED { background: rgba(184,115,51,0.15);  color: #B87333; }
+.badgeNO_SHOW   { background: rgba(100,116,139,0.15); color: #94a3b8; }
+
+/* ── Chips row ─────────────────────────────────── */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #222;
+  border: 1px solid #333;
+  font-size: 12px;
+  color: #bbb;
+}
+
+.chipDate {
+  color: #e0e0e0;
+  font-weight: 600;
+  border-color: #B87333;
+  background: rgba(184,115,51,0.1);
+}
+
+/* ── Note ──────────────────────────────────────── */
+.note {
+  font-size: 13px;
+  color: #888;
+  border-left: 2px solid #2a2a2a;
+  padding-left: 10px;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+/* ── Card actions ──────────────────────────────── */
+.cardActions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 150ms;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btnConfirm {
+  background: rgba(34,197,94,0.12);
+  border-color: rgba(34,197,94,0.3);
+  color: #22c55e;
+}
+.btnConfirm:hover:not(:disabled) {
+  background: #22c55e;
+  color: #000;
+}
+
+.btnComplete {
+  background: rgba(184,115,51,0.12);
+  border-color: rgba(184,115,51,0.3);
+  color: #B87333;
+}
+.btnComplete:hover:not(:disabled) {
+  background: #B87333;
+  color: #fff;
+}
+
+.btnCancel {
+  background: rgba(239,68,68,0.1);
+  border-color: rgba(239,68,68,0.25);
+  color: #ef4444;
+}
+.btnCancel:hover:not(:disabled) {
+  background: #ef4444;
+  color: #fff;
+}
+
+.btnWa {
+  background: rgba(37,211,102,0.1);
+  border-color: rgba(37,211,102,0.25);
+  color: #25d366;
+  margin-left: auto;
+}
+.btnWa:hover:not(:disabled) {
+  background: #25d366;
+  color: #000;
+}
+
+/* ── Empty / Loading ───────────────────────────── */
+.empty {
+  grid-column: 1 / -1;
+  padding: 60px;
+  text-align: center;
+  color: #555;
+  font-size: 15px;
+}
+
+.loading {
+  padding: 60px;
+  text-align: center;
+  color: #555;
+  font-size: 15px;
+}
