@@ -1032,6 +1032,23 @@ body::after {
   font-weight: 600;
 }
 
+.date-picker__time--booked {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.2) !important;
+  cursor: not-allowed !important;
+  text-decoration: line-through;
+  pointer-events: none;
+}
+
+.date-picker__time-booked-label {
+  display: block;
+  font-size: 0.6rem;
+  opacity: 0.6;
+  margin-top: 2px;
+  text-decoration: none;
+}
+
 .date-picker__closed {
   color: var(--color-text-muted);
   font-size: 0.85rem;

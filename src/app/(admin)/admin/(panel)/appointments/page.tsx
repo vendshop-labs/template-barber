@@ -46,7 +46,7 @@ export default async function AppointmentsPage() {
               <tr key={a.id}>
                 <td>{a.guestName ?? '—'}</td>
                 <td>{a.guestPhone ?? '—'}</td>
-                <td>{a.service.nameKey}</td>
+                <td>{a.service?.nameKey ?? '—'}</td>
                 <td>{a.master?.name ?? 'Any'}</td>
                 <td>{a.date.toLocaleDateString('sk-SK')}</td>
                 <td>{a.timeSlot}</td>

@@ -11,6 +11,12 @@ async function getEmbedding(text: string): Promise<number[]> {
   return res.data[0].embedding;
 }
 
+const ALL_SLOTS = [
+  '09:00','09:30','10:00','10:30','11:00','11:30',
+  '12:00','12:30','13:00','13:30','14:00','14:30',
+  '15:00','15:30','16:00','16:30','17:00','17:30','18:00',
+];
+
 // ─── Tool definitions ──────────────────────────────────────────────────────
 const TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
@@ -83,6 +89,21 @@ const TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
           targetLanguage: { type: 'string', description: 'Target language code if translation needed' },
         },
         required: ['text', 'instruction'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'get_available_slots',
+      description: 'Get available and booked time slots for a specific date. Use when user asks about schedule, free slots, or appointments for a day.',
+      parameters: {
+        type: 'object',
+        properties: {
+          date:     { type: 'string', description: 'Date in YYYY-MM-DD format' },
+          masterId: { type: 'string', description: 'Optional master ID to filter by master' },
+        },
+        required: ['date'],
       },
     },
   },
@@ -195,6 +216,29 @@ async function executeTool(name: string, args: Record<string, unknown>, storeId:
           createdAt: r.createdAt,
         })),
         count: reviews.length,
+      };
+    }
+
+    case 'get_available_slots': {
+      const { date, masterId } = args as { date: string; masterId?: string };
+      const d    = new Date(date);
+      const next = new Date(d);
+      next.setDate(next.getDate() + 1);
+      const where: Record<string, unknown> = {
+        storeId,
+        date:   { gte: d, lt: next },
+        status: { not: 'CANCELLED' },
+      };
+      if (masterId) where.masterId = masterId;
+      const booked = await db.appointment.findMany({ where, select: { timeSlot: true } });
+      const bookedTimes = booked.map((b) => b.timeSlot);
+      const available   = ALL_SLOTS.filter((s) => !bookedTimes.includes(s));
+      return {
+        date,
+        booked:         bookedTimes,
+        available,
+        totalBooked:    bookedTimes.length,
+        totalAvailable: available.length,
       };
     }
 

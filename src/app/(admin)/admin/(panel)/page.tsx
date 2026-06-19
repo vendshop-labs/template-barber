@@ -88,7 +88,7 @@ export default async function AdminDashboardPage() {
           timeSlot: a.timeSlot,
           status: a.status,
           clientName: a.customer?.name ?? a.guestName ?? '—',
-          service: a.service.nameKey,
+          service: a.service?.nameKey ?? '—',
         }))}
         topMasters={topMasters.map((m) => ({
           name: m.name,

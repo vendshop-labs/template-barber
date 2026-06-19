@@ -473,14 +473,14 @@ model Appointment {
   guestPhone String?
   guestEmail String?
 
-  serviceId String
-  service   Service        @relation(fields: [serviceId], references: [id])
+  serviceId String?
+  service   Service?       @relation(fields: [serviceId], references: [id])
   masterId  String?
   master    ServiceMaster? @relation(fields: [masterId], references: [id])
 
   date     DateTime
   timeSlot String
-  duration Int
+  duration Int      @default(30)
 
   status       AppointmentStatus @default(PENDING)
   note         String?

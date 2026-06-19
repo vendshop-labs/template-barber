@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 interface DateTimePickerProps {
   onSelect: (date: string, time: string) => void;
+  onDayChange?: (date: string) => void;
+  bookedSlots?: string[];
 }
 
 const SK_DAYS = ['Ned', 'Pon', 'Uto', 'Str', 'Štv', 'Pia', 'Sob'];
@@ -12,7 +14,7 @@ const SK_MONTHS = ['jan', 'feb', 'mar', 'apr', 'máj', 'jún', 'júl', 'aug', 's
 function generateTimeSlots(dayOfWeek: number): string[] {
   if (dayOfWeek === 0) return [];
   const endHour = dayOfWeek === 6 ? 14 : 18;
-  const endMin = dayOfWeek === 6 ? 30 : 0;
+  const endMin  = dayOfWeek === 6 ? 30 : 0;
   const slots: string[] = [];
   let h = 9, m = 0;
   while (true) {
@@ -25,16 +27,20 @@ function generateTimeSlots(dayOfWeek: number): string[] {
   return slots;
 }
 
-export default function DateTimePicker({ onSelect }: DateTimePickerProps) {
+export default function DateTimePicker({
+  onSelect,
+  onDayChange,
+  bookedSlots = [],
+}: DateTimePickerProps) {
   const days = Array.from({ length: 7 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() + i);
     return date;
   });
 
-  const [selectedDay, setSelectedDay] = useState<Date>(days[0]);
+  const [selectedDay, setSelectedDay]   = useState<Date>(days[0]);
   const [selectedTime, setSelectedTime] = useState<string>('');
-  const [timesKey, setTimesKey] = useState(0);
+  const [timesKey, setTimesKey]         = useState(0);
 
   const timeSlots = generateTimeSlots(selectedDay.getDay());
 
@@ -42,10 +48,12 @@ export default function DateTimePicker({ onSelect }: DateTimePickerProps) {
     if (day.getDay() === 0) return;
     setSelectedTime('');
     setSelectedDay(day);
-    setTimesKey(k => k + 1);
+    setTimesKey((k) => k + 1);
+    onDayChange?.(day.toISOString().split('T')[0]);
   };
 
   const handleTimeSelect = (time: string) => {
+    if (bookedSlots.includes(time)) return;
     setSelectedTime(time);
     onSelect(selectedDay.toISOString().split('T')[0], time);
   };
@@ -54,11 +62,11 @@ export default function DateTimePicker({ onSelect }: DateTimePickerProps) {
     <div className="date-picker">
       <div className="date-picker__days">
         {days.map((day) => {
-          const isSunday = day.getDay() === 0;
+          const isSunday  = day.getDay() === 0;
           const isSelected = day.toDateString() === selectedDay.toDateString();
           let cls = 'date-picker__day';
           if (isSelected) cls += ' date-picker__day--selected';
-          if (isSunday) cls += ' date-picker__day--disabled';
+          if (isSunday)   cls += ' date-picker__day--disabled';
 
           return (
             <button
@@ -81,16 +89,29 @@ export default function DateTimePicker({ onSelect }: DateTimePickerProps) {
         {timeSlots.length === 0 ? (
           <p className="date-picker__closed">Zatvorené</p>
         ) : (
-          timeSlots.map((slot) => (
-            <button
-              key={slot}
-              type="button"
-              className={`date-picker__time${selectedTime === slot ? ' date-picker__time--selected' : ''}`}
-              onClick={() => handleTimeSelect(slot)}
-            >
-              {slot}
-            </button>
-          ))
+          timeSlots.map((slot) => {
+            const isBooked   = bookedSlots.includes(slot);
+            const isSelected = selectedTime === slot;
+            let cls = 'date-picker__time';
+            if (isSelected) cls += ' date-picker__time--selected';
+            if (isBooked)   cls += ' date-picker__time--booked';
+
+            return (
+              <button
+                key={slot}
+                type="button"
+                className={cls}
+                onClick={() => handleTimeSelect(slot)}
+                disabled={isBooked}
+                title={isBooked ? 'Obsadené' : undefined}
+              >
+                {slot}
+                {isBooked && (
+                  <span className="date-picker__time-booked-label">obsadené</span>
+                )}
+              </button>
+            );
+          })
         )}
       </div>
 
