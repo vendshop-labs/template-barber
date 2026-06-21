@@ -6,9 +6,10 @@ interface DateTimePickerProps {
   onSelect: (date: string, time: string) => void;
   onDayChange?: (date: string) => void;
   bookedSlots?: string[];
+  loading?: boolean;
 }
 
-const SK_DAYS = ['Ned', 'Pon', 'Uto', 'Str', 'Štv', 'Pia', 'Sob'];
+const SK_DAYS   = ['Ned', 'Pon', 'Uto', 'Str', 'Štv', 'Pia', 'Sob'];
 const SK_MONTHS = ['jan', 'feb', 'mar', 'apr', 'máj', 'jún', 'júl', 'aug', 'sep', 'okt', 'nov', 'dec'];
 
 function generateTimeSlots(dayOfWeek: number): string[] {
@@ -27,10 +28,14 @@ function generateTimeSlots(dayOfWeek: number): string[] {
   return slots;
 }
 
+// How many skeleton cells to show (matches typical slot count, prevents layout shift)
+const SKELETON_COUNT = 10;
+
 export default function DateTimePicker({
   onSelect,
   onDayChange,
   bookedSlots = [],
+  loading = false,
 }: DateTimePickerProps) {
   const days = Array.from({ length: 7 }, (_, i) => {
     const date = new Date();
@@ -61,6 +66,7 @@ export default function DateTimePicker({
   };
 
   const handleTimeSelect = (time: string) => {
+    if (loading) return;
     if (bookedSlots.includes(time)) return;
     if (isToday && time <= nowHHMM) return;
     setSelectedTime(time);
@@ -71,7 +77,7 @@ export default function DateTimePicker({
     <div className="date-picker">
       <div className="date-picker__days">
         {days.map((day) => {
-          const isSunday  = day.getDay() === 0;
+          const isSunday   = day.getDay() === 0;
           const isSelected = day.toDateString() === selectedDay.toDateString();
           let cls = 'date-picker__day';
           if (isSelected) cls += ' date-picker__day--selected';
@@ -95,7 +101,12 @@ export default function DateTimePicker({
       </div>
 
       <div key={timesKey} className="date-picker__times">
-        {timeSlots.length === 0 ? (
+        {loading ? (
+          // Skeleton — same grid as slots, prevents layout shift
+          Array.from({ length: SKELETON_COUNT }, (_, i) => (
+            <div key={i} className="date-picker__skeleton" />
+          ))
+        ) : timeSlots.length === 0 ? (
           <p className="date-picker__closed">Zatvorené</p>
         ) : (
           timeSlots.map((slot) => {
@@ -125,7 +136,7 @@ export default function DateTimePicker({
         )}
       </div>
 
-      {selectedTime && (
+      {selectedTime && !loading && (
         <p className="date-picker__selected-info">
           ✓ {SK_DAYS[selectedDay.getDay()]} {selectedDay.getDate()}. {SK_MONTHS[selectedDay.getMonth()]} o {selectedTime}
         </p>

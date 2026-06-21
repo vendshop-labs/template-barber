@@ -1025,7 +1025,28 @@ body::after {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
   gap: 0.5rem;
+  min-height: 120px; /* reserve height — prevents layout shift during load */
   animation: fadeIn 0.25s ease forwards;
+}
+
+/* ── Skeleton loader ── */
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.date-picker__skeleton {
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(201, 163, 71, 0.04) 0%,
+    rgba(201, 163, 71, 0.12) 50%,
+    rgba(201, 163, 71, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
 }
 
 .date-picker__time {

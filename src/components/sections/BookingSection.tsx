@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { SERVICE_OPTIONS, BARBERS, WHATSAPP_NUMBER } from '@/lib/constants';
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 import GoldDivider from '@/components/ui/GoldDivider';
@@ -8,19 +8,22 @@ import DateTimePicker from '@/components/ui/DateTimePicker';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
 export default function BookingSection() {
-  const [selectedDate, setSelectedDate]   = useState('');
-  const [selectedTime, setSelectedTime]   = useState('');
-  const [bookedSlots, setBookedSlots]     = useState<string[]>([]);
-  const [loadingSlots, setLoadingSlots]   = useState(false);
-  const [submitting, setSubmitting]       = useState(false);
-  const [submitError, setSubmitError]     = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
+  const [bookedSlots,  setBookedSlots]  = useState<string[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
+  const [submitting,   setSubmitting]   = useState(false);
+  const [submitError,  setSubmitError]  = useState('');
 
-  // Fetch booked slots when day changes
-  const handleDayChange = useCallback(async (date: string) => {
-    setSelectedTime('');
+  // Track current date for barber-change reload
+  const currentDateRef = useRef<string>(new Date().toISOString().split('T')[0]);
+
+  const fetchSlots = useCallback(async (date: string) => {
+    currentDateRef.current = date;
+    setBookedSlots([]);       // clear stale data immediately
     setLoadingSlots(true);
     try {
-      const res = await fetch(`/api/appointments?mode=slots&date=${date}`);
+      const res   = await fetch(`/api/appointments?mode=slots&date=${date}`);
       const slots = (await res.json()) as string[];
       setBookedSlots(slots);
     } catch {
@@ -29,6 +32,23 @@ export default function BookingSection() {
       setLoadingSlots(false);
     }
   }, []);
+
+  // Load slots for initial day on mount
+  useEffect(() => {
+    const today = new Date();
+    void fetchSlots(today.toISOString().split('T')[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleDayChange = useCallback((date: string) => {
+    setSelectedTime('');
+    void fetchSlots(date);
+  }, [fetchSlots]);
+
+  const handleBarberChange = useCallback(() => {
+    // Reload slots when barber changes to get fresh data
+    if (currentDateRef.current) void fetchSlots(currentDateRef.current);
+  }, [fetchSlots]);
 
   const handleDateTimeSelect = (date: string, time: string) => {
     setSelectedDate(date);
@@ -60,7 +80,6 @@ export default function BookingSection() {
     setSubmitError('');
 
     try {
-      // 1. Save to DB
       const res = await fetch('/api/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -74,9 +93,8 @@ export default function BookingSection() {
       });
 
       if (res.status === 409) {
-        // Slot taken — reload and show error
-        const slotsRes = await fetch(`/api/appointments?mode=slots&date=${selectedDate}`);
-        setBookedSlots((await slotsRes.json()) as string[]);
+        // Slot taken — reload fresh data
+        await fetchSlots(selectedDate);
         setSelectedTime('');
         setSubmitError('Tento termín bol medzičasom obsadený. Vyberte iný čas.');
         setSubmitting(false);
@@ -89,10 +107,9 @@ export default function BookingSection() {
         return;
       }
 
-      // 2. Optimistically mark slot as booked
+      // Optimistically mark slot as booked
       setBookedSlots((prev) => [...prev, selectedTime]);
 
-      // 3. Open WhatsApp with pre-filled message
       const lines = [
         `📅 *Rezervácia — Kate Barber Studio*`,
         `━━━━━━━━━━━━━━━━━━`,
@@ -110,7 +127,6 @@ export default function BookingSection() {
         'noopener,noreferrer',
       );
 
-      // Reset form
       form.reset();
       setSelectedDate('');
       setSelectedTime('');
@@ -148,7 +164,11 @@ export default function BookingSection() {
               </div>
               <div>
                 <label className="booking__label">Barber</label>
-                <select name="barber" className="booking__select">
+                <select
+                  name="barber"
+                  className="booking__select"
+                  onChange={handleBarberChange}
+                >
                   <option value="">Bez preferencie</option>
                   {BARBERS.map((barber) => (
                     <option key={barber} value={barber}>{barber}</option>
@@ -158,19 +178,13 @@ export default function BookingSection() {
             </div>
 
             <div>
-              <label className="booking__label">
-                Vyberte deň a čas
-                {loadingSlots && (
-                  <span style={{ marginLeft: '0.5rem', fontSize: '0.8rem', opacity: 0.6 }}>
-                    načítavam dostupnosť...
-                  </span>
-                )}
-              </label>
+              <label className="booking__label">Vyberte deň a čas</label>
               <div className="booking__picker-wrap">
                 <DateTimePicker
                   onSelect={handleDateTimeSelect}
                   onDayChange={handleDayChange}
                   bookedSlots={bookedSlots}
+                  loading={loadingSlots}
                 />
               </div>
             </div>
@@ -217,7 +231,7 @@ export default function BookingSection() {
               <button
                 type="submit"
                 className="booking__btn-wa booking__btn-full"
-                disabled={submitting}
+                disabled={submitting || loadingSlots}
               >
                 <WhatsAppIcon size={18} />
                 {submitting ? 'Ukladám...' : 'Odoslať cez WhatsApp'}
