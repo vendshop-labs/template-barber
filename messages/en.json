@@ -582,8 +582,14 @@
     "title": "Our Work"
   },
   "courses": {
-    "title": "Learn from the Masters",
-    "enroll": "Enroll Now",
-    "preview": "Free Preview"
+    "title": "Learn from the masters",
+    "enroll": "Enroll in course",
+    "preview": "Free preview",
+    "noCourses": "Courses coming soon.",
+    "buyNow": "Buy course",
+    "accessGranted": "You have access to this course",
+    "lessonContent": "Lesson content",
+    "buyToUnlock": "Purchase the course to unlock video and materials",
+    "navLabel": "Courses"
   }
 }

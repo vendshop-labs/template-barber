@@ -53,8 +53,16 @@ export async function generateMetadata(): Promise<Metadata> {
       title: config.name,
       description: `${config.name} — powered by VendShop`,
       url: baseUrl,
-      locale: 'uk_UA',
-      alternateLocale: ['en_US', 'de_DE', 'sk_SK', 'cs_CZ', 'ru_RU'],
+      locale: 'sk_SK',
+      alternateLocale: ['en_US', 'de_DE', 'cs_CZ', 'uk_UA', 'ru_RU'],
+      images: [
+        {
+          url: `${baseUrl}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: config.name,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',

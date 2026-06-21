@@ -1,4 +1,4 @@
-import { WHATSAPP_LINKS } from '@/lib/constants';
+import { WHATSAPP_LINKS, CONTACT } from '@/lib/constants';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,7 +17,7 @@ export default function Footer() {
             Pre ženy aj mužov od roku 2018.
           </p>
           <div className="footer__socials">
-            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" className="footer__social-link">
+            <a href={CONTACT.instagram} target="_blank" rel="noopener" aria-label="Instagram" className="footer__social-link">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
               </svg>

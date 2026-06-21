@@ -583,7 +583,13 @@
   },
   "courses": {
     "title": "Učte se od mistrů",
-    "enroll": "Přihlásit se",
-    "preview": "Ukázka zdarma"
+    "enroll": "Přihlásit se na kurz",
+    "preview": "Ukázka zdarma",
+    "noCourses": "Kurzy brzy přibudou.",
+    "buyNow": "Koupit kurz",
+    "accessGranted": "Máte přístup k tomuto kurzu",
+    "lessonContent": "Obsah lekce",
+    "buyToUnlock": "Zakupte kurz pro přístup k videu a materiálům",
+    "navLabel": "Kurzy"
   }
 }

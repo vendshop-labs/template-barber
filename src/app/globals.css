@@ -1713,3 +1713,51 @@ body {
 
 /* ── Admin masters ── */
 .admin-masters__form { max-width: 640px; }
+
+/* ── Courses page ── */
+.courses-page { padding: var(--section-py) var(--section-px); }
+.courses-page__inner { max-width: 1200px; margin: 0 auto; }
+.courses-page__title { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--color-primary); margin-bottom: 2.5rem; }
+.courses-page__empty { color: var(--color-text-muted); }
+.courses-page__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+
+.course-card { background: var(--color-bg-subtle); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; color: var(--color-text); display: flex; flex-direction: column; transition: border-color 0.2s, transform 0.2s; }
+.course-card:hover { border-color: var(--color-primary); transform: translateY(-2px); }
+.course-card__image-wrap { position: relative; height: 200px; }
+.course-card__image { object-fit: cover; }
+.course-card__body { padding: 1.25rem; display: flex; flex-direction: column; flex: 1; gap: 0.5rem; }
+.course-card__title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin: 0; }
+.course-card__desc { font-size: 0.875rem; color: var(--color-text-muted); line-height: 1.5; flex: 1; }
+.course-card__footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 1rem; }
+.course-card__price { font-size: 1.2rem; font-weight: 700; color: var(--color-primary); }
+
+/* ── Course detail page ── */
+.course-detail { padding: var(--section-py) var(--section-px); }
+.course-detail__inner { max-width: 900px; margin: 0 auto; }
+.course-detail__header { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem; }
+@media (max-width: 700px) { .course-detail__header { grid-template-columns: 1fr; } }
+.course-detail__cover { position: relative; aspect-ratio: 16/9; border-radius: var(--radius-lg); overflow: hidden; }
+.course-detail__cover-img { object-fit: cover; }
+.course-detail__meta { display: flex; flex-direction: column; gap: 1rem; }
+.course-detail__title { font-family: var(--font-heading); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin: 0; }
+.course-detail__desc { color: var(--color-text-muted); line-height: 1.7; }
+.course-detail__price { font-size: 1.6rem; font-weight: 800; color: var(--color-primary); }
+
+/* ── Course access ── */
+.course-access { margin-top: 2rem; }
+.course-access__loading { color: var(--color-text-muted); padding: 2rem; text-align: center; }
+.course-access__badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem; }
+.course-access__badge--granted { background: color-mix(in srgb, var(--color-success) 12%, transparent); color: var(--color-success); border: 1px solid color-mix(in srgb, var(--color-success) 30%, transparent); }
+.course-access__player { position: relative; aspect-ratio: 16/9; border-radius: var(--radius-lg); overflow: hidden; background: #000; margin-bottom: 2rem; }
+.course-access__iframe { width: 100%; height: 100%; border: none; }
+.course-access__lesson-title { font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 1rem; }
+.course-access__lesson-body p { color: var(--color-text-muted); line-height: 1.7; margin-bottom: 0.5rem; }
+.course-access--locked { text-align: center; padding: 3rem 1rem; }
+.course-access__lock { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 2rem; color: var(--color-text-muted); }
+.course-access__lock-text { font-size: 0.95rem; }
+
+/* ── Hero chips & price anchor ── */
+.hero__chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+.hero__chip { background: rgba(var(--color-primary-rgb, 201,163,71), 0.12); border: 1px solid rgba(var(--color-primary-rgb, 201,163,71), 0.3); color: var(--color-text); border-radius: 2rem; padding: 0.3rem 0.75rem; font-size: 0.8rem; font-weight: 500; }
+.hero__price-anchor { font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 1.25rem; }
+.hero__price-anchor strong { color: var(--color-primary); font-size: 1rem; }

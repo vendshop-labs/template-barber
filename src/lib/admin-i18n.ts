@@ -15,6 +15,7 @@ export interface AdminTranslations {
     menu: string;
     tables: string;
     deliveryZones: string;
+    courses: string;
     theme: string;
     ai: string;
     settings: string;
@@ -113,6 +114,20 @@ export interface AdminTranslations {
     reject: string;
     reply: string;
   };
+  courses: {
+    title: string;
+    addCourse: string;
+    editCourse: string;
+    newCourse: string;
+    nameLabel: string;
+    priceLabel: string;
+    videoUrlLabel: string;
+    previewLabel: string;
+    descriptionLabel: string;
+    lessonTextLabel: string;
+    noCourses: string;
+    confirmDelete: string;
+  };
   ai: {
     title: string;
     placeholder: string;
@@ -142,6 +157,7 @@ const SK: AdminTranslations = {
     menu:         'Jedálny lístok',
     tables:       'Stoly',
     deliveryZones:'Doručovacie zóny',
+    courses:      'Kurzy',
     theme:        'Téma',
     ai:           'AI správa',
     settings:     'Nastavenia',
@@ -279,6 +295,20 @@ const SK: AdminTranslations = {
     reject:   'Zamietnuť',
     reply:    'Odpovedať',
   },
+  courses: {
+    title:           'Kurzy',
+    addCourse:       '+ Pridať kurz',
+    editCourse:      'Upraviť kurz',
+    newCourse:       'Nový kurz',
+    nameLabel:       'Názov',
+    priceLabel:      'Cena (€)',
+    videoUrlLabel:   'Video URL (embed)',
+    previewLabel:    'Náhľadový obrázok (URL)',
+    descriptionLabel:'Krátky popis',
+    lessonTextLabel: 'Obsah lekcie',
+    noCourses:       'Žiadne kurzy. Pridajte prvý.',
+    confirmDelete:   'Vymazať tento kurz?',
+  },
   ai: {
     title:       'AI správa',
     placeholder: 'Napíšte správu...',
@@ -308,6 +338,7 @@ const EN: AdminTranslations = {
     menu:         'Menu',
     tables:       'Tables',
     deliveryZones:'Delivery Zones',
+    courses:      'Courses',
     theme:        'Theme',
     ai:           'AI Manager',
     settings:     'Settings',
@@ -444,6 +475,20 @@ const EN: AdminTranslations = {
     approve:  'Approve',
     reject:   'Reject',
     reply:    'Reply',
+  },
+  courses: {
+    title:           'Courses',
+    addCourse:       '+ Add Course',
+    editCourse:      'Edit Course',
+    newCourse:       'New Course',
+    nameLabel:       'Name',
+    priceLabel:      'Price (€)',
+    videoUrlLabel:   'Video URL (embed)',
+    previewLabel:    'Preview Image (URL)',
+    descriptionLabel:'Short Description',
+    lessonTextLabel: 'Lesson Content',
+    noCourses:       'No courses yet. Add the first one.',
+    confirmDelete:   'Delete this course?',
   },
   ai: {
     title:       'AI Manager',

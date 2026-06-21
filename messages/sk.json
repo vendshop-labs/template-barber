@@ -583,7 +583,13 @@
   },
   "courses": {
     "title": "Učte sa od majstrov",
-    "enroll": "Prihlásiť sa",
-    "preview": "Ukážka zadarmo"
+    "enroll": "Prihlásiť sa na kurz",
+    "preview": "Ukážka zadarmo",
+    "noCourses": "Kurzy čoskoro pribudnú.",
+    "buyNow": "Kúpiť kurz",
+    "accessGranted": "Máte prístup k tomuto kurzu",
+    "lessonContent": "Obsah lekcie",
+    "buyToUnlock": "Zakúpte kurz pre prístup k videu a materiálom",
+    "navLabel": "Kurzy"
   }
 }

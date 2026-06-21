@@ -518,18 +518,22 @@ model DigitalProduct {
   storeId      String
   store        Store    @relation(fields: [storeId], references: [id])
   slug         String
+  type         String   @default("COURSE")
   price        Float
   currency     String   @default("EUR")
   fileUrl      String?
+  videoUrl     String?
   previewUrl   String?
   active       Boolean  @default(true)
   sortOrder    Int      @default(0)
   translations DigitalProductTranslation[]
+  accesses     CourseAccess[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   @@unique([storeId, slug])
   @@index([storeId, active])
+  @@index([storeId, type])
 }
 
 model DigitalProductTranslation {
@@ -539,8 +543,26 @@ model DigitalProductTranslation {
   locale      String
   name        String
   description String?
+  lessonText  String?
 
   @@unique([productId, locale])
+}
+
+// ============ COURSE ACCESS ============
+
+model CourseAccess {
+  id               String         @id @default(cuid())
+  storeId          String
+  digitalProductId String
+  product          DigitalProduct @relation(fields: [digitalProductId], references: [id])
+  email            String
+  stripePaymentId  String?
+  stripeSessionId  String?
+  grantedAt        DateTime       @default(now())
+
+  @@unique([digitalProductId, email])
+  @@index([email])
+  @@index([storeId])
 }
 
 // ============ ADMIN AUTH ============

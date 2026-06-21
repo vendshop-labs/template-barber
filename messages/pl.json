@@ -583,7 +583,13 @@
   },
   "courses": {
     "title": "Ucz się od mistrzów",
-    "enroll": "Zapisz się",
-    "preview": "Darmowy podgląd"
+    "enroll": "Zapisz się na kurs",
+    "preview": "Darmowy podgląd",
+    "noCourses": "Kursy wkrótce.",
+    "buyNow": "Kup kurs",
+    "accessGranted": "Masz dostęp do tego kursu",
+    "lessonContent": "Treść lekcji",
+    "buyToUnlock": "Kup kurs, aby odblokować wideo i materiały",
+    "navLabel": "Kursy"
   }
 }

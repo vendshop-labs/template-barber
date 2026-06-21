@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { WHATSAPP_LINKS } from '@/lib/constants';
+import { WHATSAPP_LINKS, CONTACT } from '@/lib/constants';
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 import { BLUR_PLACEHOLDER } from '@/components/ui/BlurImage';
 
@@ -41,6 +41,19 @@ export default function HeroSection({ config }: HeroSectionProps) {
 
           <p className="hero__subtitle">{subtitle}</p>
 
+          {/* Service chips */}
+          <div className="hero__chips">
+            <span className="hero__chip">✂ Strih</span>
+            <span className="hero__chip">🧔 Brada</span>
+            <span className="hero__chip">💈 Holenie</span>
+            <span className="hero__chip">🎓 Kurzy</span>
+          </div>
+
+          {/* Price anchor */}
+          <p className="hero__price-anchor">
+            Strih od <strong>€15</strong> · Brada od <strong>€10</strong>
+          </p>
+
           <div className="hero__buttons">
             <a href="#rezervacia" className="btn-primary">
               {ctaText}
@@ -58,6 +71,10 @@ export default function HeroSection({ config }: HeroSectionProps) {
 
           <p className="hero__trust">
             ⭐ Google 4.9 &nbsp;·&nbsp; 🕐 Po–Pia 09:00–19:00 &nbsp;·&nbsp; 📍 Trenčín
+            &nbsp;·&nbsp;{' '}
+            <a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="hero__instagram">
+              Instagram
+            </a>
           </p>
         </div>
 

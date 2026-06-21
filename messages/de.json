@@ -582,8 +582,14 @@
     "title": "Unsere Arbeit"
   },
   "courses": {
-    "title": "Lernen Sie von den Meistern",
-    "enroll": "Jetzt einschreiben",
-    "preview": "Kostenlose Vorschau"
+    "title": "Von Meistern lernen",
+    "enroll": "Kurs buchen",
+    "preview": "Kostenlose Vorschau",
+    "noCourses": "Kurse kommen bald.",
+    "buyNow": "Kurs kaufen",
+    "accessGranted": "Sie haben Zugang zu diesem Kurs",
+    "lessonContent": "Kursinhalt",
+    "buyToUnlock": "Kaufen Sie den Kurs für Zugang zu Video und Materialien",
+    "navLabel": "Kurse"
   }
 }

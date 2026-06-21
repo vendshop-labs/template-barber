@@ -7,4 +7,6 @@ export const FLAGS = {
   themeEditor:     process.env.NEXT_PUBLIC_ENABLE_THEME_EDITOR !== 'false',
   aiManagement:    process.env.NEXT_PUBLIC_ENABLE_AI_MANAGEMENT !== 'false',
   digitalProducts: process.env.NEXT_PUBLIC_ENABLE_DIGITAL_PRODUCTS !== 'false',
+  courses:         process.env.NEXT_PUBLIC_ENABLE_COURSES === 'true',
+  payment:         process.env.NEXT_PUBLIC_ENABLE_PAYMENT === 'true',
 } as const;
