@@ -9,6 +9,7 @@ import Footer from '@/components/layout/Footer/Footer';
 import CookieBanner from '@/components/ui/CookieBanner/CookieBanner';
 import { getStoreConfig } from '@/lib/store-config';
 import { themeToCssVars, DARK_THEME } from '@/lib/theme';
+import { db } from '@/lib/db';
 import { VerticalProvider } from '@/lib/vertical-context';
 import { PresenceProvider } from '@/lib/presence-context';
 import { CustomerProvider } from '@/lib/useCustomer';
@@ -109,6 +110,15 @@ export default async function LocaleLayout({
   const theme = process.env.NEXT_PUBLIC_THEME ?? 'dark';
   const cssVars = themeToCssVars(theme === 'dark' ? DARK_THEME : config.theme);
 
+  const storeSlug = process.env.STORE_SLUG ?? 'kate-barber';
+  const store = locale === 'de'
+    ? await db.store.findUnique({ where: { slug: storeSlug } })
+    : null;
+  const legalConfig = store
+    ? await db.legalConfig.findUnique({ where: { storeId: store.id } })
+    : null;
+  const legalEnabled = legalConfig?.enabled ?? false;
+
   return (
     <html lang={locale} data-vertical={config.vertical.vertical} data-theme={theme} className={`${playfair.variable} ${dmSans.variable}`}>
       <head>
@@ -122,7 +132,7 @@ export default async function LocaleLayout({
               <PresenceProvider presence={config.presence}>
                 <Header logoUrl={config.logoUrl} />
                 <main>{children}</main>
-                <Footer />
+                <Footer locale={locale} legalEnabled={legalEnabled} />
                 <CookieBanner />
               </PresenceProvider>
             </VerticalProvider>

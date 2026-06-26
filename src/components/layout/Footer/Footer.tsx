@@ -1,7 +1,13 @@
 import { WHATSAPP_LINKS, CONTACT } from '@/lib/constants';
 
-export default function Footer() {
+interface FooterProps {
+  locale?: string;
+  legalEnabled?: boolean;
+}
+
+export default function Footer({ locale, legalEnabled }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const showLegal = locale === 'de' && legalEnabled;
 
   return (
     <footer className="footer">
@@ -86,6 +92,14 @@ export default function Footer() {
           <a href="#">Ochrana súkromia</a>
           <span>·</span>
           <a href="#">Obchodné podmienky</a>
+          {showLegal && (
+            <>
+              <span>·</span>
+              <a href="/de/impressum">Impressum</a>
+              <span>·</span>
+              <a href="/de/datenschutz">Datenschutz</a>
+            </>
+          )}
         </p>
       </div>
     </footer>
