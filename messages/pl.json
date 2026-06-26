@@ -591,5 +591,12 @@
     "lessonContent": "Treść lekcji",
     "buyToUnlock": "Kup kurs, aby odblokować wideo i materiały",
     "navLabel": "Kursy"
+  },
+  "CookieBanner": {
+    "ariaLabel": "Zgoda na pliki cookie",
+    "message": "Ta strona używa plików cookie, aby poprawić Twoje doświadczenia. Więcej informacji w",
+    "privacyLink": "polityce prywatności",
+    "reject": "Odrzuć",
+    "acceptAll": "Zaakceptuj wszystko"
   }
 }

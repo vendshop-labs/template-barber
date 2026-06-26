@@ -591,5 +591,12 @@
     "lessonContent": "Obsah lekce",
     "buyToUnlock": "Zakupte kurz pro přístup k videu a materiálům",
     "navLabel": "Kurzy"
+  },
+  "CookieBanner": {
+    "ariaLabel": "Souhlas s cookies",
+    "message": "Tato stránka používá cookies pro lepší zážitek. Více informací najdete v",
+    "privacyLink": "zásadách ochrany soukromí",
+    "reject": "Odmítnout",
+    "acceptAll": "Přijmout vše"
   }
 }

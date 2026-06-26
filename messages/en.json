@@ -591,5 +591,12 @@
     "lessonContent": "Lesson content",
     "buyToUnlock": "Purchase the course to unlock video and materials",
     "navLabel": "Courses"
+  },
+  "CookieBanner": {
+    "ariaLabel": "Cookie consent",
+    "message": "This site uses cookies to improve your experience. Learn more in our",
+    "privacyLink": "Privacy Policy",
+    "reject": "Reject",
+    "acceptAll": "Accept all"
   }
 }

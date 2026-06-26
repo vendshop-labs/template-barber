@@ -591,5 +591,12 @@
     "lessonContent": "Kursinhalt",
     "buyToUnlock": "Kaufen Sie den Kurs für Zugang zu Video und Materialien",
     "navLabel": "Kurse"
+  },
+  "CookieBanner": {
+    "ariaLabel": "Cookie-Zustimmung",
+    "message": "Diese Website verwendet Cookies für ein besseres Erlebnis. Mehr dazu in unserer",
+    "privacyLink": "Datenschutzerklärung",
+    "reject": "Ablehnen",
+    "acceptAll": "Alle akzeptieren"
   }
 }

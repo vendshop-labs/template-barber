@@ -6,6 +6,7 @@ import { Playfair_Display, DM_Sans } from 'next/font/google';
 import { routing, type Locale } from '@/i18n/routing';
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
+import CookieBanner from '@/components/ui/CookieBanner/CookieBanner';
 import { getStoreConfig } from '@/lib/store-config';
 import { themeToCssVars, DARK_THEME } from '@/lib/theme';
 import { VerticalProvider } from '@/lib/vertical-context';
@@ -122,6 +123,7 @@ export default async function LocaleLayout({
                 <Header logoUrl={config.logoUrl} />
                 <main>{children}</main>
                 <Footer />
+                <CookieBanner />
               </PresenceProvider>
             </VerticalProvider>
           </CustomerProvider>
