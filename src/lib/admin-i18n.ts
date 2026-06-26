@@ -20,6 +20,7 @@ export interface AdminTranslations {
     theme: string;
     ai: string;
     settings: string;
+    legal: string;
     logout: string;
   };
   common: {
@@ -165,6 +166,7 @@ const SK: AdminTranslations = {
     theme:        'Téma',
     ai:           'AI správa',
     settings:     'Nastavenia',
+    legal:        'Legal (DE)',
     logout:       'Odhlásiť',
   },
   common: {
@@ -349,6 +351,7 @@ const EN: AdminTranslations = {
     theme:        'Theme',
     ai:           'AI Manager',
     settings:     'Settings',
+    legal:        'Legal (DE)',
     logout:       'Log out',
   },
   common: {

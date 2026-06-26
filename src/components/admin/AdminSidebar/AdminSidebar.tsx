@@ -347,6 +347,18 @@ const NAV_SHARED_BOTTOM_ALL: (NavItem & { show: boolean })[] = [
       </svg>
     ),
   },
+  {
+    href: '/admin/legal',
+    labelKey: 'legal',
+    show: true,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" {...ico}>
+        <path d="M12 3v18M5 6l7-3 7 3" />
+        <path d="M5 6l-3 6h6L5 6ZM19 6l-3 6h6L19 6Z" />
+        <path d="M3 21h18" />
+      </svg>
+    ),
+  },
 ];
 
 const NAV_SHARED_BOTTOM: NavItem[] = NAV_SHARED_BOTTOM_ALL.filter((item) => item.show);
