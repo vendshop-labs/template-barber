@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { WHATSAPP_LINKS } from '@/lib/constants';
+import { WHATSAPP_LINKS, CONTACT } from '@/lib/constants';
+import { formatHoursDisplay } from '@/lib/formatHours';
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 import { BLUR_PLACEHOLDER } from '@/components/ui/BlurImage';
 
@@ -13,7 +14,7 @@ interface HeroConfig {
 interface HeroSectionProps {
   config?: HeroConfig | null;
   city?: string;
-  openingHoursText?: string;
+  workingHours?: unknown;
   instagramUrl?: string;
 }
 
@@ -24,11 +25,15 @@ const DEFAULTS = {
   imageUrl: '/hero-barbershop.webp',
 };
 
-export default function HeroSection({ config, city, openingHoursText, instagramUrl }: HeroSectionProps) {
-  const title = config?.title || DEFAULTS.title;
+export default function HeroSection({ config, city, workingHours, instagramUrl }: HeroSectionProps) {
+  const title    = config?.title    || DEFAULTS.title;
   const subtitle = config?.subtitle || DEFAULTS.subtitle;
-  const ctaText = config?.ctaText || DEFAULTS.ctaText;
+  const ctaText  = config?.ctaText  || DEFAULTS.ctaText;
   const imageSrc = config?.imageUrl || DEFAULTS.imageUrl;
+
+  const hoursText = formatHoursDisplay(workingHours);
+  const cityText  = city || CONTACT.city;
+  const igUrl     = instagramUrl || CONTACT.instagram;
 
   return (
     <section className="hero">
@@ -74,11 +79,11 @@ export default function HeroSection({ config, city, openingHoursText, instagramU
 
           <p className="hero__trust">
             ⭐ Google 4.9
-            {openingHoursText && <>&nbsp;·&nbsp; 🕐 {openingHoursText}</>}
-            {city && <>&nbsp;·&nbsp; 📍 {city}</>}
-            {instagramUrl && (
+            {hoursText && <>&nbsp;·&nbsp; 🕐 {hoursText}</>}
+            {cityText  && <>&nbsp;·&nbsp; 📍 {cityText}</>}
+            {igUrl && (
               <>&nbsp;·&nbsp;{' '}
-                <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="hero__instagram">
+                <a href={igUrl} target="_blank" rel="noopener noreferrer" className="hero__instagram">
                   Instagram
                 </a>
               </>

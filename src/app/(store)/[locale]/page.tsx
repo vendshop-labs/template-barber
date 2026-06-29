@@ -1,7 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { db } from '@/lib/db';
-import { formatHoursDisplay } from '@/lib/formatHours';
 import { CONTACT } from '@/lib/constants';
+import type { HoursMap } from '@/components/ui/DateTimePicker';
 import HeroSection from '@/components/sections/HeroSection';
 import DecorativeDivider from '@/components/ui/DecorativeDivider';
 import StatsBar from '@/components/sections/StatsBar';
@@ -49,8 +49,6 @@ export default async function HomePage({
 
   const meta = (store?.metadata ?? {}) as Record<string, unknown>;
   const instagramUrl = (meta.instagram as string) || CONTACT.instagram;
-  const cityDisplay = store?.city || CONTACT.city;
-  const openingHoursText = formatHoursDisplay(parsedHours) ?? 'Po–Pi 09:00–18:00';
 
   const [heroConfig, galleryImages, dbTestimonials] = store
     ? await Promise.all([
@@ -73,8 +71,8 @@ export default async function HomePage({
     <>
       <HeroSection
         config={heroConfig}
-        city={cityDisplay}
-        openingHoursText={openingHoursText}
+        city={store?.city ?? undefined}
+        workingHours={parsedHours ?? undefined}
         instagramUrl={instagramUrl}
       />
       <DecorativeDivider />
@@ -92,7 +90,7 @@ export default async function HomePage({
         adminReply: t.adminReply,
         adminReplyAt: t.adminReplyAt?.toISOString() ?? null,
       }))} />
-      <BookingSection />
+      <BookingSection workingHours={parsedHours as HoursMap | undefined} />
       <AboutSection />
       <ContactSection
         address={store?.address}

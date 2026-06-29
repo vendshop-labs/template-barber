@@ -2,17 +2,43 @@
 
 import { useState } from 'react';
 
+type DayKey = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
+export type HoursMap = Record<DayKey, { open: string; close: string } | null>;
+
+const DAY_KEY: Record<number, DayKey> = {
+  0: 'sun', 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat',
+};
+
 interface DateTimePickerProps {
   onSelect: (date: string, time: string) => void;
   onDayChange?: (date: string) => void;
   bookedSlots?: string[];
   loading?: boolean;
+  workingHours?: HoursMap;
 }
 
 const SK_DAYS   = ['Ned', 'Pon', 'Uto', 'Str', 'Štv', 'Pia', 'Sob'];
 const SK_MONTHS = ['jan', 'feb', 'mar', 'apr', 'máj', 'jún', 'júl', 'aug', 'sep', 'okt', 'nov', 'dec'];
 
-function generateTimeSlots(dayOfWeek: number): string[] {
+function generateTimeSlots(dayOfWeek: number, workingHours?: HoursMap): string[] {
+  const dayKey = DAY_KEY[dayOfWeek];
+
+  if (workingHours) {
+    const hours = workingHours[dayKey];
+    if (!hours) return []; // day closed
+    const [startH, startM] = hours.open.split(':').map(Number);
+    const [endH,   endM]   = hours.close.split(':').map(Number);
+    const slots: string[] = [];
+    let h = startH, m = startM;
+    while (h < endH || (h === endH && m <= endM)) {
+      slots.push(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`);
+      m += 30;
+      if (m >= 60) { m = 0; h++; }
+    }
+    return slots;
+  }
+
+  // Fallback if no workingHours passed (keep old logic)
   if (dayOfWeek === 0) return [];
   const endHour = dayOfWeek === 6 ? 14 : 18;
   const endMin  = dayOfWeek === 6 ? 30 : 0;
@@ -36,6 +62,7 @@ export default function DateTimePicker({
   onDayChange,
   bookedSlots = [],
   loading = false,
+  workingHours,
 }: DateTimePickerProps) {
   const days = Array.from({ length: 7 }, (_, i) => {
     const date = new Date();
@@ -43,11 +70,17 @@ export default function DateTimePicker({
     return date;
   });
 
+  const isClosedDay = (day: Date) => {
+    const dayKey = DAY_KEY[day.getDay()];
+    if (workingHours) return workingHours[dayKey] === null || workingHours[dayKey] === undefined;
+    return day.getDay() === 0; // fallback: only Sunday closed
+  };
+
   const [selectedDay, setSelectedDay]   = useState<Date>(days[0]);
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [timesKey, setTimesKey]         = useState(0);
 
-  const timeSlots = generateTimeSlots(selectedDay.getDay());
+  const timeSlots = generateTimeSlots(selectedDay.getDay(), workingHours);
 
   const isToday = selectedDay.toDateString() === days[0].toDateString();
   const nowHHMM = new Intl.DateTimeFormat('sv-SE', {
@@ -58,7 +91,7 @@ export default function DateTimePicker({
   }).format(new Date()).trim();
 
   const handleDaySelect = (day: Date) => {
-    if (day.getDay() === 0) return;
+    if (isClosedDay(day)) return;
     setSelectedTime('');
     setSelectedDay(day);
     setTimesKey((k) => k + 1);
@@ -77,11 +110,11 @@ export default function DateTimePicker({
     <div className="date-picker">
       <div className="date-picker__days">
         {days.map((day) => {
-          const isSunday   = day.getDay() === 0;
+          const isClosed   = isClosedDay(day);
           const isSelected = day.toDateString() === selectedDay.toDateString();
           let cls = 'date-picker__day';
           if (isSelected) cls += ' date-picker__day--selected';
-          if (isSunday)   cls += ' date-picker__day--disabled';
+          if (isClosed)   cls += ' date-picker__day--disabled';
 
           return (
             <button
@@ -93,7 +126,7 @@ export default function DateTimePicker({
               <span className="date-picker__day-name">{SK_DAYS[day.getDay()]}</span>
               <span className="date-picker__day-number">{day.getDate()}</span>
               <span className="date-picker__day-month">
-                {isSunday ? 'zatv.' : SK_MONTHS[day.getMonth()]}
+                {isClosed ? 'zatv.' : SK_MONTHS[day.getMonth()]}
               </span>
             </button>
           );

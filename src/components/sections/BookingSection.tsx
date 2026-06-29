@@ -5,9 +5,14 @@ import { SERVICE_OPTIONS, BARBERS, WHATSAPP_NUMBER } from '@/lib/constants';
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon';
 import GoldDivider from '@/components/ui/GoldDivider';
 import DateTimePicker from '@/components/ui/DateTimePicker';
+import type { HoursMap } from '@/components/ui/DateTimePicker';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
-export default function BookingSection() {
+interface BookingSectionProps {
+  workingHours?: HoursMap;
+}
+
+export default function BookingSection({ workingHours }: BookingSectionProps) {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [bookedSlots,  setBookedSlots]  = useState<string[]>([]);
@@ -187,6 +192,7 @@ export default function BookingSection() {
                   onDayChange={handleDayChange}
                   bookedSlots={bookedSlots}
                   loading={loadingSlots}
+                  workingHours={workingHours}
                 />
               </div>
             </div>
