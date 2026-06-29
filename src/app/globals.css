@@ -16,24 +16,25 @@ html, body {
   --color-whatsapp:       #25D366;
   --color-whatsapp-dark:  #20BD5A;
   --transition:           0.3s ease;
-  /* Admin panel tokens — always light */
-  --admin-bg:             #ffffff;
-  --admin-bg-subtle:      #f8fafc;
-  --admin-bg-hover:       #fafafa;
-  --admin-bg-card:        #ffffff;
-  --admin-text:           #0f172a;
-  --admin-text-muted:     #64748b;
-  --admin-text-faint:     #94a3b8;
-  --admin-border:         #e2e8f0;
-  --admin-border-light:   #f1f5f9;
+  /* Admin panel tokens — dark panel */
+  --admin-bg:             #111111;
+  --admin-bg-subtle:      #161616;
+  --admin-bg-hover:       #1e1e1e;
+  --admin-bg-card:        #1a1a1a;
+  --admin-text:           #f1f5f9;
+  --admin-text-muted:     #94a3b8;
+  --admin-text-faint:     #64748b;
+  --admin-border:         rgba(255, 255, 255, 0.1);
+  --admin-border-light:   rgba(255, 255, 255, 0.06);
+  --admin-primary:        #C96030;
   --admin-accent:         #f97316;
   --admin-accent-dark:    #ea6c00;
-  --admin-accent-light:   #fff7ed;
-  --admin-error:          #fee2e2;
-  --admin-error-text:     #991b1b;
-  --admin-success:        #dcfce7;
-  --admin-success-text:   #166534;
-  --admin-btn-edit:       #1e40af;
+  --admin-accent-light:   rgba(249, 115, 22, 0.1);
+  --admin-error:          #f87171;
+  --admin-error-text:     #fca5a5;
+  --admin-success:        #4ade80;
+  --admin-success-text:   #86efac;
+  --admin-btn-edit:       #60a5fa;
   --admin-kate-bronze:    #B87333;  /* Kate Barber brand preview */
 }
 
@@ -918,22 +919,22 @@ body::after {
 
 /* ── Admin context: override booking__field for dark panel ── */
 .admin-page .booking__field label {
-  color: var(--color-text-secondary);
+  color: var(--admin-text-muted);
 }
 .admin-page .booking__field input,
 .admin-page .booking__field textarea {
-  background: var(--color-surface);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--color-text);
+  background: var(--admin-bg-card);
+  border: 1px solid var(--admin-border);
+  color: var(--admin-text);
 }
 .admin-page .booking__field input:focus,
 .admin-page .booking__field textarea:focus {
-  border-color: var(--color-primary);
-  background: var(--color-surface);
+  border-color: var(--admin-primary);
+  background: var(--admin-bg-card);
 }
 .admin-page .booking__field input::placeholder,
 .admin-page .booking__field textarea::placeholder {
-  color: var(--color-text-muted);
+  color: var(--admin-text-faint);
 }
 
 .booking__label {
@@ -1621,8 +1622,8 @@ body::after {
 .admin-page {
   padding: 2rem;
   min-height: 100vh;
-  background: #111111;
-  color: var(--color-text);
+  background: var(--admin-bg);
+  color: var(--admin-text);
 }
 .admin-page__header {
   display: flex;
@@ -1635,7 +1636,7 @@ body::after {
 .admin-page__header h1 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--admin-text);
 }
 
 /* ── Admin Testimonials page ── */
