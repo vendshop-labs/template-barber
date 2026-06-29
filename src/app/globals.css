@@ -10,11 +10,12 @@ html, body {
   --color-gold-dark:      var(--color-primary-dark);
   --color-gold-light:     var(--color-primary-light);
   --color-text-primary:   var(--color-text);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-text-muted:     var(--color-text-muted);
-  --color-border:         var(--color-border);
   --color-bg-alt:         var(--color-bg-subtle);
   --color-bg-card:        var(--color-bg-subtle);
+  /* Font aliases */
+  --font-body:            var(--font-dm-sans);
+  --font-display:         var(--font-playfair);
+  /* Static store values */
   --color-whatsapp:       #25D366;
   --color-whatsapp-dark:  #20BD5A;
   --transition:           0.3s ease;
@@ -36,6 +37,7 @@ html, body {
   --admin-success:        #dcfce7;
   --admin-success-text:   #166534;
   --admin-btn-edit:       #1e40af;
+  --admin-kate-bronze:    #B87333;  /* Kate Barber brand preview */
 }
 
 /* ===== RESET ===== */

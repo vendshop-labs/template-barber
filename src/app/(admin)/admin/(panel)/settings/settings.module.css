@@ -40,8 +40,8 @@
 }
 
 .tabActive {
-  color: #B87333;
-  border-bottom-color: #B87333;
+  color: var(--admin-kate-bronze);
+  border-bottom-color: var(--admin-kate-bronze);
 }
 
 /* ── Card ─────────────────────────────────────────── */
@@ -70,8 +70,8 @@
 }
 
 .logoUpload:hover {
-  border-color: #B87333;
-  color: #B87333;
+  border-color: var(--admin-kate-bronze);
+  color: var(--admin-kate-bronze);
 }
 
 .logoUpload span {
@@ -122,7 +122,7 @@
 
 .input:focus,
 .textarea:focus {
-  border-color: #B87333;
+  border-color: var(--admin-kate-bronze);
 }
 
 /* ── Masked input ─────────────────────────────────── */
@@ -206,7 +206,7 @@
   align-self: flex-start;
   height: 46px;
   padding: 0 24px;
-  background: #B87333;
+  background: var(--admin-kate-bronze);
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -243,8 +243,8 @@
 }
 
 .testBtn:hover {
-  border-color: #B87333;
-  color: #B87333;
+  border-color: var(--admin-kate-bronze);
+  color: var(--admin-kate-bronze);
 }
 
 .dangerBtn {
@@ -280,8 +280,8 @@
 }
 
 .outlineBtn:hover {
-  border-color: #B87333;
-  color: #B87333;
+  border-color: var(--admin-kate-bronze);
+  color: var(--admin-kate-bronze);
 }
 
 /* ── Toggle ───────────────────────────────────────── */
@@ -391,11 +391,11 @@
 }
 
 .modeCard:hover {
-  border-color: #B87333;
+  border-color: var(--admin-kate-bronze);
 }
 
 .modeCardActive {
-  border-color: #B87333;
+  border-color: var(--admin-kate-bronze);
   background: rgba(184, 115, 51, 0.1);
   box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.12);
 }
@@ -432,7 +432,7 @@
   gap: 8px;
   height: 40px;
   padding: 0 18px;
-  background: #B87333;
+  background: var(--admin-kate-bronze);
   color: #fff;
   border-radius: 9px;
   font-size: 13px;
@@ -630,8 +630,8 @@
 }
 
 .photoUploadLabel:hover {
-  border-color: #B87333;
-  color: #B87333;
+  border-color: var(--admin-kate-bronze);
+  color: var(--admin-kate-bronze);
 }
 
 .photoUploadLabel input {
@@ -643,7 +643,7 @@
   height: 44px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #B87333;
+  border: 2px solid var(--admin-kate-bronze);
 }
 
 @media (max-width: 560px) {
