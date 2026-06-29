@@ -916,6 +916,26 @@ body::after {
   color: var(--color-text-muted);
 }
 
+/* ── Admin context: override booking__field for dark panel ── */
+.admin-page .booking__field label {
+  color: var(--color-text-secondary);
+}
+.admin-page .booking__field input,
+.admin-page .booking__field textarea {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+}
+.admin-page .booking__field input:focus,
+.admin-page .booking__field textarea:focus {
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+}
+.admin-page .booking__field input::placeholder,
+.admin-page .booking__field textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
 .booking__label {
   display: block;
   font-size: 0.75rem;
