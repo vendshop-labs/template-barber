@@ -26,9 +26,9 @@
   gap: 8px;
   height: 44px;
   padding: 0 18px;
-  background: #fff;
+  background: var(--admin-bg);
   color: #4b5563;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid var(--admin-border);
   border-radius: 10px;
   font-family: inherit;
   font-size: 14px;
@@ -38,8 +38,8 @@
 }
 
 .exportBtn:hover {
-  border-color: #f97316;
-  color: #f97316;
+  border-color: var(--admin-accent);
+  color: var(--admin-accent);
 }
 
 /* ── Stat filter badges ───────────────────────────── */
@@ -56,8 +56,8 @@
   gap: 5px;
   height: 38px;
   padding: 0 16px;
-  background: #fff;
-  border: 1.5px solid #e5e7eb;
+  background: var(--admin-bg);
+  border: 1.5px solid var(--admin-border);
   border-radius: 999px;
   font-family: inherit;
   font-size: 14px;
@@ -68,12 +68,12 @@
 }
 
 .stat:hover {
-  border-color: #f97316;
+  border-color: var(--admin-accent);
 }
 
 .statActive {
-  background: #f97316;
-  border-color: #f97316;
+  background: var(--admin-accent);
+  border-color: var(--admin-accent);
   color: #fff;
 }
 
@@ -93,32 +93,32 @@
 .searchWrap svg {
   position: absolute;
   left: 14px;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   pointer-events: none;
 }
 
 .search {
   width: 100%;
   height: 46px;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid var(--admin-border);
   border-radius: 10px;
   padding: 0 14px 0 42px;
   font-family: inherit;
   font-size: 14px;
   color: #1a1a1a;
-  background: #fff;
+  background: var(--admin-bg);
   outline: none;
   transition: border-color 150ms ease;
 }
 
 .search:focus {
-  border-color: #f97316;
+  border-color: var(--admin-accent);
 }
 
 /* ── Table ────────────────────────────────────────── */
 .tableWrap {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border);
   border-radius: 14px;
   overflow-x: auto;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
@@ -135,17 +135,17 @@
   text-align: left;
   font-size: 11px;
   font-weight: 600;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 14px 16px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--admin-bg-subtle);
+  border-bottom: 1px solid var(--admin-border);
 }
 
 .table td {
   padding: 12px 16px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--admin-border-light);
   vertical-align: middle;
   color: #1a1a1a;
 }
@@ -155,7 +155,7 @@
 }
 
 .table tbody tr:hover {
-  background: #f8fafc;
+  background: var(--admin-bg-subtle);
 }
 
 .colActions {
@@ -169,7 +169,7 @@
   font-family: inherit;
   font-size: 13px;
   font-weight: 700;
-  color: #f97316;
+  color: var(--admin-accent);
   padding: 0;
 }
 
@@ -186,7 +186,7 @@
 .phone {
   display: block;
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   margin-top: 2px;
 }
 
@@ -205,7 +205,7 @@
 }
 
 .date {
-  color: #9ca3af;
+  color: var(--admin-text-faint);
 }
 
 /* ── Status select (colored badge) ────────────────── */
@@ -228,7 +228,7 @@
 }
 
 .processing {
-  background: #fff7ed;
+  background: var(--admin-accent-light);
   color: #ea6c00;
 }
 
@@ -238,12 +238,12 @@
 }
 
 .delivered {
-  background: #dcfce7;
+  background: var(--admin-success);
   color: #16a34a;
 }
 
 .cancelled {
-  background: #fee2e2;
+  background: var(--admin-error);
   color: #dc2626;
 }
 
@@ -258,7 +258,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   padding: 7px;
   border-radius: 8px;
   display: inline-flex;
@@ -266,13 +266,13 @@
 }
 
 .iconBtn:hover {
-  color: #f97316;
-  background: #fff7ed;
+  color: var(--admin-accent);
+  background: var(--admin-accent-light);
 }
 
 .emptyRow {
   text-align: center;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   padding: 40px 16px;
   font-weight: 500;
 }
@@ -284,12 +284,12 @@
 }
 
 .CONFIRMED {
-  background: #f0fdf4;
+  background: var(--admin-success);
   color: #15803d;
 }
 
 .PROCESSING {
-  background: #fff7ed;
+  background: var(--admin-accent-light);
   color: #ea6c00;
 }
 
@@ -299,12 +299,12 @@
 }
 
 .DELIVERED {
-  background: #dcfce7;
+  background: var(--admin-success);
   color: #16a34a;
 }
 
 .CANCELLED {
-  background: #fee2e2;
+  background: var(--admin-error);
   color: #dc2626;
 }
 
@@ -340,7 +340,7 @@
 
 .deliveryTime {
   font-size: 0.75rem;
-  color: #64748b;
+  color: var(--admin-text-muted);
 }
 
 .zoneInfo {

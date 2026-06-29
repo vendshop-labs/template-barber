@@ -12,8 +12,8 @@
 }
 
 .card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border);
   border-radius: 14px;
   padding: 64px 24px;
   display: flex;
@@ -27,8 +27,8 @@
   width: 64px;
   height: 64px;
   border-radius: 16px;
-  background: #fff7ed;
-  color: #f97316;
+  background: var(--admin-accent-light);
+  color: var(--admin-accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,6 +37,6 @@
 .text {
   margin: 0;
   font-size: 15px;
-  color: #6b7280;
+  color: var(--admin-text-muted);
   font-weight: 500;
 }

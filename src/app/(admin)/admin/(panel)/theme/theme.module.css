@@ -55,7 +55,7 @@
   font-size: 14px;
 }
 
-.loading { padding: 48px; text-align: center; color: #6b7280; }
+.loading { padding: 48px; text-align: center; color: var(--admin-text-muted); }
 
 .grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
 
@@ -91,7 +91,7 @@
 }
 
 .colorName { font-size: 14px; font-weight: 500; color: #e0e0e0; }
-.colorHint { font-size: 12px; color: #6b7280; }
+.colorHint { font-size: 12px; color: var(--admin-text-muted); }
 
 .hexInput {
   font-size: 13px;
@@ -139,7 +139,7 @@
 /* Presets */
 .presetsHint {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--admin-text-muted);
   margin: 0 0 16px;
 }
 
@@ -188,5 +188,5 @@
 
 .presetDesc {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--admin-text-muted);
 }

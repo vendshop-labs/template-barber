@@ -11,13 +11,13 @@
 .title {
   font-size: 1.375rem;
   font-weight: 700;
-  color: #f1f5f9;
+  color: var(--admin-border-light);
   margin: 0;
 }
 
 .note {
   font-size: 0.8125rem;
-  color: #94a3b8;
+  color: var(--admin-text-faint);
   margin: 0;
   line-height: 1.5;
   background: rgba(201, 96, 48, 0.08);
@@ -56,13 +56,13 @@
   display: block;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--admin-border-light);
 }
 
 .toggleSub {
   display: block;
   font-size: 0.8125rem;
-  color: #64748b;
+  color: var(--admin-text-muted);
   margin-top: 0.15rem;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .toggle input:checked + .track { background: #C96030; }
-.toggle input:checked + .track::before { transform: translateX(20px); background: #fff; }
+.toggle input:checked + .track::before { transform: translateX(20px); background: var(--admin-bg); }
 
 .grid {
   display: grid;
@@ -124,7 +124,7 @@
 .label {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #94a3b8;
+  color: var(--admin-text-faint);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -133,7 +133,7 @@
   background: #111111;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
-  color: #f1f5f9;
+  color: var(--admin-border-light);
   font-size: 0.875rem;
   padding: 0.5rem 0.75rem;
   font-family: inherit;
@@ -147,7 +147,7 @@
   border-color: #C96030;
 }
 
-.input::placeholder { color: #475569; }
+.input::placeholder { color: var(--admin-text-muted); }
 
 .actions {
   display: flex;

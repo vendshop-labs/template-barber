@@ -10,7 +10,7 @@
 }
 
 .dialog {
-  background: #fff;
+  background: var(--admin-bg);
   border-radius: 16px;
   width: 100%;
   max-width: 480px;
@@ -24,10 +24,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 22px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--admin-border);
   position: sticky;
   top: 0;
-  background: #fff;
+  background: var(--admin-bg);
   border-radius: 16px 16px 0 0;
 }
 
@@ -43,7 +43,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   padding: 4px;
   display: inline-flex;
   border-radius: 8px;
@@ -52,7 +52,7 @@
 
 .close:hover {
   color: #1a1a1a;
-  background: #f1f5f9;
+  background: var(--admin-border-light);
 }
 
 .form {
@@ -84,14 +84,14 @@
 .input,
 .textarea {
   width: 100%;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid var(--admin-border);
   border-radius: 9px;
   padding: 0 12px;
   height: 44px;
   font-family: inherit;
   font-size: 14px;
   color: #1a1a1a;
-  background: #fff;
+  background: var(--admin-bg);
   outline: none;
   transition: border-color 150ms ease;
 }
@@ -104,7 +104,7 @@
 
 .input:focus,
 .textarea:focus {
-  border-color: #f97316;
+  border-color: var(--admin-accent);
 }
 
 .actions {
@@ -127,21 +127,21 @@
 }
 
 .cancel {
-  background: #f1f5f9;
+  background: var(--admin-border-light);
   color: #4b5563;
 }
 
 .cancel:hover {
-  background: #e2e8f0;
+  background: var(--admin-border);
 }
 
 .save {
-  background: #f97316;
+  background: var(--admin-accent);
   color: #fff;
 }
 
 .save:hover {
-  background: #ea6c00;
+  background: var(--admin-accent-dark);
 }
 
 @media (max-width: 460px) {

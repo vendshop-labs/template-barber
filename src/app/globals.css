@@ -18,6 +18,24 @@ html, body {
   --color-whatsapp:       #25D366;
   --color-whatsapp-dark:  #20BD5A;
   --transition:           0.3s ease;
+  /* Admin panel tokens — always light */
+  --admin-bg:             #ffffff;
+  --admin-bg-subtle:      #f8fafc;
+  --admin-bg-hover:       #fafafa;
+  --admin-bg-card:        #ffffff;
+  --admin-text:           #0f172a;
+  --admin-text-muted:     #64748b;
+  --admin-text-faint:     #94a3b8;
+  --admin-border:         #e2e8f0;
+  --admin-border-light:   #f1f5f9;
+  --admin-accent:         #f97316;
+  --admin-accent-dark:    #ea6c00;
+  --admin-accent-light:   #fff7ed;
+  --admin-error:          #fee2e2;
+  --admin-error-text:     #991b1b;
+  --admin-success:        #dcfce7;
+  --admin-success-text:   #166534;
+  --admin-btn-edit:       #1e40af;
 }
 
 /* ===== RESET ===== */

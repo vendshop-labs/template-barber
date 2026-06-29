@@ -41,7 +41,7 @@
 
 .orange {
   background: rgba(249, 115, 22, 0.15);
-  color: #fb923c;
+  color: var(--admin-accent);
 }
 
 .blue {
@@ -197,7 +197,7 @@
 
 .processing {
   background: rgba(249, 115, 22, 0.15);
-  color: #fb923c;
+  color: var(--admin-accent);
 }
 
 .shipped {

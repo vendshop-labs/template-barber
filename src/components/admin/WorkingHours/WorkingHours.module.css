@@ -3,13 +3,13 @@
 .title {
   font-size: 18px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--admin-text);
   margin: 0 0 6px;
 }
 
 .hint {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--admin-text-faint);
   margin: 0 0 20px;
 }
 
@@ -25,14 +25,14 @@
   align-items: center;
   gap: 12px;
   padding: 10px 16px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: var(--admin-bg-subtle);
+  border: 1px solid var(--admin-border);
   border-radius: 8px;
 }
 
 .rowClosed {
   opacity: 0.5;
-  background: #f1f5f9;
+  background: var(--admin-border-light);
 }
 
 .dayLabel {
@@ -45,28 +45,28 @@
 
 .timeSelect {
   padding: 7px 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--admin-border);
   border-radius: 6px;
   font-size: 14px;
   font-family: inherit;
-  color: #0f172a;
-  background: #fff;
+  color: var(--admin-text);
+  background: var(--admin-bg);
   cursor: pointer;
 }
 
 .timeSelect:disabled {
-  background: #f1f5f9;
-  color: #94a3b8;
+  background: var(--admin-border-light);
+  color: var(--admin-text-faint);
   cursor: not-allowed;
 }
 
 .timeSelect:focus {
   outline: none;
-  border-color: #f97316;
+  border-color: var(--admin-accent);
 }
 
 .dash {
-  color: #94a3b8;
+  color: var(--admin-text-faint);
   font-size: 14px;
 }
 
@@ -75,7 +75,7 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: #64748b;
+  color: var(--admin-text-muted);
   cursor: pointer;
   margin-left: auto;
 }
@@ -92,7 +92,7 @@
 
 .saveBtn {
   padding: 10px 24px;
-  background: #f97316;
+  background: var(--admin-accent);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -103,7 +103,7 @@
 }
 
 .saveBtn:disabled { opacity: 0.5; cursor: not-allowed; }
-.saveBtn:hover:not(:disabled) { background: #ea6c00; }
+.saveBtn:hover:not(:disabled) { background: var(--admin-accent-dark); }
 
 .savedMsg {
   color: #22c55e;
@@ -114,5 +114,5 @@
 .loading {
   padding: 32px;
   text-align: center;
-  color: #94a3b8;
+  color: var(--admin-text-faint);
 }

@@ -10,7 +10,7 @@
 }
 
 .dialog {
-  background: #fff;
+  background: var(--admin-bg);
   border-radius: 16px;
   width: 100%;
   max-width: 560px;
@@ -24,10 +24,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 22px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--admin-border);
   position: sticky;
   top: 0;
-  background: #fff;
+  background: var(--admin-bg);
   border-radius: 16px 16px 0 0;
 }
 
@@ -43,7 +43,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   padding: 4px;
   display: inline-flex;
   border-radius: 8px;
@@ -52,7 +52,7 @@
 
 .close:hover {
   color: #1a1a1a;
-  background: #f1f5f9;
+  background: var(--admin-border-light);
 }
 
 .body {
@@ -78,7 +78,7 @@
 .infoLabel {
   font-size: 11px;
   font-weight: 600;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: 3px;
@@ -92,12 +92,12 @@
 
 .infoSub {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--admin-text-muted);
 }
 
 /* ── Sections ─────────────────────────────────────── */
 .section {
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--admin-border);
   padding-top: 18px;
 }
 
@@ -128,8 +128,8 @@
   width: 44px;
   height: 44px;
   border-radius: 8px;
-  background: #f8f9fa;
-  border: 1px solid #e5e7eb;
+  background: var(--admin-bg-subtle);
+  border: 1px solid var(--admin-border);
   overflow: hidden;
 }
 
@@ -152,7 +152,7 @@
 
 .itemQty {
   font-size: 13px;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   white-space: nowrap;
 }
 
@@ -169,7 +169,7 @@
   justify-content: space-between;
   margin-top: 16px;
   padding-top: 14px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--admin-border-light);
   font-size: 15px;
   font-weight: 600;
   color: #1a1a1a;
@@ -178,13 +178,13 @@
 .totalVal {
   font-size: 22px;
   font-weight: 800;
-  color: #f97316;
+  color: var(--admin-accent);
   letter-spacing: -0.02em;
 }
 
 /* ── Controls ─────────────────────────────────────── */
 .controls {
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--admin-border);
   padding-top: 18px;
   display: flex;
   flex-direction: column;
@@ -206,20 +206,20 @@
 .select,
 .input {
   height: 44px;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid var(--admin-border);
   border-radius: 9px;
   padding: 0 12px;
   font-family: inherit;
   font-size: 14px;
   color: #1a1a1a;
-  background: #fff;
+  background: var(--admin-bg);
   outline: none;
   transition: border-color 150ms ease;
 }
 
 .select:focus,
 .input:focus {
-  border-color: #f97316;
+  border-color: var(--admin-accent);
 }
 
 .ttnRow {
@@ -257,7 +257,7 @@
   justify-content: center;
   gap: 9px;
   height: 48px;
-  background: #f97316;
+  background: var(--admin-accent);
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -270,7 +270,7 @@
 }
 
 .notify:hover {
-  background: #ea6c00;
+  background: var(--admin-accent-dark);
 }
 
 .noteBlock {
@@ -279,14 +279,14 @@
   gap: 4px;
   padding: 12px 14px;
   background: var(--color-bg-subtle, #f8fafc);
-  border: 1px solid var(--color-border, #e2e8f0);
+  border: 1px solid var(--color-border, var(--admin-border));
   border-radius: 8px;
 }
 
 .noteLabel {
   font-size: 11px;
   font-weight: 700;
-  color: #9ca3af;
+  color: var(--admin-text-faint);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }

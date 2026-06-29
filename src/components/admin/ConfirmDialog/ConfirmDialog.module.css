@@ -10,7 +10,7 @@
 }
 
 .dialog {
-  background: #fff;
+  background: var(--admin-bg);
   border-radius: 16px;
   width: 100%;
   max-width: 380px;
@@ -26,7 +26,7 @@
   width: 56px;
   height: 56px;
   border-radius: 999px;
-  background: #fee2e2;
+  background: var(--admin-error);
   color: #dc2626;
   margin-bottom: 16px;
 }
@@ -58,12 +58,12 @@
 }
 
 .cancel {
-  background: #f1f5f9;
+  background: var(--admin-border-light);
   color: #4b5563;
 }
 
 .cancel:hover {
-  background: #e2e8f0;
+  background: var(--admin-border);
 }
 
 .confirm {

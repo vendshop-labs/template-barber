@@ -25,7 +25,7 @@
   gap: 8px;
   height: 44px;
   padding: 0 18px;
-  background: #f97316;
+  background: var(--admin-accent);
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -38,7 +38,7 @@
 }
 
 .createBtn:hover {
-  background: #ea6c00;
+  background: var(--admin-accent-dark);
 }
 
 .sectionTitle {
@@ -58,8 +58,8 @@
 }
 
 .card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
@@ -68,7 +68,7 @@
 }
 
 .banner {
-  background: linear-gradient(135deg, #f97316 0%, #ea6c00 100%);
+  background: linear-gradient(135deg, var(--admin-accent) 0%, var(--admin-accent-dark) 100%);
   padding: 18px 18px 16px;
   display: flex;
   align-items: flex-start;
@@ -94,7 +94,7 @@
 }
 
 .active {
-  background: #dcfce7;
+  background: var(--admin-success);
   color: #16a34a;
 }
 
@@ -104,8 +104,8 @@
 }
 
 .finished {
-  background: #f1f5f9;
-  color: #64748b;
+  background: var(--admin-border-light);
+  color: var(--admin-text-muted);
 }
 
 .body {
@@ -125,7 +125,7 @@
 }
 
 .rowLabel {
-  color: #6b7280;
+  color: var(--admin-text-muted);
 }
 
 .rowValue {
@@ -135,14 +135,14 @@
 }
 
 .discount {
-  color: #f97316;
+  color: var(--admin-accent);
   font-weight: 800;
   font-size: 16px;
 }
 
 .footer {
   display: flex;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--admin-border-light);
 }
 
 .action {
@@ -154,11 +154,11 @@
   padding: 12px 8px;
   background: none;
   border: none;
-  border-right: 1px solid #f1f5f9;
+  border-right: 1px solid var(--admin-border-light);
   font-family: inherit;
   font-size: 12px;
   font-weight: 600;
-  color: #4b5563;
+  color: var(--admin-text-muted);
   cursor: pointer;
   transition: background 150ms ease, color 150ms ease;
 }
@@ -168,19 +168,19 @@
 }
 
 .action:hover {
-  background: #f8fafc;
-  color: #f97316;
+  background: var(--admin-bg-subtle);
+  color: var(--admin-accent);
 }
 
 .delete:hover {
   color: #ef4444;
-  background: #fef2f2;
+  background: var(--admin-error);
 }
 
 /* ── Announcement strip section ───────────────────── */
 .announceCard {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--admin-bg);
+  border: 1px solid var(--admin-border);
   border-radius: 14px;
   padding: 20px;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
@@ -191,7 +191,7 @@
 }
 
 .preview {
-  background: #1e293b;
+  background: var(--admin-text);
   color: #fff;
   border-radius: 10px;
   padding: 12px 16px;
@@ -210,7 +210,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #94a3b8;
+  color: var(--admin-text-faint);
   flex-shrink: 0;
 }
 
@@ -220,7 +220,7 @@
 
 .announceTextarea {
   width: 100%;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid var(--admin-border);
   border-radius: 9px;
   padding: 12px 14px;
   font-family: inherit;
@@ -232,7 +232,7 @@
 }
 
 .announceTextarea:focus {
-  border-color: #f97316;
+  border-color: var(--admin-accent);
 }
 
 .announceControls {
@@ -248,7 +248,7 @@
   gap: 10px;
   font-size: 14px;
   font-weight: 500;
-  color: #4b5563;
+  color: var(--admin-text-muted);
   cursor: pointer;
   user-select: none;
 }
@@ -282,7 +282,7 @@
   width: 19px;
   height: 19px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--admin-bg);
   transition: transform 150ms ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
@@ -298,7 +298,7 @@
 .announceSave {
   height: 42px;
   padding: 0 22px;
-  background: #f97316;
+  background: var(--admin-accent);
   color: #fff;
   border: none;
   border-radius: 9px;
@@ -310,7 +310,7 @@
 }
 
 .announceSave:hover {
-  background: #ea6c00;
+  background: var(--admin-accent-dark);
 }
 
 @media (max-width: 900px) {
