@@ -427,16 +427,14 @@ body::after {
 .hero__trust {
   font-size: 0.8rem;
   color: var(--color-text-muted);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.15rem 0;
+  line-height: 1.8;
 }
 
 .hero__trust-item {
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
+  vertical-align: middle;
 }
 
 .hero__instagram {
@@ -445,16 +443,12 @@ body::after {
   align-items: center;
   gap: 0.3rem;
   white-space: nowrap;
+  vertical-align: middle;
   text-decoration: none;
   transition: color 0.2s;
 }
-.hero__instagram:hover {
-  color: var(--color-primary);
-}
-.hero__instagram svg {
-  display: block;
-  flex-shrink: 0;
-}
+.hero__instagram:hover { color: var(--color-primary); }
+.hero__instagram svg { display: block; flex-shrink: 0; }
 
 .btn-primary {
   display: inline-flex;
