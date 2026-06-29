@@ -1,40 +1,48 @@
 type DayKey = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
 export type HoursMap = Record<DayKey, { open: string; close: string } | null>;
 
-const DAY_SHORT: Record<DayKey, string> = {
+const SHORT: Record<DayKey, string> = {
   mon: 'Po', tue: 'Ut', wed: 'St', thu: 'Št', fri: 'Pi', sat: 'So', sun: 'Ne',
 };
 
-/**
- * Returns compact display string, e.g.:
- * "Po–Pi 09:00–18:00 · So 09:00–14:00"
- */
+const ORDER: DayKey[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
 export function formatHoursDisplay(hours: unknown): string | null {
   if (!hours || typeof hours !== 'object') return null;
   const map = hours as HoursMap;
 
-  const weekdays: DayKey[] = ['mon', 'tue', 'wed', 'thu', 'fri'];
-  const weekend:  DayKey[] = ['sat', 'sun'];
+  // Build list of open days in week order
+  const open = ORDER.filter(d => map[d] !== null && map[d] !== undefined);
+  if (open.length === 0) return null;
 
   const parts: string[] = [];
+  let i = 0;
 
-  // Group weekdays if all same hours
-  const wdHours = weekdays.map(d => map[d]);
-  const firstWd = wdHours[0];
-  if (firstWd && wdHours.every(h => h?.open === firstWd.open && h?.close === firstWd.close)) {
-    parts.push(`Po–Pi ${firstWd.open}–${firstWd.close}`);
-  } else {
-    weekdays.forEach(d => {
-      const h = map[d];
-      if (h) parts.push(`${DAY_SHORT[d]} ${h.open}–${h.close}`);
-    });
+  while (i < open.length) {
+    const day   = open[i];
+    const h     = map[day]!;
+    const range = `${h.open}–${h.close}`;
+
+    // Find how far this consecutive group extends (same hours)
+    let j = i + 1;
+    while (
+      j < open.length &&
+      ORDER.indexOf(open[j]) === ORDER.indexOf(open[j - 1]) + 1 &&
+      map[open[j]]?.open  === h.open &&
+      map[open[j]]?.close === h.close
+    ) j++;
+
+    const groupLen = j - i;
+    if (groupLen === 1) {
+      parts.push(`${SHORT[day]} ${range}`);
+    } else if (groupLen === 2) {
+      parts.push(`${SHORT[day]}, ${SHORT[open[j - 1]]} ${range}`);
+    } else {
+      parts.push(`${SHORT[day]}–${SHORT[open[j - 1]]} ${range}`);
+    }
+
+    i = j;
   }
 
-  // Weekend — show open days
-  weekend.forEach(d => {
-    const h = map[d];
-    if (h) parts.push(`${DAY_SHORT[d]} ${h.open}–${h.close}`);
-  });
-
-  return parts.length > 0 ? parts.join(' · ') : null;
+  return parts.join(' · ') || null;
 }
